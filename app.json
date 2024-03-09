@@ -1,0 +1,79 @@
+{
+  "name": "Ember",
+  "displayName": "Ember",
+  "expo": {
+    "name": "Ember",
+    "slug": "Ember",
+    "scheme": "ember",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/app-icon-all.png",
+    "splash": {
+      "image": "./assets/images/splash-logo-all.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#191015"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "jsEngine": "hermes",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "android": {
+      "icon": "./assets/images/app-icon-all.png",
+      "package": "com.ember",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/app-icon-all.png",
+        "backgroundImage": "./assets/images/app-icon-all.png"
+      },
+      "splash": {
+        "image": "./assets/images/app-icon-all.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#191015"
+      }
+    },
+    "ios": {
+      "icon": "./assets/images/app-icon-all.png",
+      "supportsTablet": true,
+      "bundleIdentifier": "com.ember",
+      "splash": {
+        "image": "./assets/images/app-icon-all.png",
+        "tabletImage":"./assets/images/app-icon-all.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#191015"
+      }
+    },
+    "web": {
+      "favicon": "./assets/images/app-icon-all.png",
+      "splash": {
+        "image": "./assets/images/app-icon-all.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#191015"
+      },
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-localization",
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "newArchEnabled": false,
+            "flipper": false
+          },
+          "android": {
+            "newArchEnabled": false
+          }
+        }
+      ],
+      "expo-font"
+    ],
+    "experiments": {
+      "tsconfigPaths": true
+    }
+  },
+  "ignite": {
+    "version": "9.6.2"
+  }
+}
