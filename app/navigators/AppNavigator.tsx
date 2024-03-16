@@ -12,6 +12,7 @@ import Config from "../config"
 import { DemoNavigator, DemoTabParamList } from "./DemoNavigator"
 import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
 import { colors } from "app/theme"
+import PhoneSignIn from "app/screens/PhoneLogin"
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -62,7 +63,8 @@ const AppStack = () => {
         </>
       ) : (
         <>
-          <Stack.Screen name="Login" component={Screens.LoginScreen} />
+          {/* <Stack.Screen name="Login" component={Screens.LoginScreen} /> */}
+          <Stack.Screen name="Login" component={PhoneSignIn} />
         </>
       )}
     </Stack.Navigator>
