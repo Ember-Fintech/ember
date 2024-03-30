@@ -1,24 +1,18 @@
-import { observer } from "mobx-react-lite"
 import React, { FC } from "react"
 import { Image, ImageStyle, TextStyle, View, ViewStyle } from "react-native"
-import { Button, Text } from "app/components"
-import { isRTL } from "../i18n"
-import { useStores } from "../models"
+import { Button } from "app/components"
 import { AppStackScreenProps } from "../navigators"
 import { colors, spacing } from "../theme"
 import { useHeader } from "../utils/useHeader"
 import { useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
+import { Text } from "@gluestack-ui/themed"
 
 const welcomeLogo = require("../../assets/images/logo.png")
-const welcomeFace = require("../../assets/images/welcome-face.png")
 
 interface WelcomeScreenProps extends AppStackScreenProps<"Welcome"> {}
 
-export const WelcomeScreen: FC<WelcomeScreenProps> = observer(function WelcomeScreen(_props) {
+export const WelcomeScreen: FC<WelcomeScreenProps> = (_props) => {
   const { navigation } = _props
-  const {
-    authenticationStore: { logout },
-  } = useStores()
 
   function goNext() {
     navigation.navigate("Demo", { screen: "DemoShowroom", params: {} })
@@ -27,9 +21,9 @@ export const WelcomeScreen: FC<WelcomeScreenProps> = observer(function WelcomeSc
   useHeader(
     {
       rightTx: "common.logOut",
-      onRightPress: logout,
+      onRightPress: () => {},
     },
-    [logout],
+    [],
   )
 
   const $bottomContainerInsets = useSafeAreaInsetsStyle(["bottom"])
@@ -44,8 +38,7 @@ export const WelcomeScreen: FC<WelcomeScreenProps> = observer(function WelcomeSc
           tx="welcomeScreen.readyForLaunch"
           preset="heading"
         />
-        <Text tx="welcomeScreen.exciting" preset="subheading" />
-        <Image style={$welcomeFace} source={welcomeFace} resizeMode="contain" />
+        <Text fontFamily="Sans-SemiBold">Hello</Text>
       </View>
 
       <View style={[$bottomContainer, $bottomContainerInsets]}>
@@ -60,7 +53,7 @@ export const WelcomeScreen: FC<WelcomeScreenProps> = observer(function WelcomeSc
       </View>
     </View>
   )
-})
+}
 
 const $container: ViewStyle = {
   flex: 1,
@@ -89,15 +82,6 @@ const $welcomeLogo: ImageStyle = {
   height: 88,
   width: "100%",
   marginBottom: spacing.xxl,
-}
-
-const $welcomeFace: ImageStyle = {
-  height: 169,
-  width: 269,
-  position: "absolute",
-  bottom: -47,
-  right: -80,
-  transform: [{ scaleX: isRTL ? -1 : 1 }],
 }
 
 const $welcomeHeading: TextStyle = {

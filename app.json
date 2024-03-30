@@ -29,7 +29,8 @@
         "image": "./assets/images/app-icon-all.png",
         "resizeMode": "contain",
         "backgroundColor": "#191015"
-      }
+      },
+      "googleServicesFile": "./android/app/google-services.json"
     },
     "ios": {
       "icon": "./assets/images/app-icon-all.png",

@@ -9,7 +9,6 @@ import { DemoTabParamList, DemoTabScreenProps } from "../../navigators/DemoNavig
 import { colors, spacing } from "../../theme"
 import { useSafeAreaInsetsStyle } from "../../utils/useSafeAreaInsetsStyle"
 import * as Demos from "./demos"
-import { DrawerIconButton } from "./DrawerIconButton"
 
 const logo = require("../../../assets/images/logo.png")
 
@@ -173,8 +172,6 @@ export const DemoShowroomScreen: FC<DemoTabScreenProps<"DemoShowroom">> =
         )}
       >
         <Screen preset="fixed" safeAreaEdges={["top"]} contentContainerStyle={$screenContainer}>
-          <DrawerIconButton onPress={toggleDrawer} />
-
           <SectionList
             ref={listRef}
             contentContainerStyle={$sectionListContentContainer}
