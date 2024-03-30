@@ -1,10 +1,11 @@
 import React, { FC } from "react"
 import { Image, ImageStyle, TextStyle, View, ViewStyle } from "react-native"
-import { Button, Text } from "app/components"
+import { Button } from "app/components"
 import { AppStackScreenProps } from "../navigators"
 import { colors, spacing } from "../theme"
 import { useHeader } from "../utils/useHeader"
 import { useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
+import { Text } from "@gluestack-ui/themed"
 
 const welcomeLogo = require("../../assets/images/logo.png")
 
@@ -37,7 +38,7 @@ export const WelcomeScreen: FC<WelcomeScreenProps> = (_props) => {
           tx="welcomeScreen.readyForLaunch"
           preset="heading"
         />
-        <Text tx="welcomeScreen.exciting" preset="subheading" />
+        <Text color={"$govinda100"}>Hello</Text>
       </View>
 
       <View style={[$bottomContainer, $bottomContainerInsets]}>
