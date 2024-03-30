@@ -4,6 +4,17 @@ export const uiConfig = createConfig({
   ...config,
   tokens: {
     ...config.tokens,
+    fonts: {
+      ...config.tokens.fonts,
+      "Inter-Bold": "Inter-Bold",
+      "Inter-Medium": "Inter-Medium",
+      "Inter-Regular": "Inter-Regular",
+      "Inter-SemiBold": "Inter-SemiBold",
+      "Sans-Bold": "Sans-Bold",
+      "Sans-Medium": "Sans-Medium",
+      "Sans-Regular": "Sans-Regular",
+      "Sans-SemiBold": "Sans-SemiBold",
+    },
     colors: {
       ...config.tokens.colors,
       primary25: "#fcfaff",

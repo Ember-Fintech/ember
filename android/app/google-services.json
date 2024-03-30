@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "647755692735",
+    "project_id": "ember-fin-mobile",
+    "storage_bucket": "ember-fin-mobile.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:647755692735:android:1d46aff5db6b08550be40a",
+        "android_client_info": {
+          "package_name": "com.ember"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWIiRspwDCd4y3kQK8yYh_v0rXn1fbQZI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

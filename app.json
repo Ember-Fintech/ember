@@ -17,9 +17,7 @@
       "fallbackToCacheTimeout": 0
     },
     "jsEngine": "hermes",
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "android": {
       "icon": "./assets/images/app-icon-all.png",
       "package": "com.ember",
@@ -32,7 +30,7 @@
         "resizeMode": "contain",
         "backgroundColor": "#191015"
       },
-      "googleServicesFile" :"./android/app/google-services.json"
+      "googleServicesFile": "./android/app/google-services.json"
     },
     "ios": {
       "icon": "./assets/images/app-icon-all.png",
@@ -40,7 +38,7 @@
       "bundleIdentifier": "com.ember",
       "splash": {
         "image": "./assets/images/app-icon-all.png",
-        "tabletImage":"./assets/images/app-icon-all.png",
+        "tabletImage": "./assets/images/app-icon-all.png",
         "resizeMode": "contain",
         "backgroundColor": "#191015"
       }
@@ -68,7 +66,21 @@
           }
         }
       ],
-      "expo-font"
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/Inter-Bold.ttf",
+            "./assets/fonts/Inter-Medium.ttf",
+            "./assets/fonts/Inter-Regular.ttf",
+            "./assets/fonts/Inter-SemiBold.ttf",
+            "./assets/fonts/PlusJakartaSans-Bold.ttf",
+            "./assets/fonts/PlusJakartaSans-Medium.ttf",
+            "./assets/fonts/PlusJakartaSans-Regular.ttf",
+            "./assets/fonts/PlusJakartaSans-SemiBold.ttf"
+          ]
+        }
+      ]
     ],
     "experiments": {
       "tsconfigPaths": true
