@@ -5,9 +5,11 @@ import { AppStackScreenProps } from "../navigators"
 import { colors, spacing } from "../theme"
 import { useHeader } from "../utils/useHeader"
 import { useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
-import { Text } from "@gluestack-ui/themed"
 import LinkButton from "app/components/LinkButton"
 import RadioButtonWithLabel from "app/components/RadioButtonWithLabel"
+import { Icon, Text } from "@gluestack-ui/themed"
+import CustomInput from "app/components/Input"
+import ThreeDView1 from "assets/icons/ThreeDView1.js"
 
 const welcomeLogo = require("../../assets/images/logo.png")
 
@@ -41,6 +43,7 @@ export const WelcomeScreen: FC<WelcomeScreenProps> = (_props) => {
           tx="welcomeScreen.readyForLaunch"
           preset="heading"
         />
+        
         <Text fontFamily="Sans-SemiBold">Hello</Text>
         <RadioButtonWithLabel
           label={"Label"}
@@ -66,6 +69,21 @@ export const WelcomeScreen: FC<WelcomeScreenProps> = (_props) => {
             setValue(e);
           }}
           value={value}
+         />
+
+        <CustomInput
+          errorMessage={"Sample Error"}
+          infoMessage={"Here goes the information"}
+          leftElement={<Text>{"Prefix"}</Text>}
+          rightElement={<Text>{"Suffix"}</Text>}
+          leftIcon={
+            <Icon as={ThreeDView1} color={"red"} size="sm" onPress={() => console.log("hello")} />
+          }
+          rightIcon={
+            <Icon as={ThreeDView1} color={"red"} size="sm" onPress={() => console.log("hello")} />
+          }
+          placeholder={"Placeholder"}
+          label={"Address"}
         />
       </View>
 
