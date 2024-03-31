@@ -125,6 +125,7 @@ export const uiConfig = createConfig({
       textDark800: "#1f242f",
       textDark900: "#161b26",
       textDark950: "#0c111d",
+      border: "#D0D5DD",
     },
   },
 })
