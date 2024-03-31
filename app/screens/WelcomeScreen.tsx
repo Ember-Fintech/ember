@@ -39,8 +39,7 @@ export const WelcomeScreen: FC<WelcomeScreenProps> = (_props) => {
           tx="welcomeScreen.readyForLaunch"
           preset="heading"
         />
-        <CustomInput />
-        {/* <Text color={"$govinda100"}>Hello</Text> */}
+        <Text fontFamily="Sans-SemiBold">Hello</Text>
       </View>
 
       <View style={[$bottomContainer, $bottomContainerInsets]}>

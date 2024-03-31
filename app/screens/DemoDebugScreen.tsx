@@ -8,7 +8,9 @@ export const DemoDebugScreen: FC<DemoTabScreenProps<"DemoDebug">> = function Dem
 ) {
   return (
     <Screen preset="scroll" safeAreaEdges={["top"]}>
-      <Text>{"Demo debug screen"}</Text>
+      <Text style={{
+        fontFamily: "Inter-Regular"
+      }}>{"Demo debug screen"}</Text>
     </Screen>
   )
 }

@@ -7,6 +7,7 @@ import * as Notifications from "expo-notifications"
 import { Text } from "@gluestack-ui/themed"
 import { TouchableOpacity } from "react-native"
 import { nullPlaceholder } from "i18n-js"
+import { useFonts } from "expo-font"
 
 // SplashScreen.preventAutoHideAsync()
 
@@ -23,6 +24,17 @@ function IgniteApp() {
   const [notification, setNotification] = useState<any>()
   const notificationListener = useRef()
   const responseListener = useRef()
+
+  const [fontsLoaded] = useFonts({
+    'Inter-Bold': require('./assets/fonts/Inter-Bold.ttf'),
+    'Inter-Medium': require('./assets/fonts/Inter-Medium.ttf'),
+    'Inter-Regular': require('./assets/fonts/Inter-Regular.ttf'),
+    'Inter-SemiBold': require('./assets/fonts/Inter-SemiBold.ttf'),
+    'Sans-Bold' :require('./assets/fonts/PlusJakartaSans-Bold.ttf'),
+    'Sans-Medium' :require('./assets/fonts/PlusJakartaSans-Medium.ttf'),
+    'Sans-Regular' :require('./assets/fonts/PlusJakartaSans-Regular.ttf'),
+    'Sans-SemiBold' :require('./assets/fonts/PlusJakartaSans-SemiBold.ttf')
+  });
 
   const {
     registerForPushNotificationsAsync,
