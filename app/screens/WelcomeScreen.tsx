@@ -6,6 +6,7 @@ import { colors, spacing } from "../theme"
 import { useHeader } from "../utils/useHeader"
 import { useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
 import { Text } from "@gluestack-ui/themed"
+import { CustomInput } from "app/components/Input"
 
 const welcomeLogo = require("../../assets/images/logo.png")
 
@@ -38,7 +39,8 @@ export const WelcomeScreen: FC<WelcomeScreenProps> = (_props) => {
           tx="welcomeScreen.readyForLaunch"
           preset="heading"
         />
-        <Text color={"$govinda100"}>Hello</Text>
+        <CustomInput />
+        {/* <Text color={"$govinda100"}>Hello</Text> */}
       </View>
 
       <View style={[$bottomContainer, $bottomContainerInsets]}>
