@@ -1,4 +1,4 @@
-import React, { FC } from "react"
+import React, { FC, useState } from "react"
 import { Image, ImageStyle, TextStyle, View, ViewStyle } from "react-native"
 import { Button } from "app/components"
 import { AppStackScreenProps } from "../navigators"
@@ -6,6 +6,8 @@ import { colors, spacing } from "../theme"
 import { useHeader } from "../utils/useHeader"
 import { useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
 import { Text } from "@gluestack-ui/themed"
+import LinkButton from "app/components/LinkButton"
+import RadioButtonWithLabel from "app/components/RadioButtonWithLabel"
 
 const welcomeLogo = require("../../assets/images/logo.png")
 
@@ -13,6 +15,7 @@ interface WelcomeScreenProps extends AppStackScreenProps<"Welcome"> {}
 
 export const WelcomeScreen: FC<WelcomeScreenProps> = (_props) => {
   const { navigation } = _props
+  const [value, setValue] = useState('banana');
 
   function goNext() {
     navigation.navigate("Demo", { screen: "DemoShowroom", params: {} })
@@ -39,6 +42,31 @@ export const WelcomeScreen: FC<WelcomeScreenProps> = (_props) => {
           preset="heading"
         />
         <Text fontFamily="Sans-SemiBold">Hello</Text>
+        <RadioButtonWithLabel
+          label={"Label"}
+          subLabel={"subLabel"}
+          description={"description"}
+          size={"sm"}
+          JsxElement={() => (
+            <LinkButton
+              title={"Link Button"}
+              showRightArrow={false}
+              type={"default"}
+              disabled={false}
+              onPress={() => {
+                console.log("pressed")
+              }}
+              textColor={"#444CE7"}
+              textStyle={{}}
+              viewStyle={{}}
+            />
+          )}
+          onChange={(e) => {
+            console.log('this is the element', e);
+            setValue(e);
+          }}
+          value={value}
+        />
       </View>
 
       <View style={[$bottomContainer, $bottomContainerInsets]}>
