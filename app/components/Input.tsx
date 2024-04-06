@@ -70,7 +70,7 @@ const Input = forwardRef<TextInput, Props>((props, ref) => {
         )}
         {leftIcon && <InputSlot paddingLeft={10}>{leftIcon}</InputSlot>}
 
-        <InputField {...(props as TextInputProps)} ref={ref} />
+        <InputField place {...(props as TextInputProps)} ref={ref} />
         {rightIcon && <InputSlot paddingRight={10}>{rightIcon}</InputSlot>}
 
         {rightElement && (
@@ -84,7 +84,17 @@ const Input = forwardRef<TextInput, Props>((props, ref) => {
       {infoMessage && (
         <HStack pt={5} alignItems={"center"}>
           <Icon mr={5} as={InfoIcon} color={"$textLight700"} size={"xs"} />
-          <Text color={"$textLight700"} size={"xs"}>
+          <Text
+            sx={{
+              _dark: {
+                color: "$textLight700",
+              },
+              _light: {
+                color: "$error600",
+              },
+            }}
+            size={"xs"}
+          >
             {infoMessage}
           </Text>
         </HStack>
