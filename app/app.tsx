@@ -10,6 +10,7 @@
  * The app navigation resides in ./app/navigators, so head over there
  * if you're interested in adding screens and navigators.
  */
+require("react-native-ui-lib/config").setConfig({ appScheme: "default" })
 import { GluestackUIProvider } from "@gluestack-ui/themed"
 
 if (__DEV__) {
@@ -21,17 +22,17 @@ if (__DEV__) {
 import "./i18n"
 import "./utils/ignoreWarnings"
 import { useFonts } from "expo-font"
-import React, { useMemo } from "react"
+import React, { useEffect, useMemo } from "react"
 import { initialWindowMetrics, SafeAreaProvider } from "react-native-safe-area-context"
 import * as Linking from "expo-linking"
 import { AppNavigator, useNavigationPersistence } from "./navigators"
 import { ErrorBoundary } from "app/screens"
 import * as storage from "./utils/storage"
-import { customFontsToLoad } from "./theme"
 import Config from "./config"
 import { uiConfig } from "app/theme/config"
 import { GestureHandlerRootView } from "react-native-gesture-handler"
-import { ViewStyle } from "react-native"
+import { ViewStyle, useColorScheme } from "react-native"
+import { Colors } from "react-native-ui-lib"
 
 export const NAVIGATION_PERSISTENCE_KEY = "NAVIGATION_STATE"
 
@@ -73,11 +74,22 @@ function App(props: AppProps) {
     isRestored: isNavigationStateRestored,
   } = useNavigationPersistence(storage, NAVIGATION_PERSISTENCE_KEY)
 
-  const [areFontsLoaded] = useFonts(customFontsToLoad)
+  const [fontsLoaded] = useFonts({
+    "Inter-Bold": require("../assets/fonts/Inter-Bold.ttf"),
+    "Inter-Medium": require("../assets/fonts/Inter-Medium.ttf"),
+    "Inter-Regular": require("../assets/fonts/Inter-Regular.ttf"),
+    "Inter-SemiBold": require("../assets/fonts/Inter-SemiBold.ttf"),
+    "Sans-Bold": require("../assets/fonts/PlusJakartaSans-Bold.ttf"),
+    "Sans-Medium": require("../assets/fonts/PlusJakartaSans-Medium.ttf"),
+    "Sans-Regular": require("../assets/fonts/PlusJakartaSans-Regular.ttf"),
+    "Sans-SemiBold": require("../assets/fonts/PlusJakartaSans-SemiBold.ttf"),
+  })
+
+  const colorMode = useColorScheme()
 
   useMemo(() => {
     setTimeout(hideSplashScreen, 500)
-  }, [areFontsLoaded])
+  }, [fontsLoaded])
 
   // const { rehydrated } = useInitialRootStore(() => {
   //   // This runs after the root store has been initialized and rehydrated.
@@ -96,13 +108,10 @@ function App(props: AppProps) {
   // In Android: https://stackoverflow.com/a/45838109/204044
   // You can replace with your own loading component if you wish.
   // if (!rehydrated || !isNavigationStateRestored || !areFontsLoaded) return null
-
   const linking = {
     prefixes: [prefix],
     config,
   }
-
-  // otherwise, we're ready to render the app
   return (
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
       <ErrorBoundary catchErrors={Config.catchErrors}>

@@ -5,9 +5,9 @@ import { AppStackScreenProps } from "../navigators"
 import { colors, spacing } from "../theme"
 import { useHeader } from "../utils/useHeader"
 import { useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
-import { Icon, Text } from "@gluestack-ui/themed"
-import CustomInput from "app/components/Input"
-import ThreeDView1 from "assets/icons/ThreeDView1.js"
+
+import { Text } from "react-native-ui-lib"
+import { useTheme } from "app/hooks/useTheme"
 
 const welcomeLogo = require("../../assets/images/logo.png")
 
@@ -15,6 +15,7 @@ interface WelcomeScreenProps extends AppStackScreenProps<"Welcome"> {}
 
 export const WelcomeScreen: FC<WelcomeScreenProps> = (_props) => {
   const { navigation } = _props
+  const { colors } = useTheme()
 
   function goNext() {
     navigation.navigate("Demo", { screen: "DemoShowroom", params: {} })
@@ -34,26 +35,21 @@ export const WelcomeScreen: FC<WelcomeScreenProps> = (_props) => {
     <View style={$container}>
       <View style={$topContainer}>
         <Image style={$welcomeLogo} source={welcomeLogo} resizeMode="contain" />
-        <Text
-          testID="welcome-heading"
-          style={$welcomeHeading}
-          tx="welcomeScreen.readyForLaunch"
-          preset="heading"
-        />
-        <CustomInput
-          errorMessage={"Sample Error"}
-          infoMessage={"Here goes the information"}
-          leftElement={<Text>{"Prefix"}</Text>}
-          rightElement={<Text>{"Suffix"}</Text>}
-          leftIcon={
-            <Icon as={ThreeDView1} color={"red"} size="sm" onPress={() => console.log("hello")} />
-          }
-          rightIcon={
-            <Icon as={ThreeDView1} color={"red"} size="sm" onPress={() => console.log("hello")} />
-          }
-          placeholder={"Placeholder"}
-          label={"Address"}
-        />
+        <Text style={{ color: colors.textColor }}>Hello</Text>
+        {/* <CustomInput */}
+        {/*   errorMessage={"Sample Error"} */}
+        {/*   infoMessage={"Here goes the information"} */}
+        {/*   leftElement={<Text>{"Prefix"}</Text>} */}
+        {/*   rightElement={<Text>{"Suffix"}</Text>} */}
+        {/*   leftIcon={ */}
+        {/*     <Icon as={ThreeDView1} color={"red"} size="sm" onPress={() => console.log("hello")} /> */}
+        {/*   } */}
+        {/*   rightIcon={ */}
+        {/*     <Icon as={ThreeDView1} color={"red"} size="sm" onPress={() => console.log("hello")} /> */}
+        {/*   } */}
+        {/*   placeholder={"Placeholder"} */}
+        {/*   label={"Address"} */}
+        {/* /> */}
       </View>
 
       <View style={[$bottomContainer, $bottomContainerInsets]}>
