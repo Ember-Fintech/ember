@@ -7,9 +7,9 @@ import { useHeader } from "../utils/useHeader"
 import { useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
 import LinkButton from "app/components/LinkButton"
 import RadioButtonWithLabel from "app/components/RadioButtonWithLabel"
-import { Icon, Text } from "@gluestack-ui/themed"
-import CustomInput from "app/components/Input"
-import ThreeDView1 from "assets/icons/ThreeDView1.js"
+
+import { Text } from "react-native-ui-lib"
+import { useTheme } from "app/hooks/useTheme"
 
 const welcomeLogo = require("../../assets/images/logo.png")
 
@@ -18,6 +18,7 @@ interface WelcomeScreenProps extends AppStackScreenProps<"Welcome"> {}
 export const WelcomeScreen: FC<WelcomeScreenProps> = (_props) => {
   const { navigation } = _props
   const [value, setValue] = useState('banana');
+  const { colors } = useTheme()
 
   function goNext() {
     navigation.navigate("Demo", { screen: "DemoShowroom", params: {} })
@@ -71,7 +72,7 @@ export const WelcomeScreen: FC<WelcomeScreenProps> = (_props) => {
           value={value}
          />
 
-        <CustomInput
+        {/* <CustomInput
           errorMessage={"Sample Error"}
           infoMessage={"Here goes the information"}
           leftElement={<Text>{"Prefix"}</Text>}
@@ -84,7 +85,7 @@ export const WelcomeScreen: FC<WelcomeScreenProps> = (_props) => {
           }
           placeholder={"Placeholder"}
           label={"Address"}
-        />
+        /> */}
       </View>
 
       <View style={[$bottomContainer, $bottomContainerInsets]}>

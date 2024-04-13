@@ -13,6 +13,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#191015"
     },
+    "userInterfaceStyle": "automatic",
     "updates": {
       "fallbackToCacheTimeout": 0
     },

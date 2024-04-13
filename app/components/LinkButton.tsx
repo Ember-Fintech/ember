@@ -1,6 +1,5 @@
-import { Text, View } from "@gluestack-ui/themed"
 import React from "react"
-import { TextStyle, TouchableOpacity, ViewStyle } from "react-native"
+import { TextStyle, TouchableOpacity, ViewStyle, Text } from "react-native"
 
 interface IProps {
   title: string
@@ -32,32 +31,44 @@ const LinkButton = (props: IProps): JSX.Element => {
         onPress()
       }}
       style={[
-        { flexDirection: "row", justifyContent: "flex-start", alignItems: "center", alignSelf: 'flex-start', padding: 2 },
+        {
+          flexDirection: "row",
+          justifyContent: "flex-start",
+          alignItems: "center",
+          alignSelf: "flex-start",
+          padding: 2,
+        },
         viewStyle,
-        type === 'border' && {
-            borderWidth: 1,
-            borderColor: textColor
-        }
+        type === "border" && {
+          borderWidth: 1,
+          borderColor: textColor,
+        },
       ]}
     >
-      <Text style={
-        type === 'underline' && {
-            textDecorationLine: 'underline',
-        }}>
-        <Text color={textColor} style={[{fontFamily: 'Inter-Medium', fontSize: 14}, textStyle]}>
+      <Text
+        style={
+          type === "underline" && {
+            textDecorationLine: "underline",
+          }
+        }
+      >
+        <Text style={[{ fontFamily: "Inter-Medium", fontSize: 14, color: textColor }, textStyle]}>
           {title}
         </Text>
         {showRightArrow && (
           <Text
-            color={textColor}
-            style={[{
-              fontFamily: 'Inter-Medium',
-              height: 22,
-              width: 22,
-              fontSize: 14
-            }]}
+            style={[
+              {
+                fontFamily: "Inter-Medium",
+                height: 22,
+                width: 22,
+                fontSize: 14,
+                color: textColor,
+              },
+            ]}
           >
-            {' '}&#8250;
+            {" "}
+            &#8250;
           </Text>
         )}
       </Text>
