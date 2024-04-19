@@ -13,6 +13,7 @@ import { DemoNavigator, DemoTabParamList } from "./DemoNavigator"
 import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
 import { colors } from "app/theme"
 import PhoneSignIn from "app/screens/PhoneLogin"
+import OnboardingStack, { OnboardingStackParams } from "app/navigators/OnboardingStack"
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -41,26 +42,21 @@ export type AppStackParamList = {
  */
 const exitRoutes = Config.exitRoutes
 
-export type AppStackScreenProps<T extends keyof AppStackParamList> = NativeStackScreenProps<
-  AppStackParamList,
-  T
->
+export type AppStackScreenProps<T extends keyof AppStackParamList & OnboardingStackParams> =
+  NativeStackScreenProps<AppStackParamList, T>
 
 // Documentation: https://reactnavigation.org/docs/stack-navigator/
 const Stack = createNativeStackNavigator<AppStackParamList>()
 
 const AppStack = () => {
+  const isLoggedIn = false
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false, navigationBarColor: colors.background }}
-      // initialRouteName={isAuthenticated ? "Welcome" : "Login"}
+      initialRouteName={isLoggedIn ? "Welcome" : "Login"}
     >
-      {true ? (
-        <>
-          <Stack.Screen name="Welcome" component={Screens.WelcomeScreen} />
-
-          <Stack.Screen name="Demo" component={DemoNavigator} />
-        </>
+      {!isLoggedIn ? (
+        <Stack.Screen name="OnboardingStack" component={OnboardingStack} />
       ) : (
         <>
           {/* <Stack.Screen name="Login" component={Screens.LoginScreen} /> */}
