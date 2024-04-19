@@ -1,5 +1,5 @@
 import React from "react"
-import { View } from "@gluestack-ui/themed"
+import { View } from "react-native"
 const VBorder = ({
   mt,
   mb,
@@ -15,15 +15,15 @@ const VBorder = ({
 }) => {
   return (
     <View
-      bg={"red"}
-      flexDirection={"row"}
-      borderLeftWidth={1}
-      width={1}
-      borderColor={color ?? "$border"}
-      mr={mr}
-      mt={mt}
-      ml={ml}
-      mb={mb}
+      style={{
+        borderColor: color || "#D0D5DD",
+        borderLeftWidth: 1,
+        marginRight: mr,
+        marginTop: mt,
+        marginBottom: mb,
+        marginLeft: ml,
+        height: 20,
+      }}
     />
   )
 }
