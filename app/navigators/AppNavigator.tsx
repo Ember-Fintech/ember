@@ -14,6 +14,7 @@ import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
 import { colors } from "app/theme"
 import PhoneSignIn from "app/screens/PhoneLogin"
 import OnboardingStack, { OnboardingStackParams } from "app/navigators/OnboardingStack"
+import { TabBar } from "app/navigators/TabNavigation"
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -60,7 +61,7 @@ const AppStack = () => {
       ) : (
         <>
           {/* <Stack.Screen name="Login" component={Screens.LoginScreen} /> */}
-          <Stack.Screen name="Login" component={PhoneSignIn} />
+          <Stack.Screen name="Login" component={TabBar} />
         </>
       )}
     </Stack.Navigator>

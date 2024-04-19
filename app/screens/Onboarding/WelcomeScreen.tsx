@@ -8,13 +8,11 @@ type WelcomeScreenProps = {
   navigation: StackScreenProps<OnboardingStackParams, AppRoutes.Welcome>
 }
 
-const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ navigation }) => {
+export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ navigation }) => {
   return (
     <View>
       <Text>Welcome Screen</Text>
-      <Button title="Next" onPress={() => navigation?.navigate(AppRoutes.LanguageSelection)} />
+      <Button title="Next" onPress={() => navigation.navigate(AppRoutes.LanguageSelection)} />
     </View>
   )
 }
-
-export default WelcomeScreen

@@ -1,5 +1,8 @@
 export enum AppRoutes {
   Welcome = "Welcome",
   LanguageSelection = "LanguageSelection",
-  Success = "Success",
+  OnboardSuccess = "OnboardSuccess",
+  PhoneInput = "PhoneInput",
+  OtpInputScreen = "OtpInputScreen",
+  CompanyDetails = "CompanyDetails",
 }
