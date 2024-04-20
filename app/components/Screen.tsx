@@ -2,6 +2,8 @@ import { useScrollToTop } from "@react-navigation/native"
 import { StatusBar, StatusBarProps } from "expo-status-bar"
 import React, { useRef, useState } from "react"
 import {
+  ImageBackground,
+  ImageURISource,
   KeyboardAvoidingView,
   KeyboardAvoidingViewProps,
   LayoutChangeEvent,
@@ -12,8 +14,8 @@ import {
   View,
   ViewStyle,
 } from "react-native"
-import { colors } from "../theme"
 import { ExtendedEdge, useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
+import { useTheme } from "app/hooks/useTheme"
 
 interface BaseScreenProps {
   /**
@@ -68,6 +70,10 @@ interface ScrollScreenProps extends BaseScreenProps {
    * Pass any additional props directly to the ScrollView component.
    */
   ScrollViewProps?: ScrollViewProps
+  /**
+   * Pass any additional props directly to the ScrollView component.
+   */
+  bgSource?: ImageURISource
 }
 
 interface AutoScreenProps extends Omit<ScrollScreenProps, "preset"> {
@@ -185,7 +191,7 @@ function ScreenWithScrolling(props: ScreenProps) {
     style,
   } = props as ScrollScreenProps
 
-  const ref = useRef<ScrollView>(null)
+  const ref = useRef<ScrollView>()
 
   const { scrollEnabled, onContentSizeChange, onLayout } = useAutoPreset(props as AutoScreenProps)
 
@@ -226,6 +232,7 @@ function ScreenWithScrolling(props: ScreenProps) {
  * @returns {JSX.Element} The rendered `Screen` component.
  */
 export function Screen(props: ScreenProps) {
+  const { colors } = useTheme()
   const {
     backgroundColor = colors.background,
     KeyboardAvoidingViewProps,
@@ -233,12 +240,13 @@ export function Screen(props: ScreenProps) {
     safeAreaEdges,
     StatusBarProps,
     statusBarStyle = "dark",
+    bgSource,
   } = props
 
-  const $containerInsets = useSafeAreaInsetsStyle(safeAreaEdges)
-
+  const $containerInsets = useSafeAreaInsetsStyle(safeAreaEdges ?? ["top"])
+  const Container = bgSource ? ImageBackground : View
   return (
-    <View style={[$containerStyle, { backgroundColor }, $containerInsets]}>
+    <Container style={[$containerStyle, { backgroundColor }]} source={bgSource}>
       <StatusBar style={statusBarStyle} {...StatusBarProps} />
 
       <KeyboardAvoidingView
@@ -248,12 +256,12 @@ export function Screen(props: ScreenProps) {
         style={[$keyboardAvoidingViewStyle, KeyboardAvoidingViewProps?.style]}
       >
         {isNonScrolling(props.preset) ? (
-          <ScreenWithoutScrolling {...props} />
+          <ScreenWithoutScrolling style={$containerInsets} {...props} />
         ) : (
-          <ScreenWithScrolling {...props} />
+          <ScreenWithScrolling style={$containerInsets} {...props} />
         )}
       </KeyboardAvoidingView>
-    </View>
+    </Container>
   )
 }
 

@@ -7,12 +7,10 @@
 import { NavigationContainer, NavigatorScreenParams } from "@react-navigation/native"
 import { createNativeStackNavigator, NativeStackScreenProps } from "@react-navigation/native-stack"
 import React from "react"
-import * as Screens from "app/screens"
 import Config from "../config"
-import { DemoNavigator, DemoTabParamList } from "./DemoNavigator"
+import { DemoTabParamList } from "./DemoNavigator"
 import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
 import { colors } from "app/theme"
-import PhoneSignIn from "app/screens/PhoneLogin"
 import OnboardingStack, { OnboardingStackParams } from "app/navigators/OnboardingStack"
 import { TabBar } from "app/navigators/TabNavigation"
 import { AppRoutes } from "app/navigators/constants/appRoutes"
@@ -51,11 +49,11 @@ export type AppStackScreenProps<T extends keyof AppStackParamList & OnboardingSt
 const Stack = createNativeStackNavigator<AppStackParamList>()
 
 const AppStack = () => {
-  const isLoggedIn = true
+  const isLoggedIn = false
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false, navigationBarColor: colors.background }}
-      initialRouteName={isLoggedIn ? "Welcome" : "Login"}
+      initialRouteName={isLoggedIn ? AppRoutes.MainAppStack : AppRoutes.OnboardingStack}
     >
       {!isLoggedIn ? (
         <Stack.Screen name={AppRoutes.OnboardingStack} component={OnboardingStack} />
