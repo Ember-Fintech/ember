@@ -21,7 +21,10 @@ const Stack = createStackNavigator<OnboardingStackParams>()
 
 const OnboardingStack: React.FC = () => {
   return (
-    <Stack.Navigator initialRouteName={AppRoutes.Welcome}>
+    <Stack.Navigator
+      screenOptions={{ headerShown: false }}
+      initialRouteName={AppRoutes.LanguageSelection}
+    >
       <Stack.Screen name={AppRoutes.Welcome} component={WelcomeScreen} />
       <Stack.Screen name={AppRoutes.LanguageSelection} component={ChooseLanguageScreen} />
       <Stack.Screen name={AppRoutes.PhoneInput} component={PhoneInputScreen} />

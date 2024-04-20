@@ -1,8 +1,9 @@
 import React from "react"
-import { View, Text, Button } from "react-native"
+import { Text, Button } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { OnboardingStackParams } from "app/navigators/OnboardingStack"
 import { AppRoutes } from "app/navigators/constants/appRoutes"
+import { Screen } from "app/components"
 
 type WelcomeScreenProps = {
   navigation: StackScreenProps<OnboardingStackParams, AppRoutes.Welcome>
@@ -10,9 +11,9 @@ type WelcomeScreenProps = {
 
 export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ navigation }) => {
   return (
-    <View>
+    <Screen>
       <Text>Welcome Screen</Text>
-      <Button title="Next" onPress={() => navigation.navigate(AppRoutes.LanguageSelection)} />
-    </View>
+      <Button title="Next" onPress={() => navigation.navigate(AppRoutes.PhoneInput)} />
+    </Screen>
   )
 }
