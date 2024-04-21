@@ -8,6 +8,8 @@ import { useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
 
 import { Text } from "react-native-ui-lib"
 import { useTheme } from "app/hooks/useTheme"
+import Input from "app/components/Input"
+import { Icon } from "@gluestack-ui/themed"
 
 const welcomeLogo = require("../../assets/images/logo.png")
 
@@ -33,42 +35,33 @@ export const WelcomeScreen: FC<WelcomeScreenProps> = (_props) => {
 
   return (
     <View style={$container}>
-      <View style={$topContainer}>
-        <Image style={$welcomeLogo} source={welcomeLogo} resizeMode="contain" />
-        <Text style={{ color: colors.textColor }}>Hello</Text>
-        {/* <CustomInput */}
-        {/*   errorMessage={"Sample Error"} */}
-        {/*   infoMessage={"Here goes the information"} */}
-        {/*   leftElement={<Text>{"Prefix"}</Text>} */}
-        {/*   rightElement={<Text>{"Suffix"}</Text>} */}
-        {/*   leftIcon={ */}
-        {/*     <Icon as={ThreeDView1} color={"red"} size="sm" onPress={() => console.log("hello")} /> */}
-        {/*   } */}
-        {/*   rightIcon={ */}
-        {/*     <Icon as={ThreeDView1} color={"red"} size="sm" onPress={() => console.log("hello")} /> */}
-        {/*   } */}
-        {/*   placeholder={"Placeholder"} */}
-        {/*   label={"Address"} */}
-        {/* /> */}
-      </View>
+      <Image style={$welcomeLogo} source={welcomeLogo} resizeMode="contain" />
+      <Text style={{ color: colors.textColor }}>Hello</Text>
+      <Input
+        infoMessage={"Here goes the information"}
+        leftElement={<Text>{"Prefix"}</Text>}
+        rightElement={<Text>{"Suffix"}</Text>}
+        leftIcon={<Text>00</Text>}
+        rightIcon={<Text>00</Text>}
+        placeholder={"Placeholder"}
+        label={"Address"}
+      />
 
-      <View style={[$bottomContainer, $bottomContainerInsets]}>
-        <Text tx="welcomeScreen.postscript" size="md" />
+      <Text tx="welcomeScreen.postscript" size="md" />
 
-        <Button
-          testID="next-screen-button"
-          preset="reversed"
-          tx="welcomeScreen.letsGo"
-          onPress={goNext}
-        />
-      </View>
+      <Button
+        testID="next-screen-button"
+        preset="reversed"
+        tx="welcomeScreen.letsGo"
+        onPress={goNext}
+      />
     </View>
   )
 }
 
 const $container: ViewStyle = {
   flex: 1,
-  backgroundColor: colors.background,
+  backgroundColor: "#fffff",
 }
 
 const $topContainer: ViewStyle = {

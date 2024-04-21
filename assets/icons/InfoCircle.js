@@ -1,33 +1,37 @@
-import React from "react"
-import { createIcon } from "@gluestack-ui/themed"
-import { Path, Rect } from "react-native-svg"
+import * as React from "react"
+import Svg, { Path } from "react-native-svg"
 
-const InfoCircle = createIcon({
-  viewBox: "0 0 24 24",
-  path: (
-    <>
-      <Rect width="24" height="24" /> {/* Added Rect component */}
+function InfoCircle(props) {
+  return (
+    <Svg
+      width={24}
+      height={24}
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+      fill="none"
+    >
       <Path
-        d="M22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12Z"
-        stroke="currentColor"
+        d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12s4.477 10 10 10 10-4.477 10-10z"
+        stroke={props.fill || "#000"}
         strokeWidth={1.5}
       />
       <Path
-        d="M12.2422 17V12C12.2422 11.5286 12.2422 11.2929 12.0957 11.1464C11.9493 11 11.7136 11 11.2422 11"
-        stroke="currentColor"
+        d="M12.242 17v-5c0-.471 0-.707-.146-.854-.147-.146-.382-.146-.854-.146"
+        stroke={props.fill || "#000"}
         strokeWidth={1.5}
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <Path
-        d="M11.992 8H12.001"
-        stroke="currentColor"
+        d="M11.992 8h.009"
+        stroke={props.fill || "#000"}
         strokeWidth={2}
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-    </>
-  ),
-})
+    </Svg>
+  )
+}
 
 export default InfoCircle
