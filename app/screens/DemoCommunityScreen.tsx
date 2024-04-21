@@ -1,134 +1,72 @@
 import React, { FC } from "react"
-import { Image, ImageStyle, TextStyle, View, ViewStyle } from "react-native"
-import { ListItem, Screen, Text } from "../components"
+import { View, Text, ImageBackground } from "react-native"
 import { DemoTabScreenProps } from "../navigators/DemoNavigator"
-import { spacing } from "../theme"
-import { openLinkInBrowser } from "../utils/openLinkInBrowser"
-import { isRTL } from "../i18n"
-
-const chainReactLogo = require("../../assets/images/demo/cr-logo.png")
-const reactNativeLiveLogo = require("../../assets/images/demo/rnl-logo.png")
-const reactNativeRadioLogo = require("../../assets/images/demo/rnr-logo.png")
-const reactNativeNewsletterLogo = require("../../assets/images/demo/rnn-logo.png")
+import { useTheme } from "app/hooks/useTheme"
+import verified from "../assets/images/verified.png"
+import PrimaryButton from "app/components/PrimaryButton"
 
 export const DemoCommunityScreen: FC<DemoTabScreenProps<"DemoCommunity">> =
   function DemoCommunityScreen(_props) {
+    const { colors } = useTheme()
+
+    const onPressCta = () => {
+      // TODO:- navigate to the next screen
+    }
+
     return (
-      <Screen preset="scroll" contentContainerStyle={$container} safeAreaEdges={["top"]}>
-        <Text preset="heading" tx="demoCommunityScreen.title" style={$title} />
-        <Text tx="demoCommunityScreen.tagLine" style={$tagline} />
-
-        <Text preset="subheading" tx="demoCommunityScreen.joinUsOnSlackTitle" />
-        <Text tx="demoCommunityScreen.joinUsOnSlack" style={$description} />
-        <ListItem
-          tx="demoCommunityScreen.joinSlackLink"
-          leftIcon="slack"
-          rightIcon={isRTL ? "caretLeft" : "caretRight"}
-          onPress={() => openLinkInBrowser("https://community.infinite.red/")}
-        />
-        <Text
-          preset="subheading"
-          tx="demoCommunityScreen.makeIgniteEvenBetterTitle"
-          style={$sectionTitle}
-        />
-        <Text tx="demoCommunityScreen.makeIgniteEvenBetter" style={$description} />
-        <ListItem
-          tx="demoCommunityScreen.contributeToIgniteLink"
-          leftIcon="github"
-          rightIcon={isRTL ? "caretLeft" : "caretRight"}
-          onPress={() => openLinkInBrowser("https://github.com/infinitered/ignite")}
-        />
-
-        <Text
-          preset="subheading"
-          tx="demoCommunityScreen.theLatestInReactNativeTitle"
-          style={$sectionTitle}
-        />
-        <Text tx="demoCommunityScreen.theLatestInReactNative" style={$description} />
-        <ListItem
-          tx="demoCommunityScreen.reactNativeRadioLink"
-          bottomSeparator
-          rightIcon={isRTL ? "caretLeft" : "caretRight"}
-          LeftComponent={
-            <View style={$logoContainer}>
-              <Image source={reactNativeRadioLogo} style={$logo} />
-            </View>
-          }
-          onPress={() => openLinkInBrowser("https://reactnativeradio.com/")}
-        />
-        <ListItem
-          tx="demoCommunityScreen.reactNativeNewsletterLink"
-          bottomSeparator
-          rightIcon={isRTL ? "caretLeft" : "caretRight"}
-          LeftComponent={
-            <View style={$logoContainer}>
-              <Image source={reactNativeNewsletterLogo} style={$logo} />
-            </View>
-          }
-          onPress={() => openLinkInBrowser("https://reactnativenewsletter.com/")}
-        />
-        <ListItem
-          tx="demoCommunityScreen.reactNativeLiveLink"
-          bottomSeparator
-          rightIcon={isRTL ? "caretLeft" : "caretRight"}
-          LeftComponent={
-            <View style={$logoContainer}>
-              <Image source={reactNativeLiveLogo} style={$logo} />
-            </View>
-          }
-          onPress={() => openLinkInBrowser("https://rn.live/")}
-        />
-        <ListItem
-          tx="demoCommunityScreen.chainReactConferenceLink"
-          rightIcon={isRTL ? "caretLeft" : "caretRight"}
-          LeftComponent={
-            <View style={$logoContainer}>
-              <Image source={chainReactLogo} style={$logo} />
-            </View>
-          }
-          onPress={() => openLinkInBrowser("https://cr.infinite.red/")}
-        />
-        <Text preset="subheading" tx="demoCommunityScreen.hireUsTitle" style={$sectionTitle} />
-        <Text tx="demoCommunityScreen.hireUs" style={$description} />
-        <ListItem
-          tx="demoCommunityScreen.hireUsLink"
-          leftIcon="clap"
-          rightIcon={isRTL ? "caretLeft" : "caretRight"}
-          onPress={() => openLinkInBrowser("https://infinite.red/contact")}
-        />
-      </Screen>
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: colors.primaryColor,
+        }}
+      >
+        <ImageBackground
+          style={{
+            paddingTop: 60,
+            flex: 0.72,
+          }}
+          source={verified}
+        ></ImageBackground>
+        <View
+          style={{
+            flex: 0.28,
+            backgroundColor: colors.white,
+            borderTopLeftRadius: 20,
+            borderTopRightRadius: 20,
+            paddingHorizontal: 16,
+            justifyContent: "space-between",
+          }}
+        >
+          <View>
+            <Text
+              style={{
+                fontFamily: "Sans-SemiBold",
+                fontSize: 24,
+                textAlign: "center",
+                marginTop: 20,
+              }}
+            >
+              Hurray! You are Verified!
+            </Text>
+            <Text
+              style={{
+                fontFamily: "Inter-Regular",
+                fontSize: 14,
+                textAlign: "center",
+                marginTop: 12,
+              }}
+            >
+              You are just a few steps away to begin your Emberful journey with us.
+            </Text>
+          </View>
+          <View
+            style={{
+              marginBottom: 10,
+            }}
+          >
+            <PrimaryButton title={"Get Started"} onPress={onPressCta} disabled={false} />
+          </View>
+        </View>
+      </View>
     )
   }
-
-const $container: ViewStyle = {
-  paddingTop: spacing.lg + spacing.xl,
-  paddingHorizontal: spacing.lg,
-}
-
-const $title: TextStyle = {
-  marginBottom: spacing.sm,
-}
-
-const $tagline: TextStyle = {
-  marginBottom: spacing.xxl,
-}
-
-const $description: TextStyle = {
-  marginBottom: spacing.lg,
-}
-
-const $sectionTitle: TextStyle = {
-  marginTop: spacing.xxl,
-}
-
-const $logoContainer: ViewStyle = {
-  marginEnd: spacing.md,
-  flexDirection: "row",
-  flexWrap: "wrap",
-  alignContent: "center",
-}
-
-const $logo: ImageStyle = {
-  height: 38,
-  width: 38,
-}

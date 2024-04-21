@@ -21,6 +21,10 @@ const useTheme = () => {
     Colors.loadColors({
       ...commonColors,
       ...(colorMode === "dark" ? darkThemeColors : lightThemeColors),
+      primaryColor: '#6248AE',
+      white: 'white',
+      disabled: '#F2F4F7',
+      disabledText: '#98A2B3'
     })
     return Colors
   }, [colorMode])
