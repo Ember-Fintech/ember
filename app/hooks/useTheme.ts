@@ -24,7 +24,8 @@ const useTheme = () => {
       primaryColor: '#6248AE',
       white: 'white',
       disabled: '#F2F4F7',
-      disabledText: '#98A2B3'
+      disabledText: '#98A2B3',
+      textSecondary: '#A393D3'
     })
     return Colors
   }, [colorMode])
