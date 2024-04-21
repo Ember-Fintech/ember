@@ -6,6 +6,7 @@ import { AppRoutes } from "app/navigators/constants/appRoutes"
 import { Screen } from "app/components"
 import { Spacings, Text } from "react-native-ui-lib"
 import Input from "app/components/Input"
+import InfoCircle from "../../../assets/icons/InfoCircle.js"
 
 type PhoneInputScreenProps = {
   navigation: StackScreenProps<OnboardingStackParams, AppRoutes.PhoneInput>
@@ -35,6 +36,13 @@ export const PhoneInputScreen: React.FC<PhoneInputScreenProps> = ({ navigation }
           <Input
             label={"Mobile"}
             leftElement={
+              <Text text80 bold>
+                +91
+              </Text>
+            }
+            rightIcon={<InfoCircle />}
+            leftIcon={<InfoCircle />}
+            rightElement={
               <Text text80 bold>
                 +91
               </Text>
