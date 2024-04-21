@@ -14,7 +14,7 @@ type ChooseLanguageScreenProps = {
 export const ChooseLanguageScreen: React.FC<ChooseLanguageScreenProps> = ({ navigation }) => {
   const { colors } = useTheme()
   return (
-    <Screen bgSource={require("../../../assets/images/background.jpg")}>
+    <Screen bgSource={require("../../../assets/background/ripple-top-right.png")}>
       <Text style={{ color: colors.$textDefault }}>Language Screen</Text>
       <Button title="Next" onPress={() => navigation.navigate(AppRoutes.Welcome)} />
     </Screen>
