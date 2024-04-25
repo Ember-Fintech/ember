@@ -52,8 +52,8 @@ export const PhoneInputScreen: React.FC<PhoneInputScreenProps> = ({ navigation }
             validateOnChange={false}
             onSubmit={(values, { setSubmitting }) => {
               // Your form submission logic here
-              console.log("Submitted:", values)
               setSubmitting(false)
+              navigation.navigate(AppRoutes.OtpInputScreen)
             }}
           >
             {(form) => (
