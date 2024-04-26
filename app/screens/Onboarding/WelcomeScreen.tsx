@@ -80,10 +80,10 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ navigation }) => {
         style={{
           paddingTop: 60,
           flex: 1,
-          backgroundColor: colors.primaryColor,
+          backgroundColor: '#ddd',
         }}
       >
-        <Carousel
+        {/* <Carousel
           layout={"default"}
           data={carouselData}
           sliderWidth={width}
@@ -123,7 +123,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ navigation }) => {
             <TertiaryButton title="Skip" onPress={navigateToNextScreen} />
           </View>
           
-        </View>
+        </View> */}
           
       </View>
     )
