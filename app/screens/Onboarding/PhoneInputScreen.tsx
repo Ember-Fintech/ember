@@ -4,12 +4,13 @@ import { StackScreenProps } from "@react-navigation/stack"
 import { OnboardingStackParams } from "app/navigators/OnboardingStack"
 import { AppRoutes } from "app/navigators/constants/appRoutes"
 import { Screen } from "app/components"
-import { Spacings, Text } from "react-native-ui-lib"
+import { Avatar, Colors, Spacings } from "react-native-ui-lib"
 import Input from "app/components/Input"
 import IndiaFlagRound from "../../../assets/icons/IndiaFlagRound.js"
 import { Formik } from "formik"
 import * as Yup from "yup"
 import PrimaryButton from "app/components/PrimaryButton"
+import Text from "app/components/typography/Text"
 
 type PhoneInputScreenProps = {
   navigation: StackScreenProps<OnboardingStackParams, AppRoutes.PhoneInput>
@@ -22,6 +23,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: Spacings.s5,
     borderTopLeftRadius: Spacings.s5,
     padding: Spacings.s4,
+    position: "relative",
   },
   container: {
     height: "100%",
@@ -46,6 +48,22 @@ export const PhoneInputScreen: React.FC<PhoneInputScreenProps> = ({ navigation }
       <View style={styles.container}>
         <EmptyView />
         <View style={styles.upperCurvedContainer}>
+          <View style={{ position: "relative", alignItems: "center", marginBottom: Spacings.s8 }}>
+            <Avatar
+              containerStyle={{ position: "absolute", top: -55 }}
+              size={80}
+              backgroundColor={"#FDE272"}
+              source={require("../../../assets/icons/mobile.png")}
+              imageStyle={{ resizeMode: "contain", height: 40, top: 20 }}
+            />
+          </View>
+
+          <Text.Heading size={"sm"} weight={"semi-bold"}>
+            Sign Up
+          </Text.Heading>
+          <Text.Body size={"sm"} weight={"regular"} color={Colors.textQuarterary}>
+            Lets sign you up for big things
+          </Text.Body>
           <Formik
             initialValues={{ phoneNumber: "" }}
             validationSchema={phoneSchema}
@@ -57,22 +75,28 @@ export const PhoneInputScreen: React.FC<PhoneInputScreenProps> = ({ navigation }
             }}
           >
             {(form) => (
-              <View style={{ flex: 1, justifyContent: "space-between" }}>
+              <View style={{ flex: 1, justifyContent: "space-between", marginTop: Spacings.s6 }}>
                 <Input
                   label={"Mobile"}
                   leftElement={
                     <View style={styles.row}>
                       <IndiaFlagRound />
-                      <Text text80 bold marginL-10>
+                      <Text.Body size={"md"} style={{ marginLeft: 10 }}>
                         +91
-                      </Text>
+                      </Text.Body>
                     </View>
                   }
                   onChangeText={(text) => form.setFieldValue("phoneNumber", text)}
                   errorMessage={form?.errors?.phoneNumber}
                   onEndEditing={form.submitForm}
                 />
-                <PrimaryButton onPress={form.submitForm} title={"Send OTP"} />
+                <View>
+                  <Text.Caption>
+                    By continuing, you agree to our{" "}
+                    <Text.Caption color={Colors.primaryColor}>Terms and Conditions</Text.Caption>
+                  </Text.Caption>
+                  <PrimaryButton onPress={form.submitForm} title={"Send OTP"} />
+                </View>
               </View>
             )}
           </Formik>
