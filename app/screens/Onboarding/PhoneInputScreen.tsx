@@ -61,7 +61,12 @@ export const PhoneInputScreen: React.FC<PhoneInputScreenProps> = ({ navigation }
           <Text.Heading size={"sm"} weight={"semi-bold"}>
             Sign Up
           </Text.Heading>
-          <Text.Body size={"sm"} weight={"regular"} color={Colors.textQuarterary}>
+          <Text.Body
+            style={{ marginTop: 10 }}
+            size={"sm"}
+            weight={"regular"}
+            color={Colors.textQuarterary}
+          >
             Lets sign you up for big things
           </Text.Body>
           <Formik

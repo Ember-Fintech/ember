@@ -23,7 +23,7 @@ export const OtpInputScreen: React.FC<OtpInputScreenProps> = ({ navigation }) =>
           source={require("../../../assets/icons/otp.png")}
           imageStyle={{ resizeMode: "contain", height: 50, top: 25, left: 8 }}
         />
-        <Text.Heading weight={"semi-bold"} size={"sm"}>
+        <Text.Heading style={{}} weight={"semi-bold"} size={"sm"}>
           Enter OTP
         </Text.Heading>
         <Text.Body weight={"regular"} size={"sm"} color={Colors.textQuarterary}>

@@ -54,25 +54,28 @@ export const Text = (props: IText) => {
 }
 
 const Heading = (props: IText & { size?: HeaderSize }) => {
+  const { children, style, size, ...rest } = props
   return (
-    <Text style={{ ...HEADER_STYLE_MAP[props.size ?? "lg"], ...props.style }} {...props}>
-      {props.children}
+    <Text {...rest} style={[HEADER_STYLE_MAP[size ?? "lg"], style]}>
+      {children}
     </Text>
   )
 }
 
 const Body = (props: IText & { size?: BodySize }) => {
+  const { children, style, size, ...rest } = props
   return (
-    <Text style={{ ...BODY_STYLE_MAP[props.size ?? "md"], ...props.style }} {...props}>
-      {props.children}
+    <Text {...rest} style={[BODY_STYLE_MAP[size ?? "md"], style]}>
+      {children}
     </Text>
   )
 }
 
 const Caption = (props: IText) => {
+  const { children, style, ...rest } = props
   return (
-    <Text style={{ fontSize: 12, lineHeight: 18, ...props.style }} {...props}>
-      {props.children}
+    <Text {...rest} style={[{ fontSize: 12, lineHeight: 18 }, style]}>
+      {children}
     </Text>
   )
 }
