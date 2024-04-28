@@ -2,7 +2,6 @@ import React from "react"
 import { Image, ImageProps, ImageStyle, StyleProp, TextStyle, View, ViewStyle } from "react-native"
 import { translate } from "../i18n"
 import { spacing } from "../theme"
-import { Button, ButtonProps } from "./Button"
 import { Text, TextProps } from "./Text"
 
 const sadFace = require("../../assets/images/sad-face.png")
@@ -204,18 +203,6 @@ export function EmptyState(props: EmptyStateProps) {
           txOptions={contentTxOptions}
           {...ContentTextProps}
           style={$contentStyles}
-        />
-      )}
-
-      {isButtonPresent && (
-        <Button
-          onPress={buttonOnPress}
-          text={button}
-          tx={buttonTx}
-          txOptions={buttonTxOptions}
-          textStyle={$buttonTextStyleOverride}
-          {...ButtonProps}
-          style={$buttonStyles}
         />
       )}
     </View>

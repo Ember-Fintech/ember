@@ -12,7 +12,7 @@ export type OnboardingStackParams = {
   [AppRoutes.Welcome]: undefined
   [AppRoutes.LanguageSelection]: undefined
   [AppRoutes.OnboardSuccess]: undefined
-  [AppRoutes.OtpInputScreen]: undefined
+  [AppRoutes.OtpInputScreen]: { phoneNumber: string }
   [AppRoutes.PhoneInput]: undefined
   [AppRoutes.CompanyDetails]: undefined
 }
