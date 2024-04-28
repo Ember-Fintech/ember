@@ -42,20 +42,37 @@ const phoneSchema = Yup.object().shape({
     .required("Phone number is required"),
 })
 
+const AVATAR_SIZE = 80
+
 export const PhoneInputScreen: React.FC<PhoneInputScreenProps> = ({ navigation }) => {
   return (
     <Screen bgSource={require("../../../assets/background/ripple-center.png")}>
       <View style={styles.container}>
         <EmptyView />
         <View style={styles.upperCurvedContainer}>
-          <View style={{ position: "relative", alignItems: "center", marginBottom: Spacings.s8 }}>
-            <Avatar
-              containerStyle={{ position: "absolute", top: -55 }}
-              size={80}
-              backgroundColor={"#FDE272"}
-              source={require("../../../assets/icons/mobile.png")}
-              imageStyle={{ resizeMode: "contain", height: 40, top: 20 }}
-            />
+          <View
+            style={{
+              position: "relative",
+              alignItems: "center",
+              marginBottom: Spacings.s8,
+            }}
+          >
+            <View
+              style={{
+                backgroundColor: "white",
+                padding: Spacings.s1,
+                borderRadius: AVATAR_SIZE,
+                position: "absolute",
+                top: -60,
+              }}
+            >
+              <Avatar
+                size={AVATAR_SIZE}
+                backgroundColor={"#FDE272"}
+                source={require("../../../assets/icons/mobile.png")}
+                imageStyle={{ resizeMode: "contain", height: 40, top: 20 }}
+              />
+            </View>
           </View>
 
           <Text.Heading size={"sm"} weight={"semi-bold"}>
@@ -76,7 +93,7 @@ export const PhoneInputScreen: React.FC<PhoneInputScreenProps> = ({ navigation }
             onSubmit={(values, { setSubmitting }) => {
               // Your form submission logic here
               setSubmitting(false)
-              navigation.navigate(AppRoutes.OtpInputScreen)
+              navigation.navigate(AppRoutes.OtpInputScreen, { phoneNumber: values.phoneNumber })
             }}
           >
             {(form) => (
@@ -96,8 +113,8 @@ export const PhoneInputScreen: React.FC<PhoneInputScreenProps> = ({ navigation }
                   onEndEditing={form.submitForm}
                 />
                 <View>
-                  <Text.Caption>
-                    By continuing, you agree to our{" "}
+                  <Text.Caption style={{ marginBottom: Spacings.s2 }} color={Colors.textQuarterary}>
+                    By continuing, you agree to our{"  "}
                     <Text.Caption color={Colors.primaryColor}>Terms and Conditions</Text.Caption>
                   </Text.Caption>
                   <PrimaryButton onPress={form.submitForm} title={"Send OTP"} />
