@@ -1,233 +1,123 @@
-import React, { ComponentType } from "react"
-import {
-  Pressable,
-  PressableProps,
-  PressableStateCallbackType,
-  StyleProp,
-  TextStyle,
-  ViewStyle,
-} from "react-native"
-import { colors, spacing, typography } from "../theme"
-import { Text, TextProps } from "./Text"
+import React, { useMemo } from "react"
+import { Button as UILibButton, ButtonProps, Colors } from "react-native-ui-lib"
+import { ActivityIndicator, ViewStyle } from "react-native"
+import Text from "app/components/typography/Text"
 
-type Presets = keyof typeof $viewPresets
+type IProps = {
+  wrap?: boolean
+  loading?: boolean
+  size?: "lg" | "sm"
+  loaderColor?: string
+} & ButtonProps
 
-export interface ButtonAccessoryProps {
-  style: StyleProp<any>
-  pressableState: PressableStateCallbackType
-  disabled?: boolean
-}
-
-export interface ButtonProps extends PressableProps {
-  /**
-   * Text which is looked up via i18n.
-   */
-  tx?: TextProps["tx"]
-  /**
-   * The text to display if not using `tx` or nested components.
-   */
-  text?: TextProps["text"]
-  /**
-   * Optional options to pass to i18n. Useful for interpolation
-   * as well as explicitly setting locale or translation fallbacks.
-   */
-  txOptions?: TextProps["txOptions"]
-  /**
-   * An optional style override useful for padding & margin.
-   */
-  style?: StyleProp<ViewStyle>
-  /**
-   * An optional style override for the "pressed" state.
-   */
-  pressedStyle?: StyleProp<ViewStyle>
-  /**
-   * An optional style override for the button text.
-   */
-  textStyle?: StyleProp<TextStyle>
-  /**
-   * An optional style override for the button text when in the "pressed" state.
-   */
-  pressedTextStyle?: StyleProp<TextStyle>
-  /**
-   * An optional style override for the button text when in the "disabled" state.
-   */
-  disabledTextStyle?: StyleProp<TextStyle>
-  /**
-   * One of the different types of button presets.
-   */
-  preset?: Presets
-  /**
-   * An optional component to render on the right side of the text.
-   * Example: `RightAccessory={(props) => <View {...props} />}`
-   */
-  RightAccessory?: ComponentType<ButtonAccessoryProps>
-  /**
-   * An optional component to render on the left side of the text.
-   * Example: `LeftAccessory={(props) => <View {...props} />}`
-   */
-  LeftAccessory?: ComponentType<ButtonAccessoryProps>
-  /**
-   * Children components.
-   */
-  children?: React.ReactNode
-  /**
-   * disabled prop, accessed directly for declarative styling reasons.
-   * https://reactnative.dev/docs/pressable#disabled
-   */
-  disabled?: boolean
-  /**
-   * An optional style override for the disabled state
-   */
-  disabledStyle?: StyleProp<ViewStyle>
-}
-
-/**
- * A component that allows users to take actions and make choices.
- * Wraps the Text component with a Pressable component.
- * @see [Documentation and Examples]{@link https://docs.infinite.red/ignite-cli/boilerplate/components/Button/}
- * @param {ButtonProps} props - The props for the `Button` component.
- * @returns {JSX.Element} The rendered `Button` component.
- * @example
- * <Button
- *   tx="common.ok"
- *   style={styles.button}
- *   textStyle={styles.buttonText}
- *   onPress={handleButtonPress}
- * />
- */
-export function Button(props: ButtonProps) {
+const Button = (props: IProps) => {
   const {
-    tx,
-    text,
-    txOptions,
-    style: $viewStyleOverride,
-    pressedStyle: $pressedViewStyleOverride,
-    textStyle: $textStyleOverride,
-    pressedTextStyle: $pressedTextStyleOverride,
-    disabledTextStyle: $disabledTextStyleOverride,
-    children,
-    RightAccessory,
-    LeftAccessory,
+    loading,
+    label,
+    size = "lg",
+    onPress,
     disabled,
-    disabledStyle: $disabledViewStyleOverride,
+    labelStyle,
+    style,
+    disabledBackgroundColor,
+    wrap,
+    loaderColor,
     ...rest
   } = props
 
-  const preset: Presets = props.preset ?? "default"
-  /**
-   * @param {PressableStateCallbackType} root0 - The root object containing the pressed state.
-   * @param {boolean} root0.pressed - The pressed state.
-   * @returns {StyleProp<ViewStyle>} The view style based on the pressed state.
-   */
-  function $viewStyle({ pressed }: PressableStateCallbackType): StyleProp<ViewStyle> {
-    return [
-      $viewPresets[preset],
-      $viewStyleOverride,
-      !!pressed && [$pressedViewPresets[preset], $pressedViewStyleOverride],
-      !!disabled && $disabledViewStyleOverride,
-    ]
-  }
-  /**
-   * @param {PressableStateCallbackType} root0 - The root object containing the pressed state.
-   * @param {boolean} root0.pressed - The pressed state.
-   * @returns {StyleProp<TextStyle>} The text style based on the pressed state.
-   */
-  function $textStyle({ pressed }: PressableStateCallbackType): StyleProp<TextStyle> {
-    return [
-      $textPresets[preset],
-      $textStyleOverride,
-      !!pressed && [$pressedTextPresets[preset], $pressedTextStyleOverride],
-      !!disabled && $disabledTextStyleOverride,
-    ]
-  }
+  const defaultLabelStyle = useMemo(
+    () => ({
+      fontSize: size === "lg" ? 16 : 12,
+      fontFamily: "Inter-SemiBold",
+      lineHeight: size === "lg" ? 24 : 18,
+      color: disabled ? "#98A2B3" : Colors.white,
+    }),
+    [disabled, size],
+  )
+
+  const defaultButtonStyle: Partial<ViewStyle> = useMemo(
+    () => ({
+      backgroundColor: disabled ? disabledBackgroundColor ?? "#F2F4F7" : Colors.primaryColor,
+      borderRadius: 10,
+      width: wrap ? undefined : "100%",
+      height: size === "lg" ? 52 : 38,
+    }),
+    [disabled, disabledBackgroundColor, wrap, size],
+  )
 
   return (
-    <Pressable
-      style={$viewStyle}
-      accessibilityRole="button"
-      accessibilityState={{ disabled: !!disabled }}
-      {...rest}
+    <UILibButton
+      label={undefined}
+      onPress={onPress}
       disabled={disabled}
+      style={[defaultButtonStyle, style]}
+      disabledBackgroundColor={"#F2F4F7"}
+      {...rest}
     >
-      {(state) => (
-        <>
-          {!!LeftAccessory && (
-            <LeftAccessory style={$leftAccessoryStyle} pressableState={state} disabled={disabled} />
-          )}
-
-          <Text tx={tx} text={text} txOptions={txOptions} style={$textStyle(state)}>
-            {children}
-          </Text>
-
-          {!!RightAccessory && (
-            <RightAccessory
-              style={$rightAccessoryStyle}
-              pressableState={state}
-              disabled={disabled}
-            />
-          )}
-        </>
+      {loading ? (
+        <ActivityIndicator
+          size={"small"}
+          color={loaderColor || (disabled ? "#98A2B3" : Colors.white)}
+        />
+      ) : (
+        <Text.Body style={[defaultLabelStyle, labelStyle]}>{label}</Text.Body>
       )}
-    </Pressable>
+    </UILibButton>
   )
 }
 
-const $baseViewStyle: ViewStyle = {
-  minHeight: 56,
-  borderRadius: 4,
-  justifyContent: "center",
-  alignItems: "center",
-  flexDirection: "row",
-  paddingVertical: spacing.sm,
-  paddingHorizontal: spacing.sm,
-  overflow: "hidden",
+const Primary = (props: IProps) => {
+  return <Button {...props} />
 }
 
-const $baseTextStyle: TextStyle = {
-  fontSize: 16,
-  lineHeight: 20,
-  fontFamily: typography.primary.medium,
-  textAlign: "center",
-  flexShrink: 1,
-  flexGrow: 0,
-  zIndex: 2,
+const Outlined = (props: IProps) => {
+  const { style, labelStyle, disabled, ...rest } = props
+  return (
+    <Button
+      style={[
+        {
+          backgroundColor: "transparent",
+          borderWidth: 1,
+          borderColor: !disabled ? Colors.primaryColor : "#D0D5DD",
+        },
+        style,
+      ]}
+      labelStyle={[{ color: !disabled ? Colors.primaryColor : "gray" }, labelStyle]}
+      loaderColor={Colors.primaryColor}
+      {...rest}
+    />
+  )
 }
 
-const $rightAccessoryStyle: ViewStyle = { marginStart: spacing.xs, zIndex: 1 }
-const $leftAccessoryStyle: ViewStyle = { marginEnd: spacing.xs, zIndex: 1 }
-
-const $viewPresets = {
-  default: [
-    $baseViewStyle,
-    {
-      borderWidth: 1,
-      borderColor: colors.palette.neutral400,
-      backgroundColor: colors.palette.neutral100,
-    },
-  ] as StyleProp<ViewStyle>,
-
-  filled: [$baseViewStyle, { backgroundColor: colors.palette.neutral300 }] as StyleProp<ViewStyle>,
-
-  reversed: [
-    $baseViewStyle,
-    { backgroundColor: colors.palette.neutral800 },
-  ] as StyleProp<ViewStyle>,
+const Light = (props: IProps) => {
+  const { style, labelStyle, disabled, disabledBackgroundColor, ...rest } = props
+  return (
+    <Button
+      style={[
+        { backgroundColor: disabled ? disabledBackgroundColor || "#F9FAFB" : "#BAAEDE" },
+        style,
+      ]}
+      labelStyle={[{ color: Colors.primaryColor }, labelStyle]}
+      loaderColor={Colors.primaryColor}
+      {...rest}
+    />
+  )
 }
 
-const $textPresets: Record<Presets, StyleProp<TextStyle>> = {
-  default: $baseTextStyle,
-  filled: $baseTextStyle,
-  reversed: [$baseTextStyle, { color: colors.palette.neutral100 }],
+const Ghost = (props: IProps) => {
+  const { style, labelStyle, disabled, ...rest } = props
+  return (
+    <Button
+      style={[{ backgroundColor: "transparent" }, style]}
+      labelStyle={[{ color: !disabled ? Colors.primaryColor : "gray" }, labelStyle]}
+      loaderColor={Colors.primaryColor}
+      {...rest}
+    />
+  )
 }
 
-const $pressedViewPresets: Record<Presets, StyleProp<ViewStyle>> = {
-  default: { backgroundColor: colors.palette.neutral200 },
-  filled: { backgroundColor: colors.palette.neutral400 },
-  reversed: { backgroundColor: colors.palette.neutral700 },
-}
-
-const $pressedTextPresets: Record<Presets, StyleProp<TextStyle>> = {
-  default: { opacity: 0.9 },
-  filled: { opacity: 0.9 },
-  reversed: { opacity: 0.9 },
-}
+Button.Primary = Primary
+Button.Outlined = Outlined
+Button.Ghost = Ghost
+Button.Light = Light
+export default Button
