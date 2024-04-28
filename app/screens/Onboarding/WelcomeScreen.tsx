@@ -72,7 +72,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ navigation }) => {
 
     const navigateToNextScreen = () => {
       // navigate to the next screen here
-      navigation.navigate(AppRoutes.PhoneInput)
+      navigation.navigate(AppRoutes.CompanyDetails)
     }
 
     return (

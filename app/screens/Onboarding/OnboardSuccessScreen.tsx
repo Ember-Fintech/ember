@@ -16,7 +16,7 @@ export const OnboardSuccessScreen: React.FC<OnboardSuccessScreenProps> = ({ navi
 
     const onPressCta = () => {
       // TODO:- navigate to the next screen
-      navigation.navigate(AppRoutes.CompanyDetails);
+      navigation.navigate(AppRoutes.OnboardSuccess);
     }
 
     return (

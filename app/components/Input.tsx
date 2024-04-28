@@ -37,6 +37,7 @@ const Input = forwardRef<TextInput, Props>((props, ref: ForwardedRef<TextInput |
     errorMessage,
     label,
     infoMessage,
+    ...restProps
   } = props
   const internalInputRef = useRef<TextInput>()
   const [isFocused, setIsFocused] = useState<boolean>(false)
@@ -110,7 +111,7 @@ const Input = forwardRef<TextInput, Props>((props, ref: ForwardedRef<TextInput |
               height: "100%",
               fontSize: 16,
             }}
-            {...props}
+            {...restProps}
           />
           {rightIcon && <View style={{ paddingRight: 10 }}>{rightIcon}</View>}
 
