@@ -9,7 +9,7 @@ import Input from "app/components/Input"
 import IndiaFlagRound from "../../../assets/icons/IndiaFlagRound.js"
 import { Formik } from "formik"
 import * as Yup from "yup"
-import PrimaryButton from "app/components/PrimaryButton"
+import PrimaryButton from "app/components/Button"
 import Text from "app/components/typography/Text"
 
 type PhoneInputScreenProps = {
