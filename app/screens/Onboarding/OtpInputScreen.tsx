@@ -1,5 +1,5 @@
-import React, { useCallback, useState } from "react"
-import { View } from "react-native"
+import React, { useCallback, useEffect, useState } from "react"
+import { Platform, View } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { OnboardingStackParams } from "app/navigators/OnboardingStack"
 import { AppRoutes } from "app/navigators/constants/appRoutes"
@@ -9,10 +9,10 @@ import { Avatar, Colors, Spacings } from "react-native-ui-lib"
 import { OtpInput } from "react-native-otp-entry"
 import useCountdown from "app/hooks/useCountdown"
 import Button from "app/components/Button"
+import auth from "@react-native-firebase/auth"
 
 type OtpInputScreenProps = {
   navigation: StackScreenProps<OnboardingStackParams, AppRoutes.OtpInputScreen>
-  routes
 }
 const millisecondsToMMSS = (milliseconds) => {
   const totalSeconds = Math.floor(milliseconds / 1000)
@@ -29,7 +29,7 @@ enum OtpState {
 
 const getPinContainerStyle = (otpState: OtpState) => {
   const defaultStyle = {
-    width: 60,
+    width: PIN_BOX_WIDTH,
     borderWidth: 1.2,
   }
   switch (otpState) {
@@ -54,10 +54,49 @@ const getPinContainerStyle = (otpState: OtpState) => {
   }
 }
 
-export const OtpInputScreen: React.FC<OtpInputScreenProps> = ({ navigation, routes }) => {
-  const phoneNumber = "+91 9212338924"
+const PIN_BOX_WIDTH = 50
+
+export const OtpInputScreen: React.FC<OtpInputScreenProps> = ({ navigation, route }) => {
+  const phoneNumber = route?.params?.phoneNumber
+  const [confirm, setConfirm] = useState(null)
   const [otpState, setOtpState] = useState<OtpState>(OtpState.None)
   const { countDown, restart } = useCountdown(12000)
+
+  async function signInWithPhoneNumber(phoneNumber) {
+    const confirmation = await auth().signInWithPhoneNumber(phoneNumber)
+    setConfirm(confirmation)
+  }
+
+  // Handle login
+  function onAuthStateChanged(user) {
+    if (user) {
+      console.log("user >>> >", user)
+      // Some Android devices can automatically process the verification code (OTP) message, and the user would NOT need to enter the code.
+      // Actually, if he/she tries to enter it, he/she will get an error message because the code was already used in the background.
+      // In this function, make sure you hide the component(s) for entering the code and/or navigate away from this screen.
+      // It is also recommended to display a message to the user informing him/her that he/she has successfully logged in.
+    }
+  }
+
+  async function confirmCode(code) {
+    try {
+      await confirm.confirm(code)
+    } catch (error) {
+      console.log("Invalid code.")
+    }
+  }
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged)
+    return subscriber // unsubscribe on unmount
+  }, [])
+
+  useEffect(() => {
+    console.log("Going to send OTP")
+    if (!Platform.OS === "ios") {
+      signInWithPhoneNumber(phoneNumber)
+    }
+  }, [phoneNumber])
 
   const BottomText = useCallback(() => {
     if (otpState === OtpState.Invalid)
@@ -123,20 +162,19 @@ export const OtpInputScreen: React.FC<OtpInputScreenProps> = ({ navigation, rout
           </Text.Body>
           <OtpInput
             outerBorderFocusColor={"#A393D3"}
-            numberOfDigits={4}
+            numberOfDigits={6}
             focusColor={Colors.primaryColor}
             focusStickBlinkingDuration={500}
-            onFilled={(text) => console.log(`OTP is ${text}`)}
+            onFilled={(text) => confirmCode(text)}
             textInputProps={{
               accessibilityLabel: "One-Time Password",
             }}
             theme={{
               containerStyle: {
-                width: 300,
                 marginBottom: Spacings.s6,
               },
               pinCodeContainerStyle: {
-                width: 60,
+                width: PIN_BOX_WIDTH,
                 backgroundColor: "#F9FAFB",
                 borderColor: "#D0D5DD",
                 borderWidth: 1.2,
@@ -146,7 +184,7 @@ export const OtpInputScreen: React.FC<OtpInputScreenProps> = ({ navigation, rout
               },
               filledPinCodeContainerStyle: getPinContainerStyle(otpState),
               focusedPinCodeContainerStyle: {
-                width: 60,
+                width: PIN_BOX_WIDTH,
                 backgroundColor: "transparent",
                 borderColor: Colors.primaryColor,
                 borderWidth: 1.51,
