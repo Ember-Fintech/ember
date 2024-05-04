@@ -26,6 +26,7 @@ export const CompanyDetailsScreen: React.FC<CompanyDetailsScreenProps> = ({ navi
   const [selectedCompany, setSelectedComapny] = useState<string>("")
   const [employeeId, setEmployeeId] = useState<string>("")
   const [filteredCompanies, setFilteredCompanies] = useState<Array<any>>(companyData);
+  const [errorMessage, setErrorMessage] = useState<string>("")
 
   const handleLeftIconPressed = () => {
     // navigate to prev screen
@@ -38,11 +39,15 @@ export const CompanyDetailsScreen: React.FC<CompanyDetailsScreenProps> = ({ navi
   const filterCompanyList = (text: string) => {
     if(!text) {
       setFilteredCompanies(companyData);
+      setErrorMessage("");
       return
     }
     const newCompanyList = filteredCompanies?.filter((singleCompanies) => {
       return singleCompanies?.title?.toLowerCase()?.includes(text?.toLowerCase());
     })
+    if(!newCompanyList.length) {
+      setErrorMessage("We couldn't find this company name. Please try again or consider joining the waitlist");
+    }
     setFilteredCompanies(newCompanyList);
   }
 
@@ -71,6 +76,8 @@ export const CompanyDetailsScreen: React.FC<CompanyDetailsScreenProps> = ({ navi
           marginTop: 20,
           backgroundColor: colors.white,
           borderRadius: 20,
+          flex: 1,
+
         }}
       >
         <View>
@@ -97,9 +104,10 @@ export const CompanyDetailsScreen: React.FC<CompanyDetailsScreenProps> = ({ navi
             }}
             placeholder="Search Company"
             placeholderTextColor={"rgba(152, 162, 179, 1)"}
+            errorMessage={errorMessage}
           />
         </View>
-        <View
+        {!errorMessage && <View
           style={{
             flexDirection: "row",
             alignItems: "center",
@@ -118,7 +126,17 @@ export const CompanyDetailsScreen: React.FC<CompanyDetailsScreenProps> = ({ navi
           >
             We will confirm your details according to the records of this company.
           </Text.Caption>
-        </View>
+        </View>}
+        {errorMessage && (<View style={{
+          position: 'absolute',
+          bottom: 10,
+          left: '7%',
+          width: '100%'
+        }}>
+          <PrimaryButton title={"Join the waitlist"} onPress={() => {
+            // TODO:- do something
+          }} disabled={false}  />
+        </View>)}
         {renderList()}
       </View>
     )
