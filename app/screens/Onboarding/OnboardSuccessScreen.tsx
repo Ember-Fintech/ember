@@ -14,6 +14,7 @@ type OnboardSuccessScreenProps = {
 export const OnboardSuccessScreen: React.FC<OnboardSuccessScreenProps> = ({ navigation }) => {
   const { colors } = useTheme()
 
+
   const onPressCta = () => {
     // TODO:- navigate to the next screen
     navigation.navigate(AppRoutes.CompanyDetails)
