@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react"
-import { View, Button, FlatList, TouchableOpacity } from "react-native"
+import { View, FlatList, TouchableOpacity } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { OnboardingStackParams } from "app/navigators/OnboardingStack"
 import { AppRoutes } from "app/navigators/constants/appRoutes"
@@ -12,7 +12,7 @@ import { AntDesign as Icon } from "@expo/vector-icons"
 import { Avatar, Image } from "react-native-ui-lib"
 import info from "assets/icons/companyDetails/elements.png"
 import { companyData } from "app/constants/companyData"
-import PrimaryButton from "app/components/PrimaryButton"
+// import PrimaryButton from "app/components/PrimaryButton"
 import {debounce} from 'app/utils/generalUtils'
 
 type CompanyDetailsScreenProps = {
@@ -311,7 +311,7 @@ export const CompanyDetailsScreen: React.FC<CompanyDetailsScreenProps> = ({ navi
               </Text.Caption>
             </Text.Caption>
           </View>
-          <PrimaryButton
+          <Button.Primary
             title="Continue"
             onPress={() => {
               navigation.navigate(AppRoutes.OnboardSuccess)

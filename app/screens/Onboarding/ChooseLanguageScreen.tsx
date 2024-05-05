@@ -7,7 +7,8 @@ import { useTheme } from "app/hooks/useTheme"
 import { Text, View } from "react-native-ui-lib"
 import RadioButtonCard from "app/components/RadioButtonGroup"
 import { languageSelectionData } from "app/constants/languageSelectionData"
-import PrimaryButton from "app/components/Button"
+// import PrimaryButton from "app/components/Button"
+import Button from "app/components/Button"
 
 type ChooseLanguageScreenProps = {
   navigation: StackScreenProps<OnboardingStackParams, AppRoutes.LanguageSelection>
@@ -74,7 +75,7 @@ export const ChooseLanguageScreen: React.FC<ChooseLanguageScreenProps> = ({ navi
             />
           </View>
           <View>
-            <PrimaryButton title={"Continue"} onPress={onPressPrimaryCTA} disabled={false} />
+            <Button.Primary label={"Continue"} onPress={onPressPrimaryCTA} disabled={false} />
           </View>
         </View>
       </View>
