@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react"
-import { View, Button, FlatList, TouchableOpacity } from "react-native"
+import { View, FlatList, TouchableOpacity } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { OnboardingStackParams } from "app/navigators/OnboardingStack"
 import { AppRoutes } from "app/navigators/constants/appRoutes"
@@ -12,8 +12,9 @@ import { AntDesign as Icon } from "@expo/vector-icons"
 import { Avatar, Image } from "react-native-ui-lib"
 import info from "assets/icons/companyDetails/elements.png"
 import { companyData } from "app/constants/companyData"
-import PrimaryButton from "app/components/PrimaryButton"
+// import PrimaryButton from "app/components/PrimaryButton"
 import {debounce} from 'app/utils/generalUtils'
+import Button from "app/components/Button"
 
 type CompanyDetailsScreenProps = {
   navigation: StackScreenProps<OnboardingStackParams, AppRoutes.CompanyDetails>
@@ -133,7 +134,7 @@ export const CompanyDetailsScreen: React.FC<CompanyDetailsScreenProps> = ({ navi
           left: '7%',
           width: '100%'
         }}>
-          <PrimaryButton title={"Join the waitlist"} onPress={() => {
+          <Button.Primary label={"Join the waitlist"} onPress={() => {
             // TODO:- do something
           }} disabled={false}  />
         </View>)}
@@ -311,10 +312,15 @@ export const CompanyDetailsScreen: React.FC<CompanyDetailsScreenProps> = ({ navi
               </Text.Caption>
             </Text.Caption>
           </View>
-          <PrimaryButton
-            title="Continue"
+          <Button.Primary
+            label="Continue"
             onPress={() => {
-              navigation.navigate(AppRoutes.OnboardSuccess)
+              navigation.navigate(AppRoutes.OnboardSuccess, {
+                heading: 'Welcome to Ember',
+                subHeading: 'Your identity has been successfully verified. Thank you for providing your details.',
+                ctaLabel: 'Go to Dashboard',
+                navigateTo: AppRoutes.MainAppStack
+              })
             }}
             disabled={!employeeId}
           />

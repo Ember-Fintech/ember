@@ -11,6 +11,8 @@ import { Formik } from "formik"
 import * as Yup from "yup"
 import PrimaryButton from "app/components/Button"
 import Text from "app/components/typography/Text"
+import Button from "app/components/Button"
+import { spacing } from "app/theme"
 
 type PhoneInputScreenProps = {
   navigation: StackScreenProps<OnboardingStackParams, AppRoutes.PhoneInput>
@@ -112,12 +114,12 @@ export const PhoneInputScreen: React.FC<PhoneInputScreenProps> = ({ navigation }
                   errorMessage={form?.errors?.phoneNumber}
                   onEndEditing={form.submitForm}
                 />
-                <View>
+                <View style={{ marginBottom: Spacings.s2 }}>
                   <Text.Caption style={{ marginBottom: Spacings.s2 }} color={Colors.textQuarterary}>
                     By continuing, you agree to our{"  "}
                     <Text.Caption color={Colors.primaryColor}>Terms and Conditions</Text.Caption>
                   </Text.Caption>
-                  <PrimaryButton onPress={form.submitForm} title={"Send OTP"} />
+                  <Button.Primary onPress={form.submitForm} label={"Send OTP"} />
                 </View>
               </View>
             )}
