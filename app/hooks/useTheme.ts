@@ -27,6 +27,7 @@ const useTheme = (): { theme: "light" | "dark"; colors: { [p: string]: string } 
       disabledText: "#98A2B3",
       textSecondary: "#A393D3",
       textQuarterary: "#667085",
+      offWhite: '#FAF9F6'
     })
     return Colors
   }, [colorMode])

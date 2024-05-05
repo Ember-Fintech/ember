@@ -54,7 +54,7 @@ const getPinContainerStyle = (otpState: OtpState) => {
   }
 }
 
-const PIN_BOX_WIDTH = 50
+const PIN_BOX_WIDTH = 45
 
 export const OtpInputScreen: React.FC<OtpInputScreenProps> = ({ navigation, route }) => {
   const phoneNumber = route?.params?.phoneNumber
@@ -195,7 +195,12 @@ export const OtpInputScreen: React.FC<OtpInputScreenProps> = ({ navigation, rout
         </View>
         <Button.Primary
           onPress={() => {
-            //do shit to verify the OTP
+            navigation.navigate(AppRoutes.OnboardSuccess, {
+              heading: 'Hurray! You are Verified! ',
+              subHeading: 'You are just a few steps away to begin your Emberful journey with us.',
+              ctaLabel: 'Get Started',
+              navigateTo: AppRoutes.CompanyDetails
+            })
           }}
           label={"Verify"}
           style={{ marginBottom: Spacings.s5 }}
