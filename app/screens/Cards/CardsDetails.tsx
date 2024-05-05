@@ -98,6 +98,7 @@ const CardsDetails = () => {
               weight="bold"
               style={{
                 lineHeight: 20,
+                color: colors.white
               }}
             >
               2224...
@@ -120,6 +121,7 @@ const CardsDetails = () => {
             weight="bold"
             style={{
               lineHeight: 18,
+              color: colors.white
             }}
           >
             ₹ 37,500
@@ -131,12 +133,15 @@ const CardsDetails = () => {
             >
               {"  "}of{"  "}
             </Text.Caption>
-            <Text.Body size="lg" weight="bold">
+            <Text.Body size="lg" weight="bold" style={{
+              color: colors.white
+            }}>
               ₹ 50,000{"  "}
             </Text.Body>
             <Text.Caption
               style={{
                 fontFamily: "Sans-Medium",
+                color: colors.white
               }}
             >
               available
@@ -158,20 +163,27 @@ const CardsDetails = () => {
           }}
         >
           <View>
-            <Text.Caption>Card Details</Text.Caption>
+            <Text.Caption style={{
+              color: colors.white
+            }}>Card Details</Text.Caption>
             <Text.Body
               size="sm"
               weight="semi-bold"
               style={{
                 textDecorationLine: "underline",
+                color: colors.white
               }}
             >
               Click Here
             </Text.Body>
           </View>
           <View>
-            <Text.Caption>Next Salary On</Text.Caption>
-            <Text.Body size="sm" weight="semi-bold">
+            <Text.Caption style={{
+              color: colors.white
+            }}>Next Salary On</Text.Caption>
+            <Text.Body size="sm" weight="semi-bold" style={{
+              color: colors.white
+            }}>
               9th April’24
             </Text.Body>
           </View>
@@ -254,17 +266,24 @@ const CardsDetails = () => {
             <Text.Caption
               style={{
                 fontFamily: "Sans-Medium",
+                color: colors.white
               }}
             >
               Credit card number
             </Text.Caption>
-            <Text.Body size="sm" weight="semi-bold">
+            <Text.Body size="sm" weight="semi-bold" style={{
+              color: colors.white
+            }}>
               {cvvHidden ? "1233 1233 1233 2858" : "•••• •••• •••• 2858"}
             </Text.Body>
           </View>
           <View>
-            <Text.Caption>CVV</Text.Caption>
-            <Text.Body size="sm" weight="semi-bold">
+            <Text.Caption style={{
+              color: colors.white
+            }}>CVV</Text.Caption>
+            <Text.Body size="sm" weight="semi-bold" style={{
+              color: colors.white
+            }}>
               {cvvHidden ? "•••" : "534"}
             </Text.Body>
           </View>
@@ -289,6 +308,7 @@ const CardsDetails = () => {
             }}
             style={{
               textDecorationLine: "underline",
+              color: colors.white
             }}
           >
             {cvvHidden ? "View CVV" : "Hide CVV"}
