@@ -9,7 +9,7 @@ interface IText extends TextProps {
   uppercase?: boolean
 }
 
-const HEADER_STYLE_MAP: { [r: HeaderSize]: Partial<TextStyle> } = {
+export const HEADER_STYLE_MAP: { [r: HeaderSize]: Partial<TextStyle> } = {
   xl: { fontSize: 48, lineHeight: 60 },
   lg: { fontSize: 36, lineHeight: 44 },
   md: { fontSize: 30, lineHeight: 38 },

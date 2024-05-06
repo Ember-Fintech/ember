@@ -54,6 +54,12 @@
       "bundler": "metro"
     },
     "plugins": [
+      [
+        "react-native-vision-camera",
+        {
+          "cameraPermissionText": "$(PRODUCT_NAME) needs access to your Camera."
+        }
+      ],
       "expo-localization",
       [
         "expo-build-properties",
