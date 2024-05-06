@@ -50,7 +50,7 @@ export type AppStackScreenProps<T extends keyof AppStackParamList & OnboardingSt
 const Stack = createStackNavigator<AppStackParamList>()
 
 const AppStack = () => {
-  const {isLoggedIn} = useLoggedIn()
+  const { isLoggedIn } = useLoggedIn()
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false, navigationBarColor: colors.background }}

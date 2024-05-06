@@ -4,6 +4,8 @@ import { BottomTabBar, createBottomTabNavigator } from "@react-navigation/bottom
 import { FontAwesome as Icon } from "@expo/vector-icons"
 import { WelcomeScreen } from "app/screens/Onboarding/WelcomeScreen"
 import { TabBarAdvancedButton } from "app/components/TabBarAdvancedButton"
+import ScanAndPayStack from "app/navigators/ScanAndPayStack"
+import { getFocusedRouteNameFromRoute } from "@react-navigation/native"
 
 const BottomBar = createBottomTabNavigator()
 
@@ -16,18 +18,17 @@ export const TabBar: React.FC<Props> = ({ barColor }) => (
     tabBar={(props) => (
       <View style={styles.navigatorContainer}>
         <BottomTabBar {...props} />
-        {/* {IS_IPHONE_X && ( */}
-        {/*   <View */}
-        {/*     style={[ */}
-        {/*       styles.xFillLine, */}
-        {/*       { */}
-        {/*         backgroundColor: barColor, */}
-        {/*       }, */}
-        {/*     ]} */}
-        {/*   /> */}
-        {/* )} */}
       </View>
     )}
+    screenOptions={({ route }) => {
+      console.log({ route })
+      return {
+        headerShown: false,
+        tabBarStyle: {
+          display: route.name === "UpiScanner" ? "none" : "flex",
+        },
+      }
+    }}
     tabBarOptions={{
       showIcon: true,
       style: styles.navigator,
@@ -52,7 +53,7 @@ export const TabBar: React.FC<Props> = ({ barColor }) => (
     />
     <BottomBar.Screen
       name="Rocket"
-      component={WelcomeScreen}
+      component={ScanAndPayStack}
       options={{
         tabBarButton: (props) => <TabBarAdvancedButton bgColor={barColor} {...props} />,
       }}
