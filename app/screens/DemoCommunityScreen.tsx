@@ -3,7 +3,7 @@ import { View, Text, ImageBackground } from "react-native"
 import { DemoTabScreenProps } from "../navigators/DemoNavigator"
 import { useTheme } from "app/hooks/useTheme"
 import verified from "../assets/images/verified.png"
-import PrimaryButton from "app/components/PrimaryButton"
+import PrimaryButton from "app/components/Button"
 
 export const DemoCommunityScreen: FC<DemoTabScreenProps<"DemoCommunity">> =
   function DemoCommunityScreen(_props) {

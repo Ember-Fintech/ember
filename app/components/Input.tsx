@@ -37,6 +37,7 @@ const Input = forwardRef<TextInput, Props>((props, ref: ForwardedRef<TextInput |
     errorMessage,
     label,
     infoMessage,
+    ...restProps
   } = props
   const internalInputRef = useRef<TextInput>()
   const [isFocused, setIsFocused] = useState<boolean>(false)
@@ -67,7 +68,7 @@ const Input = forwardRef<TextInput, Props>((props, ref: ForwardedRef<TextInput |
   const outerBorderColor = useMemo(getOuterBorderColor, [isFocused, errorMessage])
 
   return (
-    <>
+    <View>
       {label && <Text style={styles.label}>{label}</Text>}
       <View
         style={{
@@ -110,6 +111,7 @@ const Input = forwardRef<TextInput, Props>((props, ref: ForwardedRef<TextInput |
               height: "100%",
               fontSize: 16,
             }}
+            {...restProps}
           />
           {rightIcon && <View style={{ paddingRight: 10 }}>{rightIcon}</View>}
 
@@ -134,7 +136,7 @@ const Input = forwardRef<TextInput, Props>((props, ref: ForwardedRef<TextInput |
           <Text style={{ ...styles.bottomText, color: "#D92D20" }}>{errorMessage}</Text>
         </View>
       )}
-    </>
+    </View>
   )
 })
 

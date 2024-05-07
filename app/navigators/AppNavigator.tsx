@@ -14,6 +14,7 @@ import { colors } from "app/theme"
 import OnboardingStack, { OnboardingStackParams } from "app/navigators/OnboardingStack"
 import { TabBar } from "app/navigators/TabNavigation"
 import { AppRoutes } from "app/navigators/constants/appRoutes"
+import { useLoggedIn } from "app/hooks/useLoggedIn"
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -49,7 +50,7 @@ export type AppStackScreenProps<T extends keyof AppStackParamList & OnboardingSt
 const Stack = createStackNavigator<AppStackParamList>()
 
 const AppStack = () => {
-  const isLoggedIn = true
+  const {isLoggedIn} = useLoggedIn()
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false, navigationBarColor: colors.background }}
