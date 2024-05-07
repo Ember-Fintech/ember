@@ -35,10 +35,17 @@ export const UpiScanner: React.FC<UpiScannerProps> = ({ navigation }) => {
     <Screen bgSource={require("../../../assets/background/ripple-top-right.png")}>
       <Text
         onPress={() => {
+          navigation.navigate("Home")
+        }}
+      >
+        Go Back
+      </Text>
+      <Text
+        onPress={() => {
           navigation.navigate(AppRoutes.PaymentConfig)
         }}
       >
-        Gog tß
+        Go to next screen
       </Text>
     </Screen>
   )

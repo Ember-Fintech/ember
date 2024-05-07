@@ -1,7 +1,6 @@
 import React from "react"
 import { ImageBackground, Platform, StyleSheet, View } from "react-native"
 import { BottomTabBar, createBottomTabNavigator } from "@react-navigation/bottom-tabs"
-import { FontAwesome as Icon } from "@expo/vector-icons"
 import { WelcomeScreen } from "app/screens/Onboarding/WelcomeScreen"
 import { TabBarAdvancedButton } from "app/components/TabBarAdvancedButton"
 import background from "assets/background/bottom-tab-image.png"
@@ -11,11 +10,23 @@ import Wallet from "../../assets/icons/wallet.js"
 import UserCircle from "../../assets/icons/UserCircle.js"
 import Home from "../../assets/icons/home.js"
 import { Colors } from "react-native-ui-lib"
+import { AppRoutes } from "app/navigators/constants/appRoutes"
+import { getFocusedRouteNameFromRoute, Route } from "@react-navigation/native"
 
 const BottomBar = createBottomTabNavigator()
 
 type Props = {
   barColor: string
+}
+// add AppRoutes where you want to see tabs, otherwise it would be hidden
+const AppRoutesWithTab: AppRoutes[] = []
+
+const getTabBarStyle = (route: Partial<Route<string>>) => {
+  const routeName = getFocusedRouteNameFromRoute(route) ?? ""
+  if (!AppRoutesWithTab.includes(routeName as AppRoutes)) {
+    return { display: "none" }
+  }
+  return { display: "flex" }
 }
 
 export const TabBar: React.FC<Props> = ({ barColor }) => {
@@ -60,11 +71,13 @@ export const TabBar: React.FC<Props> = ({ barColor }) => {
         }}
       />
       <BottomBar.Screen
-        name="Rocket"
+        name={AppRoutes.ScanAndPayStack}
         component={ScanAndPayStack}
-        options={{
+        options={({ route }) => ({
+          headerShown: false,
+          tabBarStyle: { ...getTabBarStyle(route) },
           tabBarButton: (props) => <TabBarAdvancedButton bgColor={barColor} {...props} />,
-        }}
+        })}
       />
       <BottomBar.Screen
         name="Messages"
