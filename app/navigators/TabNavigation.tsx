@@ -6,6 +6,11 @@ import { WelcomeScreen } from "app/screens/Onboarding/WelcomeScreen"
 import { TabBarAdvancedButton } from "app/components/TabBarAdvancedButton"
 import background from "assets/background/bottom-tab-image.png"
 import ScanAndPayStack from "app/navigators/ScanAndPayStack"
+import Analytics from "../../assets/icons/analytics.js"
+import Wallet from "../../assets/icons/wallet.js"
+import UserCircle from "../../assets/icons/UserCircle.js"
+import Home from "../../assets/icons/home.js"
+import { Colors } from "react-native-ui-lib"
 
 const BottomBar = createBottomTabNavigator()
 
@@ -37,20 +42,21 @@ export const TabBar: React.FC<Props> = ({ barColor }) => {
           />
         ),
         tabBarLabel: () => null,
+        tabBarActiveTintColor: Colors.primaryColor,
       }}
     >
       <BottomBar.Screen
         name="Home"
         component={WelcomeScreen}
         options={{
-          tabBarIcon: ({ color }) => <Icon name="home" size={24} color={color} />,
+          tabBarIcon: ({ color }) => <Home size={24} color={color} />,
         }}
       />
       <BottomBar.Screen
         name="Profile"
         component={WelcomeScreen}
         options={{
-          tabBarIcon: ({ color }) => <Icon name="user" size={24} color={color} />,
+          tabBarIcon: ({ color }) => <Analytics size={24} color={color} />,
         }}
       />
       <BottomBar.Screen
@@ -64,14 +70,14 @@ export const TabBar: React.FC<Props> = ({ barColor }) => {
         name="Messages"
         component={WelcomeScreen}
         options={{
-          tabBarIcon: ({ color }) => <Icon name="wechat" size={24} color={color} />,
+          tabBarIcon: ({ color }) => <Wallet size={24} color={color} />,
         }}
       />
       <BottomBar.Screen
         name="Settings"
         component={WelcomeScreen}
         options={{
-          tabBarIcon: ({ color }) => <Icon name="gear" size={24} color={color} />,
+          tabBarIcon: ({ color }) => <UserCircle size={24} color={color} />,
         }}
       />
     </BottomBar.Navigator>
