@@ -13,5 +13,6 @@ export enum AppRoutes {
   ScanAndPayStack = "ScanAndPayStack",
   UpiScanner = "UpiScanner",
   PaymentConfig = "PaymentConfig",
+  UpiPinScreen = "UpiPinScreen",
   TransactionSuccess = "TransactionSuccess",
 }

@@ -7,8 +7,10 @@ import { ScanAndPayStackParams } from "app/navigators/ScanAndPayStack"
 import { ImageURISource, TextInput, View, ViewStyle } from "react-native"
 import { Avatar, ListItem, Spacings } from "react-native-ui-lib"
 import Button from "app/components/Button"
+import { useHeaderHeight } from "@react-navigation/elements"
+import { useNavigation } from "@react-navigation/native"
 
-const PaymentProvider = ({
+export const PaymentProvider = ({
   title,
   subtitle,
   avatarSource,
@@ -52,24 +54,29 @@ const PaymentProvider = ({
 type PaymentConfigProps = {
   navigation: StackScreenProps<ScanAndPayStackParams, AppRoutes.PaymentConfig>
 }
-export const PaymentConfig: React.FC<PaymentConfigProps> = ({ navigation }) => {
+export const PaymentConfig: React.FC<PaymentConfigProps> = () => {
   const [amount, setAmount] = useState<string>("")
+  const navigation = useNavigation()
   useEffect(() => {
     navigation.setOptions({
       headerShown: true,
       headerTitle: () => (
-        <Text.Body size={"lg"} weight={"semi-bold"}>
+        <Text.Body size={"lg"} weight={"semi-bold"} color={"#FFFFFF"}>
           Paying to
         </Text.Body>
       ),
+      headerTintColor: "#FFFFFF",
+      headerBackTitle: " ",
+      headerTitleStyle: { color: "white" },
       headerTransparent: true,
     })
   }, [])
   return (
     <Screen
-      keyboardOffset={-50}
+      keyboardOffset={0}
       safeAreaEdges={["top"]}
       preset={"fixed"}
+      style={{ marginTop: useHeaderHeight() }}
       bgSource={require("../../../assets/background/ripple-top-right.png")}
     >
       <View style={{ height: "100%" }}>
@@ -112,7 +119,7 @@ export const PaymentConfig: React.FC<PaymentConfigProps> = ({ navigation }) => {
         </View>
         <View
           style={{
-            flex: 0.2,
+            flex: 0.3,
             backgroundColor: "#F9FAFB",
             paddingHorizontal: Spacings.s5,
             borderTopRightRadius: Spacings.s4,
@@ -129,6 +136,9 @@ export const PaymentConfig: React.FC<PaymentConfigProps> = ({ navigation }) => {
             rightElement={<Button.Outlined size={"sm"} wrap={true} label={"Edit"} />}
           />
           <Button.Primary
+            onPress={() => {
+              navigation.navigate(AppRoutes.UpiPinScreen)
+            }}
             disabled={Number(amount) === 0}
             label={`Pay ${Number(amount) > 0 ? `₹${amount}` : ""}`}
           />
