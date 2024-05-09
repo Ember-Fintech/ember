@@ -5,6 +5,7 @@ import { FontAwesome as Icon } from "@expo/vector-icons"
 import { WelcomeScreen } from "app/screens/Onboarding/WelcomeScreen"
 import { TabBarAdvancedButton } from "app/components/TabBarAdvancedButton"
 import CardsDetails from "app/screens/Cards/CardsDetails"
+import CardsStack from "./CardsStack"
 
 const BottomBar = createBottomTabNavigator()
 
@@ -39,7 +40,7 @@ export const TabBar: React.FC<Props> = ({ barColor }) => (
   >
     <BottomBar.Screen
       name="Home"
-      component={CardsDetails}
+      component={CardsStack}
       options={{
         tabBarIcon: ({ color }) => <Icon name="home" size={24} color={color} />,
       }}

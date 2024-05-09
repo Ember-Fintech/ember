@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 
 export const useLoggedIn = create((set) => ({
-  isLoggedIn: false,
+  isLoggedIn: true,
   changeLoggedInStatus: () => set((state) => ({ isLoggedIn: !state.isLoggedIn })),
 }))
 
