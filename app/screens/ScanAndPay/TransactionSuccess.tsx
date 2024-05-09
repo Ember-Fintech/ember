@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { StackScreenProps } from "@react-navigation/stack"
 import { AppRoutes } from "app/navigators/constants/appRoutes"
-import { iconRegistry, Screen } from "app/components"
+import { Screen } from "app/components"
 import Text from "app/components/typography/Text"
 import { ScanAndPayStackParams } from "app/navigators/ScanAndPayStack"
 import { Avatar, Colors, Spacings } from "react-native-ui-lib"
@@ -9,6 +9,7 @@ import { Image, View } from "react-native"
 import format from "date-fns/format"
 import { PaymentProvider } from "app/screens/ScanAndPay/PaymentConfig"
 import Button from "app/components/Button"
+import { useUpiTransaction } from "app/hooks/useUpiTransaction"
 
 type TransactionSuccessProps = {
   navigation: StackScreenProps<ScanAndPayStackParams, AppRoutes.TransactionSuccess>
@@ -16,6 +17,8 @@ type TransactionSuccessProps = {
 
 export const TransactionSuccess: React.FC<TransactionSuccessProps> = ({ navigation }) => {
   const [success, setSuccess] = useState<boolean>(false)
+  const amount = useUpiTransaction((state) => state.amount)
+  const reset = useUpiTransaction((state) => state.reset)
 
   useEffect(() => {
     navigation.setOptions({
@@ -81,7 +84,7 @@ export const TransactionSuccess: React.FC<TransactionSuccessProps> = ({ navigati
                 weight={"semi-bold"}
                 style={{ marginBottom: Spacings.s6 }}
               >
-                ₹{""}
+                ₹ {amount}
               </Text.Heading>
               <Text.Caption
                 color={"#EAECF0"}
@@ -103,6 +106,7 @@ export const TransactionSuccess: React.FC<TransactionSuccessProps> = ({ navigati
               style={{ backgroundColor: "white" }}
               labelStyle={{ color: Colors.primaryColor }}
               onPress={() => {
+                reset()
                 navigation.reset({
                   index: 0,
                   routes: [{ name: "Home" }],

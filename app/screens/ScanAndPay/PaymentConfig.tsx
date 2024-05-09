@@ -9,6 +9,7 @@ import { Avatar, ListItem, Spacings } from "react-native-ui-lib"
 import Button from "app/components/Button"
 import { useHeaderHeight } from "@react-navigation/elements"
 import { useNavigation } from "@react-navigation/native"
+import { useUpiTransaction } from "app/hooks/useUpiTransaction"
 
 export const PaymentProvider = ({
   title,
@@ -55,8 +56,10 @@ type PaymentConfigProps = {
   navigation: StackScreenProps<ScanAndPayStackParams, AppRoutes.PaymentConfig>
 }
 export const PaymentConfig: React.FC<PaymentConfigProps> = () => {
-  const [amount, setAmount] = useState<string>("")
   const navigation = useNavigation()
+  const setAmount = useUpiTransaction((state) => state.setAmount)
+  const amount = useUpiTransaction((state) => state.amount)
+
   useEffect(() => {
     navigation.setOptions({
       headerShown: true,
