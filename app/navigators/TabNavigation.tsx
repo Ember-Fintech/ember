@@ -1,11 +1,12 @@
 import React from "react"
-import { StyleSheet, View } from "react-native"
+import { Image, ImageBackground, Platform, StyleSheet, View } from "react-native"
 import { BottomTabBar, createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { FontAwesome as Icon } from "@expo/vector-icons"
 import { WelcomeScreen } from "app/screens/Onboarding/WelcomeScreen"
 import { TabBarAdvancedButton } from "app/components/TabBarAdvancedButton"
 import CardsDetails from "app/screens/Cards/CardsDetails"
 import CardsStack from "./CardsStack"
+import background from "assets/background/bottom-tab-image.png"
 
 const BottomBar = createBottomTabNavigator()
 
@@ -18,16 +19,6 @@ export const TabBar: React.FC<Props> = ({ barColor }) => (
     tabBar={(props) => (
       <View style={styles.navigatorContainer}>
         <BottomTabBar {...props} />
-        {/* {IS_IPHONE_X && ( */}
-        {/*   <View */}
-        {/*     style={[ */}
-        {/*       styles.xFillLine, */}
-        {/*       { */}
-        {/*         backgroundColor: barColor, */}
-        {/*       }, */}
-        {/*     ]} */}
-        {/*   /> */}
-        {/* )} */}
       </View>
     )}
     tabBarOptions={{
@@ -44,37 +35,55 @@ export const TabBar: React.FC<Props> = ({ barColor }) => (
       options={{
         tabBarIcon: ({ color }) => <Icon name="home" size={24} color={color} />,
       }}
-    />
-    <BottomBar.Screen
-      name="Profile"
-      component={WelcomeScreen}
-      options={{
-        tabBarIcon: ({ color }) => <Icon name="user" size={24} color={color} />,
+      screenOptions={{
+        tabBarStyle: { position: "absolute", borderTopWidth: 0, elevation: 0 },
+        tabBarBackground: () => (
+          <ImageBackground
+            source={background}
+            style={{ height: Platform.OS === "ios" ? "100%" : "118%", width: "100%" }}
+          />
+        ),
+        tabBarLabel: () => null,
       }}
-    />
-    <BottomBar.Screen
-      name="Rocket"
-      component={WelcomeScreen}
-      options={{
-        tabBarButton: (props) => <TabBarAdvancedButton bgColor={barColor} {...props} />,
-      }}
-    />
-    <BottomBar.Screen
-      name="Messages"
-      component={WelcomeScreen}
-      options={{
-        tabBarIcon: ({ color }) => <Icon name="wechat" size={24} color={color} />,
-      }}
-    />
-    <BottomBar.Screen
-      name="Settings"
-      component={WelcomeScreen}
-      options={{
-        tabBarIcon: ({ color }) => <Icon name="gear" size={24} color={color} />,
-      }}
-    />
-  </BottomBar.Navigator>
-)
+    >
+      <BottomBar.Screen
+        name="Home"
+        component={WelcomeScreen}
+        options={{
+          tabBarIcon: ({ color }) => <Icon name="home" size={24} color={color} />,
+        }}
+      />
+      <BottomBar.Screen
+        name="Profile"
+        component={WelcomeScreen}
+        options={{
+          tabBarIcon: ({ color }) => <Icon name="user" size={24} color={color} />,
+        }}
+      />
+      <BottomBar.Screen
+        name="Rocket"
+        component={WelcomeScreen}
+        options={{
+          tabBarButton: (props) => <TabBarAdvancedButton bgColor={barColor} {...props} />,
+        }}
+      />
+      <BottomBar.Screen
+        name="Messages"
+        component={WelcomeScreen}
+        options={{
+          tabBarIcon: ({ color }) => <Icon name="wechat" size={24} color={color} />,
+        }}
+      />
+      <BottomBar.Screen
+        name="Settings"
+        component={WelcomeScreen}
+        options={{
+          tabBarIcon: ({ color }) => <Icon name="gear" size={24} color={color} />,
+        }}
+      />
+    </BottomBar.Navigator>
+  )
+}
 
 const styles = StyleSheet.create({
   container: {

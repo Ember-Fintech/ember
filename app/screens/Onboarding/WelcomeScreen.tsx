@@ -77,32 +77,29 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ navigation }) => {
     navigation.navigate(AppRoutes.PhoneInput)
   }
 
-  return (
-    <View
-      style={{
-        paddingTop: 60,
-        flex: 1,
-        backgroundColor: colors.primaryColor,
-      }}
-    >
-      <Carousel
-        layout={"default"}
-        data={carouselData}
-        sliderWidth={width}
-        itemWidth={width}
-        renderItem={renderItem}
-        onSnapToItem={(index: number) => setActiveIndex(index)}
-        scrollEnabled={false}
-      />
-      <PaginationDots />
+    return (
       <View
         style={{
-          marginHorizontal: 10,
+          paddingTop: 60,
+          flex: 1,
+          backgroundColor: colors.primaryColor,
         }}
       >
-        <Text
-          style={{
-            fontFamily: "Sans-SemiBold",
+        <Carousel
+          layout={"default"}
+          data={carouselData}
+          sliderWidth={width}
+          itemWidth={width}
+          renderItem={renderItem}
+          onSnapToItem={(index: number) => setActiveIndex(index)}
+          scrollEnabled={false}
+        />
+        <PaginationDots />
+        <View style={{
+          marginHorizontal: 10
+        }}>
+          <Text style={{
+            fontFamily: 'Sans-SemiBold',
             fontSize: 24,
             textAlign: "center",
             color: colors.white,
