@@ -7,18 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		10A75B846C64498A8251DDA2 /* PlusJakartaSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE602F16611A41A69EA8A54C /* PlusJakartaSans-Regular.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		2346D93C9C8348AEBF2D156D /* Inter-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 036A7B8B781F42EDA8597851 /* Inter-Bold.ttf */; };
+		34BEA780FA97474BB5CA41AA /* PlusJakartaSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1190E2FF65344EE9A85DA4CA /* PlusJakartaSans-Bold.ttf */; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
 		3F5980AE0AE24F20879D3C43 /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CDB752013834289AF437194 /* noop-file.swift */; };
+		41251786D91A4702B21CC262 /* Inter-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7D1FD4F7BE17492D9134FCA2 /* Inter-SemiBold.ttf */; };
 		60BF62B72BA60ABD00F55B35 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 60BF62B62BA60ABD00F55B35 /* GoogleService-Info.plist */; };
+		9425079C69444C5D89093DE3 /* PlusJakartaSans-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9D0F3DBE012548E696262B75 /* PlusJakartaSans-Medium.ttf */; };
+		9579CBBEB7DE4DFD8B6E5381 /* PlusJakartaSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C30023EFD1664BF9BAF5EA38 /* PlusJakartaSans-SemiBold.ttf */; };
 		B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */; };
+		B7C4FB8C0C7F43368B60BF4D /* Inter-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 906CC250F3F14652978E4DEF /* Inter-Regular.ttf */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
+		F1DC6C64F2144EF483302891 /* Inter-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 015BD861D2B94EACAB5F0B4C /* Inter-Medium.ttf */; };
 		F4B5057CEFCEE3DA17504ABA /* Pods_Ember.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 429677993460563013467F2E /* Pods_Ember.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		015BD861D2B94EACAB5F0B4C /* Inter-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Medium.ttf"; path = "../assets/fonts/Inter-Medium.ttf"; sourceTree = "<group>"; };
+		036A7B8B781F42EDA8597851 /* Inter-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Bold.ttf"; path = "../assets/fonts/Inter-Bold.ttf"; sourceTree = "<group>"; };
+		1190E2FF65344EE9A85DA4CA /* PlusJakartaSans-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "PlusJakartaSans-Bold.ttf"; path = "../assets/fonts/PlusJakartaSans-Bold.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Ember.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ember.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Ember/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = Ember/AppDelegate.mm; sourceTree = "<group>"; };
@@ -30,10 +41,15 @@
 		6C2E3173556A471DD304B334 /* Pods-Ember.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ember.debug.xcconfig"; path = "Target Support Files/Pods-Ember/Pods-Ember.debug.xcconfig"; sourceTree = "<group>"; };
 		6CDB752013834289AF437194 /* noop-file.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "noop-file.swift"; path = "Ember/noop-file.swift"; sourceTree = "<group>"; };
 		7A4D352CD337FB3A3BF06240 /* Pods-Ember.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ember.release.xcconfig"; path = "Target Support Files/Pods-Ember/Pods-Ember.release.xcconfig"; sourceTree = "<group>"; };
+		7D1FD4F7BE17492D9134FCA2 /* Inter-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-SemiBold.ttf"; path = "../assets/fonts/Inter-SemiBold.ttf"; sourceTree = "<group>"; };
 		8A1BED1C30264E09B023C8D6 /* Ember-Bridging-Header.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = "Ember-Bridging-Header.h"; path = "Ember/Ember-Bridging-Header.h"; sourceTree = "<group>"; };
+		906CC250F3F14652978E4DEF /* Inter-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Regular.ttf"; path = "../assets/fonts/Inter-Regular.ttf"; sourceTree = "<group>"; };
+		9D0F3DBE012548E696262B75 /* PlusJakartaSans-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "PlusJakartaSans-Medium.ttf"; path = "../assets/fonts/PlusJakartaSans-Medium.ttf"; sourceTree = "<group>"; };
 		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = Ember/SplashScreen.storyboard; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
+		C30023EFD1664BF9BAF5EA38 /* PlusJakartaSans-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "PlusJakartaSans-SemiBold.ttf"; path = "../assets/fonts/PlusJakartaSans-SemiBold.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		EE602F16611A41A69EA8A54C /* PlusJakartaSans-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "PlusJakartaSans-Regular.ttf"; path = "../assets/fonts/PlusJakartaSans-Regular.ttf"; sourceTree = "<group>"; };
 		FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-Ember/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -74,6 +90,22 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		4BAE97C2B1154F2EB0145ED4 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				036A7B8B781F42EDA8597851 /* Inter-Bold.ttf */,
+				015BD861D2B94EACAB5F0B4C /* Inter-Medium.ttf */,
+				906CC250F3F14652978E4DEF /* Inter-Regular.ttf */,
+				7D1FD4F7BE17492D9134FCA2 /* Inter-SemiBold.ttf */,
+				1190E2FF65344EE9A85DA4CA /* PlusJakartaSans-Bold.ttf */,
+				9D0F3DBE012548E696262B75 /* PlusJakartaSans-Medium.ttf */,
+				EE602F16611A41A69EA8A54C /* PlusJakartaSans-Regular.ttf */,
+				C30023EFD1664BF9BAF5EA38 /* PlusJakartaSans-SemiBold.ttf */,
+			);
+			name = Resources;
+			path = "";
+			sourceTree = "<group>";
+		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -91,6 +123,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				D65327D7A22EEC0BE12398D9 /* Pods */,
 				D7E4C46ADA2E9064B798F356 /* ExpoModulesProviders */,
+				4BAE97C2B1154F2EB0145ED4 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -206,6 +239,14 @@
 				60BF62B72BA60ABD00F55B35 /* GoogleService-Info.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
+				2346D93C9C8348AEBF2D156D /* Inter-Bold.ttf in Resources */,
+				F1DC6C64F2144EF483302891 /* Inter-Medium.ttf in Resources */,
+				B7C4FB8C0C7F43368B60BF4D /* Inter-Regular.ttf in Resources */,
+				41251786D91A4702B21CC262 /* Inter-SemiBold.ttf in Resources */,
+				34BEA780FA97474BB5CA41AA /* PlusJakartaSans-Bold.ttf in Resources */,
+				9425079C69444C5D89093DE3 /* PlusJakartaSans-Medium.ttf in Resources */,
+				10A75B846C64498A8251DDA2 /* PlusJakartaSans-Regular.ttf in Resources */,
+				9579CBBEB7DE4DFD8B6E5381 /* PlusJakartaSans-SemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

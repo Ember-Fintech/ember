@@ -15,7 +15,8 @@ const lightThemeColors: UIColors = {
   background: "white",
 }
 const useTheme = (): { theme: "light" | "dark"; colors: { [p: string]: string } } => {
-  const colorMode: "dark" | "light" = useColorScheme() === "dark" ? "dark" : "light"
+  // const colorMode: "dark" | "light" = useColorScheme() === "dark" ? "dark" : "light"
+  const colorMode = "light"
 
   const colors = useMemo(() => {
     Colors.loadColors({
@@ -27,7 +28,7 @@ const useTheme = (): { theme: "light" | "dark"; colors: { [p: string]: string } 
       disabledText: "#98A2B3",
       textSecondary: "#A393D3",
       textQuarterary: "#667085",
-      offWhite: '#FAF9F6'
+      offWhite: "#FAF9F6",
     })
     return Colors
   }, [colorMode])
