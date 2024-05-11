@@ -54,9 +54,9 @@ const AppStack = () => {
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false, navigationBarColor: colors.background }}
-      initialRouteName={isLoggedIn ? AppRoutes.MainAppStack : AppRoutes.OnboardingStack}
+      initialRouteName={!isLoggedIn ? AppRoutes.MainAppStack : AppRoutes.OnboardingStack}
     >
-      {!isLoggedIn ? (
+      {isLoggedIn ? (
         <Stack.Screen name={AppRoutes.OnboardingStack} component={OnboardingStack} />
       ) : (
         <Stack.Screen name={AppRoutes.MainAppStack} component={TabBar} />
