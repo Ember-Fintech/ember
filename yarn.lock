@@ -9496,6 +9496,11 @@ react-native-ui-lib@^7.19.0:
     url-parse "^1.2.0"
     wix-react-native-text-size "~1.0.0"
 
+react-native-vision-camera@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-vision-camera/-/react-native-vision-camera-4.0.2.tgz#e8f8690ed52460c03659ba37d04ff6af4b269599"
+  integrity sha512-jbKn6D813rmid3Z5wDLNNGa2WX5SI5fdFPXMDNwPCo0tFDqR8si0u+GqKXVyJhVFjN99dmw7somaT1XSfEjatA==
+
 react-native-web@~0.19.6:
   version "0.19.10"
   resolved "https://registry.yarnpkg.com/react-native-web/-/react-native-web-0.19.10.tgz#5f7205f8909c0889bc89c9fde7c6e287defa7c63"

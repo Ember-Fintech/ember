@@ -50,13 +50,13 @@ export type AppStackScreenProps<T extends keyof AppStackParamList & OnboardingSt
 const Stack = createStackNavigator<AppStackParamList>()
 
 const AppStack = () => {
-  const {isLoggedIn} = useLoggedIn()
+  const { isLoggedIn } = useLoggedIn()
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false, navigationBarColor: colors.background }}
-      initialRouteName={isLoggedIn ? AppRoutes.MainAppStack : AppRoutes.OnboardingStack}
+      initialRouteName={!isLoggedIn ? AppRoutes.MainAppStack : AppRoutes.OnboardingStack}
     >
-      {!isLoggedIn ? (
+      {isLoggedIn ? (
         <Stack.Screen name={AppRoutes.OnboardingStack} component={OnboardingStack} />
       ) : (
         <Stack.Screen name={AppRoutes.MainAppStack} component={TabBar} />

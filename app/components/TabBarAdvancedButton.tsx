@@ -1,8 +1,7 @@
 import React from "react"
-import { StyleSheet, TouchableOpacity, View, Image } from "react-native"
+import { StyleSheet, View, Image, Pressable } from "react-native"
 import { BottomTabBarButtonProps } from "@react-navigation/bottom-tabs/lib/typescript/src/types"
-import { FontAwesome as Icon } from "@expo/vector-icons"
-import scan from "assets/icons/customIcons/Scan.png";
+import scan from "assets/icons/customIcons/Scan.png"
 
 type Props = BottomTabBarButtonProps & {
   bgColor?: string
@@ -11,12 +10,15 @@ type Props = BottomTabBarButtonProps & {
 export const TabBarAdvancedButton: React.FC<Props> = ({ bgColor, ...props }) => (
   <View style={styles.container} pointerEvents="box-none">
     <View style={styles.background} />
-    <TouchableOpacity style={styles.button} onPress={props.onPress}>
-      <Image source={scan} style={{
-        height: 28,
-        width: 28
-      }} />
-    </TouchableOpacity>
+    <Pressable style={styles.button} onPress={props.onPress}>
+      <Image
+        source={scan}
+        style={{
+          height: 28,
+          width: 28,
+        }}
+      />
+    </Pressable>
   </View>
 )
 

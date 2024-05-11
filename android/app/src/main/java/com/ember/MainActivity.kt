@@ -44,9 +44,9 @@ class MainActivity : ReactActivity() {
   }
 
 
-   override fun onConfigurationChanged(Configuration newConfig) {
+   override fun onConfigurationChanged( newConfig:Configuration) {
       super.onConfigurationChanged(newConfig);
-      Intent intent = new Intent("onConfigurationChanged");
+       val intent = Intent("onConfigurationChanged");
       intent.putExtra("newConfig", newConfig);
       sendBroadcast(intent);
     }
