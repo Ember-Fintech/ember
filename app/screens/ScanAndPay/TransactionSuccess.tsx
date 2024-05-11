@@ -19,6 +19,7 @@ export const TransactionSuccess: React.FC<TransactionSuccessProps> = ({ navigati
   const [success, setSuccess] = useState<boolean>(false)
   const amount = useUpiTransaction((state) => state.amount)
   const reset = useUpiTransaction((state) => state.reset)
+  const { receiver } = useUpiTransaction()
 
   useEffect(() => {
     navigation.setOptions({
@@ -94,9 +95,8 @@ export const TransactionSuccess: React.FC<TransactionSuccessProps> = ({ navigati
               )}`}</Text.Caption>
               <PaymentProvider
                 disabled={true}
-                title={"Hello"}
-                subtitle={"I'm subtitle"}
-                avatarSource={require("../../../assets/images/app-icon-all.png")}
+                title={receiver?.name}
+                subtitle={receiver?.upiId}
                 containerStyle={{ backgroundColor: "#D0C0FF", width: "100%" }}
               />
             </View>

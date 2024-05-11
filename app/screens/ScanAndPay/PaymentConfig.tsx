@@ -21,7 +21,7 @@ export const PaymentProvider = ({
 }: {
   title: string
   subtitle: string
-  avatarSource: ImageURISource
+  avatarSource?: ImageURISource
   rightElement?: ReactElement
   disabled?: boolean
   containerStyle?: ViewStyle
@@ -37,7 +37,11 @@ export const PaymentProvider = ({
       disabled={disabled}
     >
       <ListItem.Part left>
-        <Avatar size={35} source={avatarSource} />
+        <Avatar
+          size={35}
+          source={avatarSource ?? undefined}
+          name={avatarSource ? undefined : title}
+        />
       </ListItem.Part>
       <ListItem.Part middle containerStyle={{ marginLeft: Spacings.s4 }}>
         <View>
@@ -59,6 +63,7 @@ export const PaymentConfig: React.FC<PaymentConfigProps> = () => {
   const navigation = useNavigation()
   const setAmount = useUpiTransaction((state) => state.setAmount)
   const amount = useUpiTransaction((state) => state.amount)
+  const { receiver } = useUpiTransaction()
 
   useEffect(() => {
     navigation.setOptions({
@@ -86,9 +91,8 @@ export const PaymentConfig: React.FC<PaymentConfigProps> = () => {
         <View style={{ flex: 0.7, paddingHorizontal: Spacings.s5, marginTop: Spacings.s2 }}>
           <PaymentProvider
             disabled={true}
-            title={"Hello"}
-            subtitle={"I'm subtitle"}
-            avatarSource={require("../../../assets/images/app-icon-all.png")}
+            title={receiver?.name}
+            subtitle={receiver?.upiId}
             containerStyle={{ backgroundColor: "#D0C0FF" }}
           />
           <View style={{ alignItems: "center", marginTop: Spacings.s10 }}>
@@ -133,9 +137,9 @@ export const PaymentConfig: React.FC<PaymentConfigProps> = () => {
         >
           <PaymentProvider
             disabled={true}
-            title={"Hello"}
-            subtitle={"I'm subtitle"}
-            avatarSource={require("../../../assets/images/app-icon-all.png")}
+            title={"Ember Credit Line"}
+            subtitle={"Remaining: ₹63,250.00"}
+            avatarSource={require("../../../assets/icons/ember-logo.png")}
             rightElement={<Button.Outlined size={"sm"} wrap={true} label={"Edit"} />}
           />
           <Button.Primary
