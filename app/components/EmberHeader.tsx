@@ -54,7 +54,7 @@ const EmberHeader = (props: IProps) => {
             size="lg"
             style={{
               fontFamily: "Inter-SemiBold",
-			  color: colors.white
+              color: colors.white,
             }}
           >
             {title}
