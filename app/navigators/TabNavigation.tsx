@@ -3,6 +3,8 @@ import { ImageBackground, Platform, StyleSheet, View } from "react-native"
 import { BottomTabBar, createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { WelcomeScreen } from "app/screens/Onboarding/WelcomeScreen"
 import { TabBarAdvancedButton } from "app/components/TabBarAdvancedButton"
+import CardsDetails from "app/screens/Cards/CardsDetails"
+import CardsStack from "./CardsStack"
 import background from "assets/background/bottom-tab-image.png"
 import ScanAndPayStack from "app/navigators/ScanAndPayStack"
 import Analytics from "../../assets/icons/analytics.js"
@@ -29,20 +31,26 @@ const getTabBarStyle = (route: Partial<Route<string>>) => {
   return { display: "flex" }
 }
 
-export const TabBar: React.FC<Props> = ({ barColor }) => {
-  return (
-    <BottomBar.Navigator
-      tabBar={(props) => (
-        <View style={styles.navigatorContainer}>
-          <BottomTabBar {...props} />
-        </View>
-      )}
-      tabBarOptions={{
-        showIcon: true,
-        style: styles.navigator,
-        tabStyle: {
-          backgroundColor: barColor,
-        },
+export const TabBar: React.FC<Props> = ({ barColor }) => (
+  <BottomBar.Navigator
+    tabBar={(props) => (
+      <View style={styles.navigatorContainer}>
+        <BottomTabBar {...props} />
+      </View>
+    )}
+    tabBarOptions={{
+      showIcon: true,
+      style: styles.navigator,
+      tabStyle: {
+        backgroundColor: barColor,
+      },
+    }}
+  >
+    <BottomBar.Screen
+      name="Home"
+      component={CardsStack}
+      options={{
+        tabBarIcon: ({ color }) => <Icon name="home" size={24} color={color} />,
       }}
       screenOptions={{
         tabBarStyle: { position: "absolute", borderTopWidth: 0, elevation: 0 },
