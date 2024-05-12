@@ -1,6 +1,6 @@
 import FlippableCard from "app/components/Cards/FlipableCard"
 import Text from "app/components/typography/Text"
-import React, { useCallback, useState } from "react"
+import React, { useCallback, useRef, useState } from "react"
 import { FlatList, Image, ImageBackground, TouchableOpacity, View } from "react-native"
 import background from "assets/background/card-background.png"
 import brand from "assets/cards/brand.png"
@@ -19,6 +19,9 @@ import { ProgressBar } from "react-native-ui-lib"
 import TopTabBar, { SingleTopTabDataPoint } from "app/components/TopTabBar"
 import BlockCardModal from "app/components/Modals/BlockCardModal"
 import { AppRoutes } from "app/navigators/constants/appRoutes"
+// import TakeAndConfirmSelfieModal from "app/components/Modals/TakeAndConfirmSelfie"
+// import BankVerificationModal from "app/components/Modals/BankVerificationModal"
+import AadharAuthModal from "app/components/Modals/AadharAuthModal"
 
 interface ICardManageData {
   index: number
@@ -76,6 +79,8 @@ const CardsDetails = ({navigation}) => {
   const [cvvHidden, setCvvHidden] = useState<boolean>(false)
   const [activeMenuIndex, setActiveMenuIndex] = useState<number>(0)
   const [showBlockCardModal, setShowBlockCardModal] = useState<boolean>(false);
+  const [showSelfieModal, setShowSelfieModal] = useState<boolean>(false);
+
 
   const manageCardData: Array<ICardManageData> = [
     {
@@ -99,7 +104,7 @@ const CardsDetails = ({navigation}) => {
       title: "Set/Reset PIN",
       icon: resetPin,
       onPress: () => {
-        setShowBlockCardModal(true);
+        setShowSelfieModal(true);
       }
     },
     {
@@ -587,6 +592,7 @@ const CardsDetails = ({navigation}) => {
         {renderComponentAccordingToMenuIndex()}
       </View>
       <BlockCardModal isVisible={showBlockCardModal} setIsVisible={setShowBlockCardModal} />
+      <AadharAuthModal isVisible={showSelfieModal} setIsVisible={setShowSelfieModal} />
     </View>
   )
 }

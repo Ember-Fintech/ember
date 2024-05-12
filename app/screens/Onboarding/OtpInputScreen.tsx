@@ -20,7 +20,7 @@ const millisecondsToMMSS = (milliseconds) => {
   const seconds = totalSeconds % 60
   return `${minutes < 10 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds}`
 }
-enum OtpState {
+export enum OtpState {
   Valid,
   Invalid,
   None,
