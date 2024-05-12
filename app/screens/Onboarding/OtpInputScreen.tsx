@@ -61,6 +61,7 @@ export const OtpInputScreen: React.FC<OtpInputScreenProps> = ({ navigation, rout
   const [confirm, setConfirm] = useState(null)
   const [otpState, setOtpState] = useState<OtpState>(OtpState.None)
   const { countDown, restart } = useCountdown(12000)
+  const [otp, setOtp] = useState<string>("")
 
   async function signInWithPhoneNumber(phoneNumber) {
     const confirmation = await auth().signInWithPhoneNumber(phoneNumber)
@@ -169,6 +170,9 @@ export const OtpInputScreen: React.FC<OtpInputScreenProps> = ({ navigation, rout
             textInputProps={{
               accessibilityLabel: "One-Time Password",
             }}
+            onTextChange={(text) => {
+              setOtp(text)
+            }}
             theme={{
               containerStyle: {
                 marginBottom: Spacings.s6,
@@ -195,14 +199,17 @@ export const OtpInputScreen: React.FC<OtpInputScreenProps> = ({ navigation, rout
         </View>
         <Button.Primary
           onPress={() => {
-            navigation.navigate(AppRoutes.OnboardSuccess, {
-              heading: 'Hurray! You are Verified! ',
-              subHeading: 'You are just a few steps away to begin your Emberful journey with us.',
-              ctaLabel: 'Get Started',
-              navigateTo: AppRoutes.CompanyDetails
-            })
+            if (otp.length === 6) {
+              navigation.navigate(AppRoutes.OnboardSuccess, {
+                heading: "Hurray! You are Verified! ",
+                subHeading: "You are just a few steps away to begin your Emberful journey with us.",
+                ctaLabel: "Get Started",
+                navigateTo: AppRoutes.CompanyDetails,
+              })
+            }
           }}
           label={"Verify"}
+          disabled={otp.length < 6}
           style={{ marginBottom: Spacings.s5 }}
         />
       </View>

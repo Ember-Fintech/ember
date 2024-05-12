@@ -74,7 +74,6 @@ export const CompanyDetailsScreen: React.FC<CompanyDetailsScreenProps> = ({ navi
       <View
         style={{
           padding: 20,
-          marginTop: 20,
           backgroundColor: colors.white,
           borderRadius: 20,
           flex: 1,
@@ -315,7 +314,7 @@ export const CompanyDetailsScreen: React.FC<CompanyDetailsScreenProps> = ({ navi
           <Button.Primary
             label="Continue"
             onPress={() => {
-              navigation.navigate(AppRoutes.OnboardSuccess, {
+              navigation.push(AppRoutes.OnboardSuccess, {
                 heading: 'Welcome to Ember',
                 subHeading: 'Your identity has been successfully verified. Thank you for providing your details.',
                 ctaLabel: 'Go to Dashboard',
@@ -337,13 +336,13 @@ export const CompanyDetailsScreen: React.FC<CompanyDetailsScreenProps> = ({ navi
       }}
       behavior="padding"
     >
-      <EmberHeader
+      {/* <EmberHeader
         title={"Company Details"}
         showLeftIcon
         showRightIcon
         onPressLeftIcon={handleLeftIconPressed}
         onPressRightIcon={handleRightIconPressed}
-      />
+      /> */}
       {renderCorrectScreen()}
       {/* <Button title="Next" onPress={() => navigation.navigate(AppRoutes.OnboardSuccess)} /> */}
     </KeyboardAvoidingView>
