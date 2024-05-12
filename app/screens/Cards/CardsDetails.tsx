@@ -1,6 +1,6 @@
 import FlippableCard from "app/components/Cards/FlipableCard"
 import Text from "app/components/typography/Text"
-import React, { useCallback, useState } from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import { FlatList, Image, ImageBackground, TouchableOpacity, View } from "react-native"
 import background from "assets/background/card-background.png"
 import brand from "assets/cards/brand.png"
@@ -19,6 +19,8 @@ import { ProgressBar } from "react-native-ui-lib"
 import TopTabBar, { SingleTopTabDataPoint } from "app/components/TopTabBar"
 import BlockCardModal from "app/components/Modals/BlockCardModal"
 import { AppRoutes } from "app/navigators/constants/appRoutes"
+import { Screen } from "app/components"
+import { useHeaderHeight } from "@react-navigation/elements"
 
 interface ICardManageData {
   index: number
@@ -37,8 +39,6 @@ const topBarData: Array<SingleTopTabDataPoint> = [
     title: "Card Details",
   },
 ]
-
-
 
 const cardDetailsData: Array<any> = [
   {
@@ -71,11 +71,26 @@ const cardDetailsData: Array<any> = [
   },
 ]
 
-const CardsDetails = ({navigation}) => {
+const CardsDetails = ({ navigation }) => {
   const { colors } = useTheme()
   const [cvvHidden, setCvvHidden] = useState<boolean>(false)
   const [activeMenuIndex, setActiveMenuIndex] = useState<number>(0)
-  const [showBlockCardModal, setShowBlockCardModal] = useState<boolean>(false);
+  const [showBlockCardModal, setShowBlockCardModal] = useState<boolean>(false)
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerShown: true,
+      headerTitle: () => (
+        <Text.Body size={"lg"} weight={"semi-bold"} color={"#000000"}>
+          Edit Card
+        </Text.Body>
+      ),
+      headerTintColor: "#000000",
+      headerBackTitle: " ",
+      headerTitleStyle: { color: "white" },
+      headerTransparent: true,
+    })
+  }, [])
 
   const manageCardData: Array<ICardManageData> = [
     {
@@ -84,7 +99,7 @@ const CardsDetails = ({navigation}) => {
       icon: card,
       onPress: () => {
         navigation.navigate(AppRoutes.CardsLock)
-      }
+      },
     },
     {
       index: 1,
@@ -92,23 +107,23 @@ const CardsDetails = ({navigation}) => {
       icon: limits,
       onPress: () => {
         navigation.navigate(AppRoutes.CardsLimit)
-      }
+      },
     },
     {
       index: 2,
       title: "Set/Reset PIN",
       icon: resetPin,
       onPress: () => {
-        setShowBlockCardModal(true);
-      }
+        setShowBlockCardModal(true)
+      },
     },
     {
       index: 3,
       title: "Block Card",
       icon: block,
       onPress: () => {
-        setShowBlockCardModal(true);
-      }
+        setShowBlockCardModal(true)
+      },
     },
   ]
 
@@ -403,7 +418,7 @@ const CardsDetails = ({navigation}) => {
     return (
       <TouchableOpacity
         onPress={() => {
-          item.onPress();
+          item.onPress()
         }}
         style={{
           flexDirection: "row",
@@ -474,17 +489,19 @@ const CardsDetails = ({navigation}) => {
 
   const renderCardDetailList = ({ item, index }) => {
     return (
-      <View style={{
-        flexDirection: 'column',
-        alignItems: 'center',
-        borderWidth: 1,
-        borderRadius: 12,
-        width: '48%',
-        paddingVertical: 20,
-        paddingHorizontal: 16,
-        borderColor: 'rgba(242, 244, 247, 1)',
-        marginLeft: index%2===0 ? '0' : '4%'
-      }}>
+      <View
+        style={{
+          flexDirection: "column",
+          alignItems: "center",
+          borderWidth: 1,
+          borderRadius: 12,
+          width: "48%",
+          paddingVertical: 20,
+          paddingHorizontal: 16,
+          borderColor: "rgba(242, 244, 247, 1)",
+          marginLeft: index % 2 === 0 ? "0" : "4%",
+        }}
+      >
         <View
           style={{
             height: 36,
@@ -529,7 +546,7 @@ const CardsDetails = ({navigation}) => {
         <View
           style={{
             marginTop: 16,
-            marginBottom: 8
+            marginBottom: 8,
           }}
         >
           <Text.Body
@@ -542,9 +559,14 @@ const CardsDetails = ({navigation}) => {
             Best offers on this card!
           </Text.Body>
         </View>
-        <FlatList data={cardDetailsData} renderItem={renderCardDetailList} numColumns={2} contentContainerStyle={{
-          rowGap: 14,
-        }} />
+        <FlatList
+          data={cardDetailsData}
+          renderItem={renderCardDetailList}
+          numColumns={2}
+          contentContainerStyle={{
+            rowGap: 14,
+          }}
+        />
       </View>
     )
   }
@@ -557,37 +579,36 @@ const CardsDetails = ({navigation}) => {
   }, [activeMenuIndex])
 
   return (
-    <View
-      style={{
-        flex: 1,
-      }}
-    >
-      <FlippableCard
-        frontContent={frontCardContent()}
-        backContent={backCardContent()}
-        frontStyle={undefined}
-        backStyle={undefined}
-      />
-      <View
-        style={{
-          marginTop: 230,
-          backgroundColor: colors.white,
-          flex: 1,
-          paddingTop: 20,
-          paddingHorizontal: 24,
-          borderTopLeftRadius: 20,
-          borderTopRightRadius: 20,
-        }}
-      >
-        <TopTabBar
-          data={topBarData}
-          activeMenuIndex={activeMenuIndex}
-          setActiveMenuIndex={setActiveMenuIndex}
+    <Screen style={{ marginTop: useHeaderHeight() }}>
+      <View style={{ height: "100%" }}>
+        <FlippableCard
+          frontContent={frontCardContent()}
+          backContent={backCardContent()}
+          frontStyle={undefined}
+          backStyle={undefined}
         />
-        {renderComponentAccordingToMenuIndex()}
+        <View
+          style={{
+            marginTop: 230,
+            backgroundColor: colors.white,
+            flex: 1,
+            paddingTop: 20,
+            paddingHorizontal: 24,
+            borderTopLeftRadius: 20,
+            borderTopRightRadius: 20,
+          }}
+        >
+          <TopTabBar
+            data={topBarData}
+            activeMenuIndex={activeMenuIndex}
+            setActiveMenuIndex={setActiveMenuIndex}
+          />
+          {renderComponentAccordingToMenuIndex()}
+        </View>
       </View>
+
       <BlockCardModal isVisible={showBlockCardModal} setIsVisible={setShowBlockCardModal} />
-    </View>
+    </Screen>
   )
 }
 

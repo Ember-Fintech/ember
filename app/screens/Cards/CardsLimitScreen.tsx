@@ -1,8 +1,11 @@
 import TopTabBar, { SingleTopTabDataPoint } from "app/components/TopTabBar"
 import Text from "app/components/typography/Text"
-import React, { useCallback, useState } from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import { FlatList, Image, View } from "react-native"
 import card from "assets/cards/card.png"
+import { useNavigation } from "@react-navigation/native"
+import { useHeaderHeight } from "@react-navigation/elements"
+import { Screen } from "app/components"
 
 interface ICardLimitData {
   index: number
@@ -45,6 +48,22 @@ const cardLimitData: Array<ICardLimitData> = [
 ]
 
 const CardsLimit = () => {
+  const navigation = useNavigation()
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerShown: true,
+      headerTitle: () => (
+        <Text.Body size={"lg"} weight={"semi-bold"} color={"#000000"}>
+          Manage Card Limits
+        </Text.Body>
+      ),
+      headerTintColor: "#000000",
+      headerBackTitle: " ",
+      headerTitleStyle: { color: "white" },
+      headerTransparent: true,
+    })
+  }, [])
   const [activeMenuIndex, setActiveMenuIndex] = useState<number>(0)
 
   const renderDomesticCardLimitListItem = ({ item }: { item: ICardLimitData }) => {
@@ -144,7 +163,7 @@ const CardsLimit = () => {
     )
   }
 
-	const renderInternationalCardLimitListItem = ({ item }: { item: ICardLimitData }) => {
+  const renderInternationalCardLimitListItem = ({ item }: { item: ICardLimitData }) => {
     return (
       <View
         style={{
@@ -249,22 +268,23 @@ const CardsLimit = () => {
   }, [activeMenuIndex])
 
   return (
-    <View
-      style={{
-        backgroundColor: "#FFF",
-        flex: 1,
-        paddingVertical: 10,
-        paddingHorizontal: 24,
-      }}
-    >
-      <TopTabBar
-        data={topBarData}
-        activeMenuIndex={activeMenuIndex}
-        setActiveMenuIndex={setActiveMenuIndex}
-      />
-      <Text.Body>CardsLimit</Text.Body>
-      {renderComponentAccordingToMenuIndex()}
-    </View>
+    <Screen style={{ marginTop: useHeaderHeight() }}>
+      <View
+        style={{
+          backgroundColor: "#FFF",
+          height: "100%",
+          paddingVertical: 10,
+          paddingHorizontal: 24,
+        }}
+      >
+        <TopTabBar
+          data={topBarData}
+          activeMenuIndex={activeMenuIndex}
+          setActiveMenuIndex={setActiveMenuIndex}
+        />
+        {renderComponentAccordingToMenuIndex()}
+      </View>
+    </Screen>
   )
 }
 

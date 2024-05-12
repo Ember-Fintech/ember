@@ -89,7 +89,6 @@ export const UpiScanner: React.FC<UpiScannerProps> = ({}) => {
     onCodeScanned: (codes) => {
       const qrValue = codes?.[0]?.value
       const reciever = extractNameAndUPI(qrValue)
-      console.log({ reciever })
       if (reciever) {
         setReceiver(reciever)
       }
@@ -148,7 +147,7 @@ export const UpiScanner: React.FC<UpiScannerProps> = ({}) => {
                 reset()
                 navigation.reset({
                   index: 0,
-                  routes: [{ name: "Home" }],
+                  routes: [{ name: AppRoutes.HomeStack }],
                 })
               }}
             />

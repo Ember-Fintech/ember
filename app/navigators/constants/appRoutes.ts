@@ -10,9 +10,12 @@ export enum AppRoutes {
   // --------- here starts the main app stack - that has TabNavigator as entry point
   MainAppStack = "MainAppStack",
   // --------- Cards screens
+  HomeStack = "HomeStack",
+  HomePage = "HomePage",
   CardsDetail = "CardsDetail",
   CardsLock = "CardsLock",
   CardsLimit = "CardsLimit",
+  KYC = "KYC",
   // ----------scan and pay stack starts here
   ScanAndPayStack = "ScanAndPayStack",
   UpiScanner = "UpiScanner",

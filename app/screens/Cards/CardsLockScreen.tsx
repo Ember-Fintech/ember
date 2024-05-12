@@ -1,9 +1,12 @@
 import TopTabBar, { SingleTopTabDataPoint } from "app/components/TopTabBar"
 import Text from "app/components/typography/Text"
-import React, { useCallback, useState } from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import { FlatList, Image, View } from "react-native"
 import card from "assets/cards/card.png"
 import { Switch } from "react-native-ui-lib"
+import { Screen } from "app/components"
+import { useHeaderHeight } from "@react-navigation/elements"
+import { useNavigation } from "@react-navigation/native"
 
 interface ICardLockData {
   index: number
@@ -46,8 +49,24 @@ const cardLockData: Array<ICardLockData> = [
 ]
 
 const CardsLock = () => {
+  const navigation = useNavigation()
+
   const [activeMenuIndex, setActiveMenuIndex] = useState<number>(0)
 
+  useEffect(() => {
+    navigation.setOptions({
+      headerShown: true,
+      headerTitle: () => (
+        <Text.Body size={"lg"} weight={"semi-bold"} color={"#000000"}>
+          Card locks
+        </Text.Body>
+      ),
+      headerTintColor: "#000000",
+      headerBackTitle: " ",
+      headerTitleStyle: { color: "white" },
+      headerTransparent: true,
+    })
+  }, [])
   const renderDomesticCardLockListItem = ({ item }: { item: ICardLockData }) => {
     return (
       <View
@@ -92,7 +111,13 @@ const CardsLock = () => {
             {item?.title}
           </Text.Body>
         </View>
-				<Switch value={item?.initialValue} onValueChange={() => console.log('value changed')} thumbColor={'#FFF'} onColor={'rgba(83, 61, 149, 1)'} offColor={'rgba(242, 244, 247, 1)'} />
+        <Switch
+          value={item?.initialValue}
+          onValueChange={() => console.log("value changed")}
+          thumbColor={"#FFF"}
+          onColor={"rgba(83, 61, 149, 1)"}
+          offColor={"rgba(242, 244, 247, 1)"}
+        />
       </View>
     )
   }
@@ -117,7 +142,7 @@ const CardsLock = () => {
     )
   }
 
-	const renderInternationalCardLockListItem = ({ item }: { item: ICardLockData }) => {
+  const renderInternationalCardLockListItem = ({ item }: { item: ICardLockData }) => {
     return (
       <View
         style={{
@@ -161,7 +186,13 @@ const CardsLock = () => {
             {item?.title}
           </Text.Body>
         </View>
-				<Switch value={item?.initialValue} onValueChange={() => console.log('value changed')} thumbColor={'#FFF'} onColor={'rgba(83, 61, 149, 1)'} offColor={'rgba(242, 244, 247, 1)'} />
+        <Switch
+          value={item?.initialValue}
+          onValueChange={() => console.log("value changed")}
+          thumbColor={"#FFF"}
+          onColor={"rgba(83, 61, 149, 1)"}
+          offColor={"rgba(242, 244, 247, 1)"}
+        />
       </View>
     )
   }
@@ -194,21 +225,23 @@ const CardsLock = () => {
   }, [activeMenuIndex])
 
   return (
-    <View
-      style={{
-        backgroundColor: "#FFF",
-        flex: 1,
-        paddingVertical: 10,
-        paddingHorizontal: 24,
-      }}
-    >
-      <TopTabBar
-        data={topBarData}
-        activeMenuIndex={activeMenuIndex}
-        setActiveMenuIndex={setActiveMenuIndex}
-      />
-      {renderComponentAccordingToMenuIndex()}
-    </View>
+    <Screen style={{ marginTop: useHeaderHeight() }}>
+      <View
+        style={{
+          backgroundColor: "#FFF",
+          height: "100%",
+          paddingVertical: 10,
+          paddingHorizontal: 24,
+        }}
+      >
+        <TopTabBar
+          data={topBarData}
+          activeMenuIndex={activeMenuIndex}
+          setActiveMenuIndex={setActiveMenuIndex}
+        />
+        {renderComponentAccordingToMenuIndex()}
+      </View>
+    </Screen>
   )
 }
 

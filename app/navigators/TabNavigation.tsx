@@ -3,8 +3,7 @@ import { ImageBackground, Platform, StyleSheet, View } from "react-native"
 import { BottomTabBar, createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { WelcomeScreen } from "app/screens/Onboarding/WelcomeScreen"
 import { TabBarAdvancedButton } from "app/components/TabBarAdvancedButton"
-import CardsDetails from "app/screens/Cards/CardsDetails"
-import CardsStack from "./CardsStack"
+import { HomeStack } from "./CardsStack"
 import background from "assets/background/bottom-tab-image.png"
 import ScanAndPayStack from "app/navigators/ScanAndPayStack"
 import Analytics from "../../assets/icons/analytics.js"
@@ -21,14 +20,15 @@ type Props = {
   barColor: string
 }
 // add AppRoutes where you want to see tabs, otherwise it would be hidden
-const AppRoutesWithTab: AppRoutes[] = []
+const AppRoutesWithTab: AppRoutes[] = [AppRoutes.HomePage, AppRoutes.HomeStack]
 
 const getTabBarStyle = (route: Partial<Route<string>>) => {
-  const routeName = getFocusedRouteNameFromRoute(route) ?? ""
-  if (!AppRoutesWithTab.includes(routeName as AppRoutes)) {
-    return { display: "none" }
+  const routeName = getFocusedRouteNameFromRoute(route)
+  console.log(routeName)
+  if (!routeName || AppRoutesWithTab.includes(routeName as AppRoutes)) {
+    return { display: "flex" }
   }
-  return { display: "flex" }
+  return { display: "none" }
 }
 
 export const TabBar: React.FC<Props> = ({ barColor }) => (
@@ -39,7 +39,8 @@ export const TabBar: React.FC<Props> = ({ barColor }) => (
       </View>
     )}
     screenOptions={{
-      tabBarStyle: { position: "absolute", borderTopWidth: 0, elevation: 0 },
+      headerShown: false,
+      tabBarStyle: { position: "absolute", borderTopWidth: 0, elevation: 0, zIndex: 0 },
       tabBarBackground: () => (
         <ImageBackground
           source={background}
@@ -58,11 +59,12 @@ export const TabBar: React.FC<Props> = ({ barColor }) => (
     }}
   >
     <BottomBar.Screen
-      name="Home"
-      component={CardsStack}
-      options={{
+      name={AppRoutes.HomeStack}
+      component={HomeStack}
+      options={({ route }) => ({
+        tabBarStyle: { ...getTabBarStyle(route) },
         tabBarIcon: ({ color }) => <Home size={24} color={color} />,
-      }}
+      })}
     />
     <BottomBar.Screen
       name="Profile"
