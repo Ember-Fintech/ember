@@ -20,7 +20,6 @@ const BottomBar = createBottomTabNavigator()
 type Props = {
   barColor: string
 }
-
 // add AppRoutes where you want to see tabs, otherwise it would be hidden
 const AppRoutesWithTab: AppRoutes[] = []
 
@@ -39,6 +38,17 @@ export const TabBar: React.FC<Props> = ({ barColor }) => (
         <BottomTabBar {...props} />
       </View>
     )}
+    screenOptions={{
+      tabBarStyle: { position: "absolute", borderTopWidth: 0, elevation: 0 },
+      tabBarBackground: () => (
+        <ImageBackground
+          source={background}
+          style={{ height: Platform.OS === "ios" ? "100%" : "118%", width: "100%" }}
+        />
+      ),
+      tabBarLabel: () => null,
+      tabBarActiveTintColor: Colors.primaryColor,
+    }}
     tabBarOptions={{
       showIcon: true,
       style: styles.navigator,
@@ -51,60 +61,41 @@ export const TabBar: React.FC<Props> = ({ barColor }) => (
       name="Home"
       component={CardsStack}
       options={{
-        tabBarIcon: ({ color }) => <Icon name="home" size={24} color={color} />,
-      }}
-      screenOptions={{
-        tabBarStyle: { position: "absolute", borderTopWidth: 0, elevation: 0 },
-        tabBarBackground: () => (
-          <ImageBackground
-            source={background}
-            style={{ height: Platform.OS === "ios" ? "100%" : "118%", width: "100%" }}
-          />
-        ),
-        tabBarLabel: () => null,
-        tabBarActiveTintColor: Colors.primaryColor,
+        tabBarIcon: ({ color }) => <Home size={24} color={color} />,
       }}
     />
-      <BottomBar.Screen
-        name="Home"
-        component={WelcomeScreen}
-        options={{
-          tabBarIcon: ({ color }) => <Home size={24} color={color} />,
-        }}
-      />
-      <BottomBar.Screen
-        name="Profile"
-        component={WelcomeScreen}
-        options={{
-          tabBarIcon: ({ color }) => <Analytics size={24} color={color} />,
-        }}
-      />
-      <BottomBar.Screen
-        name={AppRoutes.ScanAndPayStack}
-        component={ScanAndPayStack}
-        options={({ route }) => ({
-          headerShown: false,
-          tabBarStyle: { ...getTabBarStyle(route) },
-          tabBarButton: (props) => <TabBarAdvancedButton bgColor={barColor} {...props} />,
-        })}
-      />
-      <BottomBar.Screen
-        name="Messages"
-        component={WelcomeScreen}
-        options={{
-          tabBarIcon: ({ color }) => <Wallet size={24} color={color} />,
-        }}
-      />
-      <BottomBar.Screen
-        name="Settings"
-        component={WelcomeScreen}
-        options={{
-          tabBarIcon: ({ color }) => <UserCircle size={24} color={color} />,
-        }}
-      />
-    </BottomBar.Navigator>
-  )
-}
+    <BottomBar.Screen
+      name="Profile"
+      component={WelcomeScreen}
+      options={{
+        tabBarIcon: ({ color }) => <Analytics size={24} color={color} />,
+      }}
+    />
+    <BottomBar.Screen
+      name={AppRoutes.ScanAndPayStack}
+      component={ScanAndPayStack}
+      options={({ route }) => ({
+        headerShown: false,
+        tabBarStyle: { ...getTabBarStyle(route) },
+        tabBarButton: (props) => <TabBarAdvancedButton bgColor={barColor} {...props} />,
+      })}
+    />
+    <BottomBar.Screen
+      name="Messages"
+      component={WelcomeScreen}
+      options={{
+        tabBarIcon: ({ color }) => <Wallet size={24} color={color} />,
+      }}
+    />
+    <BottomBar.Screen
+      name="Settings"
+      component={WelcomeScreen}
+      options={{
+        tabBarIcon: ({ color }) => <UserCircle size={24} color={color} />,
+      }}
+    />
+  </BottomBar.Navigator>
+)
 
 const styles = StyleSheet.create({
   container: {
