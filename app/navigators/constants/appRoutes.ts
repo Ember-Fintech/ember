@@ -9,7 +9,7 @@ export enum AppRoutes {
   CompanyDetails = "CompanyDetails",
   // --------- here starts the main app stack - that has TabNavigator as entry point
   MainAppStack = "MainAppStack",
-  // --------- Cards screens 
+  // --------- Cards screens
   CardsDetail = "CardsDetail",
   CardsLock = "CardsLock",
   CardsLimit = "CardsLimit",
