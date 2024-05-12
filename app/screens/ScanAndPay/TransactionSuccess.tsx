@@ -109,7 +109,7 @@ export const TransactionSuccess: React.FC<TransactionSuccessProps> = ({ navigati
                 reset()
                 navigation.reset({
                   index: 0,
-                  routes: [{ name: "Home" }],
+                  routes: [{ name: AppRoutes.HomeStack }],
                 })
               }}
             />

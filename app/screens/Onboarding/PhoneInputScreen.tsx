@@ -9,10 +9,8 @@ import Input from "app/components/Input"
 import IndiaFlagRound from "../../../assets/icons/IndiaFlagRound.js"
 import { Formik } from "formik"
 import * as Yup from "yup"
-import PrimaryButton from "app/components/Button"
 import Text from "app/components/typography/Text"
 import Button from "app/components/Button"
-import { spacing } from "app/theme"
 
 type PhoneInputScreenProps = {
   navigation: StackScreenProps<OnboardingStackParams, AppRoutes.PhoneInput>
