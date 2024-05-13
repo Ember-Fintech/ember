@@ -6,7 +6,7 @@
  */
 import { NavigationContainer, NavigatorScreenParams } from "@react-navigation/native"
 import { createStackNavigator, StackScreenProps } from "@react-navigation/stack"
-import React, { useEffect } from "react"
+import React from "react"
 import Config from "../config"
 import { DemoTabParamList } from "./DemoNavigator"
 import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
@@ -71,9 +71,6 @@ export interface NavigationProps
 
 export const AppNavigator = (props: NavigationProps) => {
   useBackButtonHandler((routeName) => exitRoutes.includes(routeName))
-  useEffect(() => {
-    useLoggedIn?.persist?.rehydrate()
-  }, [])
   return (
     <NavigationContainer ref={navigationRef} {...props}>
       <AppStack />

@@ -13,16 +13,18 @@ type OnboardSuccessScreenProps = {
   navigation: StackScreenProps<OnboardingStackParams, AppRoutes.OnboardSuccess>
 }
 
-export const OnboardSuccessScreen: React.FC<OnboardSuccessScreenProps> = ({ navigation, route }) => {
+export const OnboardSuccessScreen: React.FC<OnboardSuccessScreenProps> = ({
+  navigation,
+  route,
+}) => {
   const { colors } = useTheme()
-  const { changeLoggedInStatus } = useLoggedIn();
-  const {heading, subHeading, ctaLabel, navigateTo} = route?.params;
+  const { changeLoggedInStatus } = useLoggedIn()
+  const { heading, subHeading, ctaLabel, navigateTo } = route?.params
 
   const onPressCta = () => {
-    // TODO:- navigate to the next screen
-    if(navigateTo === AppRoutes.MainAppStack) {
-      changeLoggedInStatus();
-      return;
+    if (navigateTo === AppRoutes.MainAppStack) {
+      changeLoggedInStatus(true)
+      return
     }
     navigation.navigate(navigateTo)
   }

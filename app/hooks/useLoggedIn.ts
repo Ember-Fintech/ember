@@ -1,27 +1,17 @@
+import AsyncStorage from "@react-native-async-storage/async-storage"
 import { create } from "zustand"
 import { persist, createJSONStorage } from "zustand/middleware"
+interface LoggedInState {
+  isLoggedIn: number
+  changeLoggedInStatus: (by: boolean) => void
+}
 
-export const useLoggedIn = create(
+export const useLoggedIn = create<LoggedInState>()(
   persist(
     (set) => ({
       isLoggedIn: false,
-      changeLoggedInStatus: () => set((state) => ({ isLoggedIn: !state.isLoggedIn })),
+      changeLoggedInStatus: (next) => set(() => ({ isLoggedIn: next })),
     }),
-    {
-      name: "logged-in-storage", // name of the item in the storage (must be unique)
-      storage: createJSONStorage(() => sessionStorage), // (optional) by default, 'localStorage' is used
-      onRehydrateStorage: (state) => {
-        console.log("hydration starts", state)
-
-        // optional
-        return (state, error) => {
-          if (error) {
-            console.log("an error happened during hydration", error)
-          } else {
-            console.log("hydration finished")
-          }
-        }
-      },
-    },
+    { name: "logged-in-storage", storage: createJSONStorage(() => AsyncStorage) },
   ),
 )
