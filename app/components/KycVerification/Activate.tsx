@@ -3,6 +3,8 @@ import React from "react"
 import { Avatar, ListItem, Spacings } from "react-native-ui-lib"
 import Text from "app/components/typography/Text"
 import { Octicons } from "@expo/vector-icons"
+import { ESteps } from "app/hooks/usePageVerification"
+
 const Step = ({
   title,
   subtitle,
@@ -52,28 +54,35 @@ const Step = ({
     </ListItem>
   )
 }
-export const Activate = () => {
+export const Activate = ({stepsDone}: {stepsDone: Array<string>}) => {
   return (
     <>
       <Step
         title={"Take a Selfie"}
         subtitle={"Selfie"}
         img={require("../../../assets/icons/selfie.png")}
+        verified={stepsDone.includes(ESteps.SELFIE)}
       />
       <Step
         title={"Verify PAN Details"}
         subtitle={"Name, DoB, PAN"}
         img={require("../../../assets/icons/selfie.png")}
+        verified={stepsDone.includes(ESteps.PAN)}
+
       />
       <Step
         title={"Address Proof"}
         subtitle={"Aadhaar Authentication"}
         img={require("../../../assets/icons/id-card.png")}
+        verified={stepsDone.includes(ESteps.AADHAR)}
+
       />
       <Step
         title={"Bank V-KYC"}
         subtitle={"Video KYC"}
         img={require("../../../assets/icons/id-card.png")}
+        verified={stepsDone.includes(ESteps.BANK_KYC)}
+
       />
     </>
   )

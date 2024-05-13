@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react"
+import React, { useCallback, useEffect, useMemo } from "react"
 import { Screen } from "app/components"
 import { View } from "react-native"
 import { Spacings } from "react-native-ui-lib"
@@ -10,6 +10,13 @@ import { Activate } from "app/components/KycVerification/Activate"
 import { TakeSelfie } from "app/components/KycVerification/TakeSelfie"
 import { PanDetails } from "app/components/KycVerification/PanDetails"
 import { AadharDetails } from "app/components/KycVerification/AadharDetails"
+import { ESteps, usePage } from "app/hooks/usePageVerification"
+import { useTakeAndConfirmSelfie } from "app/hooks/useTakeAndConfirmSelfie"
+import TakeAndConfirmSelfieModal from "app/components/Modals/TakeAndConfirmSelfie"
+import { useAadharAuth } from "app/hooks/useAadharAuth"
+import AadharAuthModal from "app/components/Modals/AadharAuthModal"
+import { useBankKYC } from "app/hooks/useBankKYC"
+import BankVerificationModal from "app/components/Modals/BankVerificationModal"
 
 const RightElement = ({ page }: { page: number }) => {
   return (
@@ -57,7 +64,11 @@ const getPageDetails = (page: number) => {
 }
 
 export const KycVerification = (): React.FC => {
-  const [page, setPage] = useState<number>(0)
+  const {page, setPage, setSetpsDone, stepsDone} = usePage();
+  const { setIsVisible } = useTakeAndConfirmSelfie();
+  const { setIsVisible : setAadharAuthModal } = useAadharAuth();
+  const { setIsVisible : setBankKYCModal } = useBankKYC();
+
   const navigation = useNavigation()
   const { title, subtitle, buttonLabel } = getPageDetails(page)
   useEffect(() => {
@@ -72,18 +83,49 @@ export const KycVerification = (): React.FC => {
     })
   }, [page])
 
-  const renderContent = useMemo(() => {
+  const getMainCtaPress = (page: number) => {
+    if(!page) return;
     switch (page) {
       case 1:
-        return TakeSelfie
+        return {
+          handleMainCtaPress: () => {
+            setIsVisible(true);
+          }
+        }
       case 2:
-        return PanDetails
+        return {
+          handleMainCtaPress: () => {
+            setPage(page+1)
+            setSetpsDone([...stepsDone, ESteps.PAN])
+          }
+        }
       case 3:
-        return AadharDetails
-      case 4:
-        return () => null
+        return {
+          handleMainCtaPress: () => {
+            setAadharAuthModal(true)
+          }
+        }
       default:
-        return Activate
+        return {
+          title: "Activate Ember Account",
+          subtitle: "Please update the following details",
+          buttonLabel: "Confirm Verification",
+        }
+    }
+  }
+
+  const handleCtaPress = getMainCtaPress(page)?.handleMainCtaPress
+
+  const RenderContent = useCallback(() => {
+    switch (page) {
+      case 1:
+        return <TakeSelfie />
+      case 2:
+        return <PanDetails />
+      case 3:
+        return <AadharDetails />
+      default:
+        return <Activate stepsDone={stepsDone} />
     }
   }, [page])
   return (
@@ -121,19 +163,29 @@ export const KycVerification = (): React.FC => {
               minHeight: 200,
             }}
           >
-            {renderContent()}
+            <RenderContent />
           </View>
           <Button.Primary
             style={{
               marginBottom: Spacings.s10,
             }}
             onPress={() => {
-              setPage((p) => p + 1)
+              if(!page) {
+                if(stepsDone.includes(ESteps.SELFIE)) {
+                  setBankKYCModal(true);
+                  return;
+                }
+                setPage(page+1);
+              }
+              handleCtaPress && handleCtaPress();
             }}
             label={buttonLabel}
           />
         </View>
       </View>
+      <TakeAndConfirmSelfieModal />
+      <AadharAuthModal />
+      <BankVerificationModal />
     </Screen>
   )
 }
