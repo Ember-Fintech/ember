@@ -6,7 +6,7 @@
  */
 import { NavigationContainer, NavigatorScreenParams } from "@react-navigation/native"
 import { createStackNavigator, StackScreenProps } from "@react-navigation/stack"
-import React from "react"
+import React, { useEffect } from "react"
 import Config from "../config"
 import { DemoTabParamList } from "./DemoNavigator"
 import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
@@ -51,6 +51,7 @@ const Stack = createStackNavigator<AppStackParamList>()
 
 const AppStack = () => {
   const { isLoggedIn } = useLoggedIn()
+
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false, navigationBarColor: colors.background }}
@@ -70,7 +71,9 @@ export interface NavigationProps
 
 export const AppNavigator = (props: NavigationProps) => {
   useBackButtonHandler((routeName) => exitRoutes.includes(routeName))
-
+  useEffect(() => {
+    useLoggedIn?.persist?.rehydrate()
+  }, [])
   return (
     <NavigationContainer ref={navigationRef} {...props}>
       <AppStack />

@@ -46,7 +46,7 @@ export const ChooseLanguageScreen: React.FC<ChooseLanguageScreenProps> = ({ navi
               color={"#FFFFFF"}
               size={"sm"}
               style={{
-                fontFamily: "Sans-SemiBold",
+                fontFamily: "Sans-Bold",
                 marginBottom: Spacings.s1,
               }}
             >
