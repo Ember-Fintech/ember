@@ -4,7 +4,7 @@ import { persist, createJSONStorage } from "zustand/middleware"
 export const useLoggedIn = create(
   persist(
     (set) => ({
-      isLoggedIn: false,
+      isLoggedIn: true,
       changeLoggedInStatus: () => set((state) => ({ isLoggedIn: !state.isLoggedIn })),
     }),
     {

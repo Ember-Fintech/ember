@@ -4,8 +4,10 @@ import Text from "../typography/Text"
 import { Feather } from "@expo/vector-icons"
 import bank from "assets/bank/Bank.png"
 import Button from "../Button"
+import { useBankKYC } from "app/hooks/useBankKYC"
 
-const BankVerificationModal = ({ isVisible, setIsVisible }) => {
+const BankVerificationModal = () => {
+  const { isVisible, setIsVisible } = useBankKYC()
   const { height, width } = useWindowDimensions()
   return (
     <Modal

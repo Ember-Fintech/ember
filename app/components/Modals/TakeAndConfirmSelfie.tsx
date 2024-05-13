@@ -6,8 +6,12 @@ import { Feather } from "@expo/vector-icons"
 import guideCircle from "assets/selfie/GuideCircle.png"
 import cameraIcon from "assets/selfie/Camera.png"
 import Button from "../Button"
+import { useTakeAndConfirmSelfie } from "app/hooks/useTakeAndConfirmSelfie"
+import { ESteps, usePage } from "app/hooks/usePageVerification"
 
-const TakeAndConfirmSelfieModal = ({ isVisible, setIsVisible }) => {
+const TakeAndConfirmSelfieModal = () => {
+  const {page, setPage, setSetpsDone, stepsDone} = usePage();
+  const { isVisible, setIsVisible } = useTakeAndConfirmSelfie();
   const device = useCameraDevice("front")
   const { hasPermission, requestPermission } = useCameraPermission()
   const { height, width } = useWindowDimensions()
@@ -229,6 +233,9 @@ const TakeAndConfirmSelfieModal = ({ isVisible, setIsVisible }) => {
           }}> 
             <Button.Primary label="Use this photo" onPress={() => {
               // TODO:- go to next screen
+              setPage(page+1);
+              setIsVisible(false);
+              setSetpsDone([...stepsDone, ESteps.SELFIE])
             }} />
             <Button.Outlined label="Capture another photo" onPress={() => {
               setPhoto(null);

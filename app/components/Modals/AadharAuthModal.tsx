@@ -6,10 +6,14 @@ import { Avatar, Colors, Spacings } from "react-native-ui-lib"
 import { OtpInput } from "react-native-otp-entry"
 import useCountdown from "app/hooks/useCountdown"
 import Button from "../Button"
+import { useAadharAuth } from "app/hooks/useAadharAuth"
+import { ESteps, usePage } from "app/hooks/usePageVerification"
 
 const PIN_BOX_WIDTH = 45
 
-const AadharAuthModal = ({ isVisible, setIsVisible }) => {
+const AadharAuthModal = () => {
+  const { isVisible, setIsVisible } = useAadharAuth();
+  const { setPage, setSetpsDone, stepsDone} = usePage();
   const [otp, setOtp] = useState<string>("")
   const [otpState, setOtpState] = useState<OtpState>(OtpState.None)
   const { countDown, restart } = useCountdown(12000)
@@ -177,7 +181,11 @@ const AadharAuthModal = ({ isVisible, setIsVisible }) => {
         />
         <BottomText />
 
-        <Button.Primary label="Continue" disabled={otp.length<4} />
+        <Button.Primary label="Continue" disabled={otp.length<4} onPress={() => {
+          setPage(0);
+          setSetpsDone([...stepsDone, ESteps.AADHAR])
+          setIsVisible(false);
+        }} />
       </View>
     </Modal>
   )
