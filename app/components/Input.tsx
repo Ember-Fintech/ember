@@ -146,6 +146,7 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     lineHeight: 20,
     marginBottom: 5,
+    color: "black",
   },
   row: {
     flexDirection: "row",

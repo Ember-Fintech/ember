@@ -13,6 +13,7 @@ import Home from "../../assets/icons/home.js"
 import { Colors } from "react-native-ui-lib"
 import { AppRoutes } from "app/navigators/constants/appRoutes"
 import { getFocusedRouteNameFromRoute, Route } from "@react-navigation/native"
+import { Profile } from "app/screens/Profile"
 
 const BottomBar = createBottomTabNavigator()
 
@@ -91,7 +92,7 @@ export const TabBar: React.FC<Props> = ({ barColor }) => (
     />
     <BottomBar.Screen
       name="Settings"
-      component={WelcomeScreen}
+      component={Profile}
       options={{
         tabBarIcon: ({ color }) => <UserCircle size={24} color={color} />,
       }}
