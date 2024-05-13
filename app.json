@@ -9,9 +9,9 @@
     "orientation": "portrait",
     "icon": "./assets/images/app-icon-all.png",
     "splash": {
-      "image": "./assets/images/splash-logo-all.png",
+      "image": "./assets/images/splashscreen.png",
       "resizeMode": "contain",
-      "backgroundColor": "#191015"
+      "backgroundColor": "#6248AE"
     },
     "userInterfaceStyle": "automatic",
     "updates": {
@@ -26,23 +26,12 @@
         "foregroundImage": "./assets/images/app-icon-all.png",
         "backgroundImage": "./assets/images/app-icon-all.png"
       },
-      "splash": {
-        "image": "./assets/images/app-icon-all.png",
-        "resizeMode": "contain",
-        "backgroundColor": "#191015"
-      },
       "googleServicesFile": "./android/app/google-services.json"
     },
     "ios": {
       "icon": "./assets/images/app-icon-all.png",
       "supportsTablet": true,
-      "bundleIdentifier": "com.ember",
-      "splash": {
-        "image": "./assets/images/app-icon-all.png",
-        "tabletImage": "./assets/images/app-icon-all.png",
-        "resizeMode": "contain",
-        "backgroundColor": "#191015"
-      }
+      "bundleIdentifier": "com.ember"
     },
     "web": {
       "favicon": "./assets/images/app-icon-all.png",
