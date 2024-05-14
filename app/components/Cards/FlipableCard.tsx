@@ -1,14 +1,21 @@
 import React, { useRef, useState } from "react"
-import { TouchableOpacity, Animated, StyleSheet, ImageBackground } from "react-native"
+import { TouchableOpacity, Animated, StyleSheet, ImageBackground, View } from "react-native"
 
 interface IProps {
   frontContent: React.JSX.Element
   backContent: React.JSX.Element
   frontStyle: any
   backStyle: any
+  isFlippable?: boolean
 }
 
-const FlippableCard = ({ frontContent, backContent, frontStyle, backStyle }: IProps) => {
+const FlippableCard = ({
+  frontContent,
+  backContent,
+  frontStyle,
+  backStyle,
+  isFlippable,
+}: IProps) => {
   const [isFront, setIsFront] = useState(true)
   const flipAnimation = useRef(new Animated.Value(0)).current
 
@@ -43,31 +50,28 @@ const FlippableCard = ({ frontContent, backContent, frontStyle, backStyle }: IPr
     transform: [{ rotateY: backInterpolate }],
   }
 
-  return (
-    <TouchableOpacity activeOpacity={1} onPress={flipCard}>
-        <Animated.View
-          style={[
-            styles.cardContainer,
-            frontAnimatedStyle,
-            { opacity: isFront ? 1 : 0 },
-            frontStyle,
-          ]}
-        >
-          {frontContent}
-        </Animated.View>
+  const Wrapper = isFlippable ? TouchableOpacity : View
 
-        <Animated.View
-          style={[
-            styles.cardContainer,
-            styles.backCard,
-            backAnimatedStyle,
-            { opacity: isFront ? 0 : 1 },
-            backStyle,
-          ]}
-        >
-          {backContent}
-        </Animated.View>
-    </TouchableOpacity>
+  return (
+    <Wrapper activeOpacity={1} onPress={isFlippable ? flipCard : undefined}>
+      <Animated.View
+        style={[styles.cardContainer, frontAnimatedStyle, { opacity: isFront ? 1 : 0 }, frontStyle]}
+      >
+        {frontContent}
+      </Animated.View>
+
+      <Animated.View
+        style={[
+          styles.cardContainer,
+          styles.backCard,
+          backAnimatedStyle,
+          { opacity: isFront ? 0 : 1 },
+          backStyle,
+        ]}
+      >
+        {backContent}
+      </Animated.View>
+    </Wrapper>
   )
 }
 

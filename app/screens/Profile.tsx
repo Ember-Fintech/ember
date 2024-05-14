@@ -1,11 +1,18 @@
-import React from "react"
+import React, { ReactElement } from "react"
 import { View, StyleSheet, ImageURISource, ScrollView } from "react-native"
 import { Screen } from "app/components"
 import { Avatar, Colors, ListItem, Spacings } from "react-native-ui-lib"
 import Text from "app/components/typography/Text"
 import Button from "app/components/Button"
-import { Entypo, Octicons } from "@expo/vector-icons"
 import { useLoggedIn } from "app/hooks/useLoggedIn"
+import {
+  MaterialCommunityIcons,
+  FontAwesome,
+  Feather,
+  Entypo,
+  SimpleLineIcons,
+  Ionicons,
+} from "@expo/vector-icons"
 
 const styles = StyleSheet.create({
   upperCurvedContainer: {
@@ -40,11 +47,11 @@ const AVATAR_SIZE = 80
 const Step = ({
   title,
   subtitle,
-  img,
+  icon,
 }: {
   title: string
   subtitle: string
-  img: ImageURISource
+  icon: ReactElement
 }) => {
   return (
     <View
@@ -62,17 +69,25 @@ const Step = ({
           borderRadius: Spacings.s6,
           paddingHorizontal: Spacings.s2,
           backgroundColor: "white",
-          height: 100,
+          height: 80,
         }}
         disabled={true}
       >
         <ListItem.Part left>
-          <Avatar
-            size={50}
-            backgroundColor={"#D1C9E9"}
-            source={img}
-            imageStyle={{ resizeMode: "contain", height: 30, top: 10 }}
-          />
+          <View
+            style={{
+              alignItems: "center",
+              justifyContent: "center",
+              backgroundColor: "#F9FAFB",
+              borderColor: "#D0D5DD",
+              borderWidth: 0.5,
+              height: 40,
+              width: 40,
+              borderRadius: 40,
+            }}
+          >
+            {icon}
+          </View>
         </ListItem.Part>
         <ListItem.Part middle containerStyle={{ marginLeft: Spacings.s4 }}>
           <View>
@@ -122,7 +137,7 @@ export const Profile: React.FC<PhoneInputScreenProps> = () => {
               />
             </View>
           </View>
-          <View style={{ alignItems: "center" }}>
+          <View style={{ alignItems: "center", marginBottom: 10 }}>
             <Text.Heading size={"xs"} weight={"semi-bold"}>
               {"Sanjana Sharma"}
             </Text.Heading>
@@ -137,12 +152,12 @@ export const Profile: React.FC<PhoneInputScreenProps> = () => {
             <Step
               title={"Profile Information"}
               subtitle={"Manage account details"}
-              img={require("../../assets/icons/selfie.png")}
+              icon={<MaterialCommunityIcons name={"account-circle-outline"} size={24} />}
             />
             <Step
               title={"Linked Bank Accounts"}
               subtitle={"Manage your bank account"}
-              img={require("../../assets/icons/selfie.png")}
+              icon={<FontAwesome name={"credit-card"} size={18} />}
             />
             <Text.Body
               size={"sm"}
@@ -154,12 +169,12 @@ export const Profile: React.FC<PhoneInputScreenProps> = () => {
             <Step
               title={"Security Settings"}
               subtitle={"Set PIN/biometrics"}
-              img={require("../../assets/icons/selfie.png")}
+              icon={<MaterialCommunityIcons name={"lock-check-outline"} size={24} />}
             />
             <Step
               title={"Notifications"}
               subtitle={"Adjust your alert preferences"}
-              img={require("../../assets/icons/selfie.png")}
+              icon={<MaterialCommunityIcons name={"bell-outline"} size={24} />}
             />
             <Text.Body size={"sm"} weight={"semi-bold"} style={{ marginVertical: Spacings.s3 }}>
               Account Details
@@ -167,22 +182,22 @@ export const Profile: React.FC<PhoneInputScreenProps> = () => {
             <Step
               title={"About Us"}
               subtitle={"Know more information"}
-              img={require("../../assets/icons/selfie.png")}
+              icon={<MaterialCommunityIcons name={"information-outline"} size={24} />}
             />
             <Step
               title={"Support Hub"}
               subtitle={"Access help and support"}
-              img={require("../../assets/icons/selfie.png")}
+              icon={<Feather name={"headphones"} size={20} />}
             />
             <Step
               title={"Frequently Asked Question"}
               subtitle={"Quick answers"}
-              img={require("../../assets/icons/selfie.png")}
+              icon={<SimpleLineIcons name={"question"} size={20} />}
             />
             <Step
               title={"Terms & Conditions"}
               subtitle={"Our terms & conditions"}
-              img={require("../../assets/icons/selfie.png")}
+              icon={<Ionicons name={"newspaper-outline"} size={20} />}
             />
             <Button.Outlined
               onPress={() => changeLoggedInStatus(false)}

@@ -85,8 +85,6 @@ function App(props: AppProps) {
     "Sans-SemiBold": require("../assets/fonts/PlusJakartaSans-SemiBold.ttf"),
   })
 
-  const colorMode = useColorScheme()
-
   useMemo(() => {
     setTimeout(hideSplashScreen, 500)
   }, [fontsLoaded])

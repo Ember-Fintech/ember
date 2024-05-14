@@ -14,6 +14,8 @@ import { Colors } from "react-native-ui-lib"
 import { AppRoutes } from "app/navigators/constants/appRoutes"
 import { getFocusedRouteNameFromRoute, Route } from "@react-navigation/native"
 import { Profile } from "app/screens/Profile"
+import CardsDetails from "app/screens/Cards/CardsDetails"
+import { TransactionHistory } from "app/screens/TransactionHistory"
 
 const BottomBar = createBottomTabNavigator()
 
@@ -68,8 +70,8 @@ export const TabBar: React.FC<Props> = ({ barColor }) => (
       })}
     />
     <BottomBar.Screen
-      name="Profile"
-      component={WelcomeScreen}
+      name="Transaction"
+      component={TransactionHistory}
       options={{
         tabBarIcon: ({ color }) => <Analytics size={24} color={color} />,
       }}
@@ -85,7 +87,7 @@ export const TabBar: React.FC<Props> = ({ barColor }) => (
     />
     <BottomBar.Screen
       name="Messages"
-      component={WelcomeScreen}
+      component={CardsDetails}
       options={{
         tabBarIcon: ({ color }) => <Wallet size={24} color={color} />,
       }}

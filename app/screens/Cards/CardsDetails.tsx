@@ -94,8 +94,7 @@ const CardsDetails = ({ navigation }) => {
       headerTransparent: true,
     })
   }, [])
-  const [showSelfieModal, setShowSelfieModal] = useState<boolean>(false);
-
+  const [showSelfieModal, setShowSelfieModal] = useState<boolean>(false)
 
   const manageCardData: Array<ICardManageData> = [
     {
@@ -119,8 +118,8 @@ const CardsDetails = ({ navigation }) => {
       title: "Set/Reset PIN",
       icon: resetPin,
       onPress: () => {
-        setShowSelfieModal(true);
-      }
+        setShowSelfieModal(true)
+      },
     },
     {
       index: 3,
@@ -139,6 +138,7 @@ const CardsDetails = ({ navigation }) => {
         source={background}
         style={{
           flex: 1,
+          zIndex: 1,
           paddingHorizontal: 12,
           paddingVertical: 20,
           flexDirection: "column",
@@ -591,6 +591,7 @@ const CardsDetails = ({ navigation }) => {
           backContent={backCardContent()}
           frontStyle={undefined}
           backStyle={undefined}
+          isFlippable
         />
         <View
           style={{
