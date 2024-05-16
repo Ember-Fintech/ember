@@ -5,20 +5,20 @@ import sheild from "../assets/images/sheild.png"
 export const carouselData = [
   {
     backgroundImage: pig,
-    heading: "Everything On-Demand",
-    subHeading: "All-in-one banking, saving, and finance management with Paychain.",
+    heading: "Salary On-Demand",
+    subHeading: "Instant access to salary with just few clicks",
     index: 0,
   },
   {
     backgroundImage: wallet,
-    heading: "Your Finance, One Tap Away",
-    subHeading: "Effortlessly manage your finances and access your credit line with just one tap",
+    heading: "Zero %  Interest  Rate",
+    subHeading: "Enjoy credit with no interest charges anytime",
     index: 1,
   },
   {
     backgroundImage: sheild,
-    heading: "Revolutionize Your Finances",
-    subHeading: "Transform the way you manage money with innovative credit solutions",
+    heading: "Zero Repayment Hassle",
+    subHeading: "Don’t worry about your next repayment date",
     index: 2,
   },
 ]

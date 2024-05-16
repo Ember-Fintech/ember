@@ -54,7 +54,7 @@ const Step = ({
     </ListItem>
   )
 }
-export const Activate = ({stepsDone}: {stepsDone: Array<string>}) => {
+export const Activate = ({ stepsDone }: { stepsDone: Array<string> }) => {
   return (
     <>
       <Step
@@ -68,21 +68,18 @@ export const Activate = ({stepsDone}: {stepsDone: Array<string>}) => {
         subtitle={"Name, DoB, PAN"}
         img={require("../../../assets/icons/selfie.png")}
         verified={stepsDone.includes(ESteps.PAN)}
-
       />
       <Step
         title={"Address Proof"}
         subtitle={"Aadhaar Authentication"}
         img={require("../../../assets/icons/id-card.png")}
         verified={stepsDone.includes(ESteps.AADHAR)}
-
       />
       <Step
         title={"Bank V-KYC"}
         subtitle={"Video KYC"}
         img={require("../../../assets/icons/id-card.png")}
-        verified={stepsDone.includes(ESteps.BANK_KYC)}
-
+        verified={stepsDone.includes("BANK_KYC")}
       />
     </>
   )

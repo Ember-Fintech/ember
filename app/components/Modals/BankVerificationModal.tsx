@@ -5,9 +5,11 @@ import { Feather } from "@expo/vector-icons"
 import bank from "assets/bank/Bank.png"
 import Button from "../Button"
 import { useBankKYC } from "app/hooks/useBankKYC"
+import { usePage } from "app/hooks/usePageVerification"
 
 const BankVerificationModal = () => {
   const { isVisible, setIsVisible } = useBankKYC()
+  const { setSetpsDone, stepsDone } = usePage()
   const { height, width } = useWindowDimensions()
   return (
     <Modal
@@ -110,7 +112,9 @@ const BankVerificationModal = () => {
           <Button.Primary
             label="Start V-KYC"
             onPress={() => {
-              // TODO:- re-direct to bank page
+              setSetpsDone([...stepsDone, "BANK_KYC"])
+
+              setIsVisible(false)
             }}
           />
         </View>

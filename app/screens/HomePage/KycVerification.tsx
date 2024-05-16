@@ -17,6 +17,7 @@ import { useAadharAuth } from "app/hooks/useAadharAuth"
 import AadharAuthModal from "app/components/Modals/AadharAuthModal"
 import { useBankKYC } from "app/hooks/useBankKYC"
 import BankVerificationModal from "app/components/Modals/BankVerificationModal"
+import { AppRoutes } from "app/navigators/constants/appRoutes"
 
 const RightElement = ({ page }: { page: number }) => {
   return (
@@ -176,9 +177,18 @@ export const KycVerification = (): React.FC => {
             <Button.Primary
               onPress={() => {
                 if (!page) {
-                  if (stepsDone.includes(ESteps.SELFIE)) {
+                  if (stepsDone.length === 3) {
                     setBankKYCModal(true)
                     return
+                  }
+                  if (stepsDone.length === 4) {
+                    navigation.navigate(AppRoutes.OnboardSuccess, {
+                      heading: "Verification Complete! ",
+                      subHeading:
+                        "Your identity has been successfully verified. Thank you for providing your details.",
+                      ctaLabel: "Let's Start",
+                      navigateTo: AppRoutes.HomePage,
+                    })
                   }
                   setPage(page + 1)
                 }

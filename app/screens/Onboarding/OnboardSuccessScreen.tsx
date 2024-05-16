@@ -26,6 +26,12 @@ export const OnboardSuccessScreen: React.FC<OnboardSuccessScreenProps> = ({
       changeLoggedInStatus(true)
       return
     }
+    if (navigateTo === AppRoutes.HomePage) {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: AppRoutes.HomeStack }],
+      })
+    }
     navigation.navigate(navigateTo)
   }
 

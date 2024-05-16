@@ -13,6 +13,7 @@ import {
   SimpleLineIcons,
   Ionicons,
 } from "@expo/vector-icons"
+import { usePage } from "app/hooks/usePageVerification"
 
 const styles = StyleSheet.create({
   upperCurvedContainer: {
@@ -109,6 +110,7 @@ const Step = ({
 
 export const Profile: React.FC<PhoneInputScreenProps> = () => {
   const { changeLoggedInStatus } = useLoggedIn()
+  const { clear } = usePage()
   return (
     <Screen bgSource={require("../../assets/background/ripple-top-right.png")}>
       <View style={styles.container}>
@@ -200,7 +202,10 @@ export const Profile: React.FC<PhoneInputScreenProps> = () => {
               icon={<Ionicons name={"newspaper-outline"} size={20} />}
             />
             <Button.Outlined
-              onPress={() => changeLoggedInStatus(false)}
+              onPress={() => {
+                clear()
+                changeLoggedInStatus(false)
+              }}
               label={"Logout"}
               style={{ borderColor: "red" }}
               labelStyle={{ color: "red" }}
