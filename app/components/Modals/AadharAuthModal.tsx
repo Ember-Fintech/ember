@@ -8,12 +8,13 @@ import useCountdown from "app/hooks/useCountdown"
 import Button from "../Button"
 import { useAadharAuth } from "app/hooks/useAadharAuth"
 import { ESteps, usePage } from "app/hooks/usePageVerification"
+import { TouchableWithoutFeedback } from "react-native-gesture-handler"
 
 const PIN_BOX_WIDTH = 45
 
 const AadharAuthModal = () => {
-  const { isVisible, setIsVisible } = useAadharAuth();
-  const { setPage, setSetpsDone, stepsDone} = usePage();
+  const { isVisible, setIsVisible } = useAadharAuth()
+  const { setPage, setSetpsDone, stepsDone } = usePage()
   const [otp, setOtp] = useState<string>("")
   const [otpState, setOtpState] = useState<OtpState>(OtpState.None)
   const { countDown, restart } = useCountdown(12000)
@@ -25,7 +26,6 @@ const AadharAuthModal = () => {
     return `${minutes < 10 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds}`
   }
 
-
   const BottomText = useCallback(() => {
     if (otpState === OtpState.Invalid)
       return <Text.Caption color={"#344054"}>Code Invalid</Text.Caption>
@@ -36,9 +36,12 @@ const AadharAuthModal = () => {
     if (otpState === OtpState.None) {
       if (countDown <= 0) {
         return (
-          <Text.Caption color={"#344054"} style={{
-            textAlign: 'center'
-          }}>
+          <Text.Caption
+            color={"#344054"}
+            style={{
+              textAlign: "center",
+            }}
+          >
             Didn't get it?{" "}
             <Text.Caption onPress={restart} color={Colors.primaryColor}>
               Resend Code
@@ -47,9 +50,12 @@ const AadharAuthModal = () => {
         )
       } else {
         return (
-          <Text.Caption color={"#344054"} style={{
-            textAlign: 'center'
-          }}>
+          <Text.Caption
+            color={"#344054"}
+            style={{
+              textAlign: "center",
+            }}
+          >
             Code will resend in{" "}
             <Text.Caption color={Colors.primaryColor}>{millisecondsToMMSS(countDown)}</Text.Caption>
           </Text.Caption>
@@ -95,98 +101,93 @@ const AadharAuthModal = () => {
       transparent={true}
       visible={isVisible}
       onRequestClose={() => {
-        // Alert.alert('Modal has been closed.');
         setIsVisible(!isVisible)
       }}
-      style={{
-        flex: 1,
-      }}
     >
-      <TouchableOpacity
-        onPress={() => {
-          setIsVisible(!isVisible)
-        }}
-        activeOpacity={1}
-        style={{
-          flex: 0.6,
-          backgroundColor: "rgba(0, 0, 0, 0.3)",
-        }}
-      />
-      <View
-        style={{
-          backgroundColor: "#FFF",
-          flex: 0.4,
-          borderTopLeftRadius: 20,
-          borderTopRightRadius: 20,
-          paddingHorizontal: 20,
-          paddingVertical: 24,
-          flexDirection: "column",
-          justifyContent: "space-between",
-        }}
-      >
-        <View>
-          <Text.Heading
-            size="xs"
-            weight="semi-bold"
-            style={{
-              color: "rgba(16, 24, 40, 1)",
-              textAlign: "center",
+      <View style={{ flex: 1, backgroundColor: "rgba(0,0,0,0.4)" }}>
+        <TouchableOpacity style={{ flex: 0.6 }} onPress={() => setIsVisible(!isVisible)} />
+        <View
+          style={{
+            backgroundColor: "#FFF",
+            flex: 0.4,
+            borderTopLeftRadius: 20,
+            borderTopRightRadius: 20,
+            paddingHorizontal: 20,
+            paddingVertical: 24,
+            flexDirection: "column",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <View>
+            <Text.Heading
+              size="xs"
+              weight="semi-bold"
+              style={{
+                color: "rgba(16, 24, 40, 1)",
+                textAlign: "center",
+              }}
+            >
+              Aadhaar Authentication
+            </Text.Heading>
+            <Text.Body
+              size="sm"
+              style={{
+                textAlign: "center",
+                color: "rgba(102, 112, 133, 1)",
+              }}
+            >
+              You will receive a OTP on your Aadhaar registered mobile number xx1234
+            </Text.Body>
+          </View>
+          <OtpInput
+            outerBorderFocusColor={"#A393D3"}
+            numberOfDigits={4}
+            focusColor={Colors.primaryColor}
+            focusStickBlinkingDuration={500}
+            onFilled={(text) => confirmCode(text)}
+            textInputProps={{
+              accessibilityLabel: "One-Time Password",
             }}
-          >
-            Aadhaar Authentication
-          </Text.Heading>
-          <Text.Body
-            size="sm"
-            style={{
-              textAlign: "center",
-              color: "rgba(102, 112, 133, 1)",
+            onTextChange={(text) => {
+              setOtp(text)
             }}
-          >
-            You will receive a OTP on your Aadhaar registered mobile number xx1234
-          </Text.Body>
-        </View>
-        <OtpInput
-          outerBorderFocusColor={"#A393D3"}
-          numberOfDigits={4}
-          focusColor={Colors.primaryColor}
-          focusStickBlinkingDuration={500}
-          onFilled={(text) => confirmCode(text)}
-          textInputProps={{
-            accessibilityLabel: "One-Time Password",
-          }}
-          onTextChange={(text) => {
-            setOtp(text)
-          }}
-          theme={{
-            containerStyle: {
-            //   marginBottom: Spacings.s6,
-            },
-            pinCodeContainerStyle: {
-              width: PIN_BOX_WIDTH,
-              backgroundColor: "#F9FAFB",
-              borderColor: "#D0D5DD",
-              borderWidth: 1.2,
-            },
-            pinCodeTextStyle: {
-              fontSize: 20,
-            },
-            filledPinCodeContainerStyle: getPinContainerStyle(otpState),
-            focusedPinCodeContainerStyle: {
-              width: PIN_BOX_WIDTH,
-              backgroundColor: "transparent",
-              borderColor: Colors.primaryColor,
-              borderWidth: 1.51,
-            },
-          }}
-        />
-        <BottomText />
+            theme={{
+              containerStyle: {
+                width: 300,
+              },
+              pinCodeContainerStyle: {
+                width: PIN_BOX_WIDTH,
+                backgroundColor: "#F9FAFB",
+                borderColor: "#D0D5DD",
+                borderWidth: 1.2,
+              },
+              pinCodeTextStyle: {
+                fontSize: 20,
+              },
+              filledPinCodeContainerStyle: getPinContainerStyle(otpState),
+              focusedPinCodeContainerStyle: {
+                width: PIN_BOX_WIDTH,
+                backgroundColor: "transparent",
+                borderColor: Colors.primaryColor,
+                borderWidth: 1.51,
+              },
+            }}
+          />
+          <BottomText />
 
-        <Button.Primary label="Continue" disabled={otp.length<4} onPress={() => {
-          setPage(0);
-          setSetpsDone([...stepsDone, ESteps.AADHAR])
-          setIsVisible(false);
-        }} />
+          <Button.Primary
+            label="Continue"
+            disabled={otp.length < 4}
+            onPress={() => {
+              setPage(0)
+              setSetpsDone([...stepsDone, ESteps.AADHAR])
+              setIsVisible(false)
+            }}
+          />
+        </View>
       </View>
+      {/* <TouchableWithoutFeedback style={{ f }}></TouchableWithoutFeedback> */}
     </Modal>
   )
 }

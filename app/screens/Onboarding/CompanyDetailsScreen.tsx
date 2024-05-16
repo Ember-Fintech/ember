@@ -9,11 +9,11 @@ import Text from "app/components/typography/Text"
 import Input from "app/components/Input"
 import { KeyboardAvoidingView } from "@gluestack-ui/themed"
 import { AntDesign as Icon } from "@expo/vector-icons"
-import { Avatar, Image } from "react-native-ui-lib"
+import { Avatar, Image, Spacings } from "react-native-ui-lib"
 import info from "assets/icons/companyDetails/elements.png"
 import { companyData } from "app/constants/companyData"
 // import PrimaryButton from "app/components/PrimaryButton"
-import {debounce} from 'app/utils/generalUtils'
+import { debounce } from "app/utils/generalUtils"
 import Button from "app/components/Button"
 
 type CompanyDetailsScreenProps = {
@@ -26,7 +26,7 @@ export const CompanyDetailsScreen: React.FC<CompanyDetailsScreenProps> = ({ navi
   const [companyName, setCompanyName] = useState<string>("")
   const [selectedCompany, setSelectedComapny] = useState<string>("")
   const [employeeId, setEmployeeId] = useState<string>("")
-  const [filteredCompanies, setFilteredCompanies] = useState<Array<any>>(companyData);
+  const [filteredCompanies, setFilteredCompanies] = useState<Array<any>>(companyData)
   const [errorMessage, setErrorMessage] = useState<string>("")
 
   const handleLeftIconPressed = () => {
@@ -38,25 +38,27 @@ export const CompanyDetailsScreen: React.FC<CompanyDetailsScreenProps> = ({ navi
   }
 
   const filterCompanyList = (text: string) => {
-    if(!text) {
-      setFilteredCompanies(companyData);
-      setErrorMessage("");
+    if (!text) {
+      setFilteredCompanies(companyData)
+      setErrorMessage("")
       return
     }
     const newCompanyList = filteredCompanies?.filter((singleCompanies) => {
-      return singleCompanies?.title?.toLowerCase()?.includes(text?.toLowerCase());
+      return singleCompanies?.title?.toLowerCase()?.includes(text?.toLowerCase())
     })
-    if(!newCompanyList.length) {
-      setErrorMessage("We couldn't find this company name. Please try again or consider joining the waitlist");
+    if (!newCompanyList.length) {
+      setErrorMessage(
+        "We couldn't find this company name. Please try again or consider joining the waitlist",
+      )
     }
-    setFilteredCompanies(newCompanyList);
+    setFilteredCompanies(newCompanyList)
   }
 
-  const debouncedSearch = debounce(filterCompanyList, 1000);
+  const debouncedSearch = debounce(filterCompanyList, 1000)
 
   useEffect(() => {
     debouncedSearch(companyName)
-  }, [companyName]);
+  }, [companyName])
 
   const renderCorrectScreen = () => {
     switch (page) {
@@ -77,7 +79,6 @@ export const CompanyDetailsScreen: React.FC<CompanyDetailsScreenProps> = ({ navi
           backgroundColor: colors.white,
           borderRadius: 20,
           flex: 1,
-
         }}
       >
         <View>
@@ -107,36 +108,46 @@ export const CompanyDetailsScreen: React.FC<CompanyDetailsScreenProps> = ({ navi
             errorMessage={errorMessage}
           />
         </View>
-        {!errorMessage && <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            columnGap: 8,
-            paddingHorizontal: 12,
-            paddingVertical: 8,
-            backgroundColor: "rgba(239, 248, 255, 1)",
-            borderRadius: 12,
-          }}
-        >
-          <Image source={info} style={{ height: 12, width: 12 }} />
-          <Text.Caption
+        {!errorMessage && (
+          <View
             style={{
-              color: "rgba(23, 92, 211, 1)",
+              flexDirection: "row",
+              alignItems: "center",
+              columnGap: 8,
+              paddingHorizontal: 12,
+              paddingVertical: 8,
+              backgroundColor: "rgba(239, 248, 255, 1)",
+              borderRadius: 12,
             }}
           >
-            We will confirm your details according to the records of this company.
-          </Text.Caption>
-        </View>}
-        {errorMessage && (<View style={{
-          position: 'absolute',
-          bottom: 10,
-          left: '7%',
-          width: '100%'
-        }}>
-          <Button.Primary label={"Join the waitlist"} onPress={() => {
-            // TODO:- do something
-          }} disabled={false}  />
-        </View>)}
+            <Image source={info} style={{ height: 12, width: 12 }} />
+            <Text.Caption
+              style={{
+                color: "rgba(23, 92, 211, 1)",
+              }}
+            >
+              We will confirm your details according to the records of this company.
+            </Text.Caption>
+          </View>
+        )}
+        {errorMessage && (
+          <View
+            style={{
+              position: "absolute",
+              bottom: 20,
+              left: "7%",
+              width: "100%",
+            }}
+          >
+            <Button.Primary
+              label={"Join the waitlist"}
+              onPress={() => {
+                // TODO:- do something
+              }}
+              disabled={false}
+            />
+          </View>
+        )}
         {renderList()}
       </View>
     )
@@ -226,7 +237,7 @@ export const CompanyDetailsScreen: React.FC<CompanyDetailsScreenProps> = ({ navi
                 fontFamily: "Inter-Medium",
               }}
             >
-              Ple
+              Employee ID
             </Text.Body>
           </View>
           <View
@@ -288,16 +299,18 @@ export const CompanyDetailsScreen: React.FC<CompanyDetailsScreenProps> = ({ navi
             </View>
           </View>
         </View>
-        <View style={{
-          paddingBottom: 20
-        }}>
+        <View
+          style={{
+            paddingBottom: 20,
+          }}
+        >
           <View>
             <Text.Caption
               style={{
                 color: "rgba(102, 112, 133, 1)",
                 fontFamily: "Inter-Regular",
                 textAlign: "center",
-                paddingBottom: 12
+                paddingBottom: 12,
               }}
             >
               By continuing, you agree to our{" "}
@@ -311,18 +324,21 @@ export const CompanyDetailsScreen: React.FC<CompanyDetailsScreenProps> = ({ navi
               </Text.Caption>
             </Text.Caption>
           </View>
-          <Button.Primary
-            label="Continue"
-            onPress={() => {
-              navigation.push(AppRoutes.OnboardSuccess, {
-                heading: 'Welcome to Ember',
-                subHeading: 'Your identity has been successfully verified. Thank you for providing your details.',
-                ctaLabel: 'Go to Dashboard',
-                navigateTo: AppRoutes.MainAppStack
-              })
-            }}
-            disabled={!employeeId}
-          />
+          <View style={{ marginHorizontal: Spacings.s5, marginBottom: Spacings.s2 }}>
+            <Button.Primary
+              label="Continue"
+              onPress={() => {
+                navigation.push(AppRoutes.OnboardSuccess, {
+                  heading: "Welcome to Ember",
+                  subHeading:
+                    "Your identity has been successfully verified. Thank you for providing your details.",
+                  ctaLabel: "Go to Dashboard",
+                  navigateTo: AppRoutes.MainAppStack,
+                })
+              }}
+              disabled={!employeeId}
+            />
+          </View>
         </View>
       </View>
     )

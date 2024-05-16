@@ -5,9 +5,9 @@ import { OnboardingStackParams } from "app/navigators/OnboardingStack"
 import { AppRoutes } from "app/navigators/constants/appRoutes"
 import { useTheme } from "app/hooks/useTheme"
 import verified from "app/assets/images/verified.png"
-import PrimaryButton from "app/components/Button"
 import Button from "app/components/Button"
 import { useLoggedIn } from "app/hooks/useLoggedIn"
+import { Spacings } from "react-native-ui-lib"
 
 type OnboardSuccessScreenProps = {
   navigation: StackScreenProps<OnboardingStackParams, AppRoutes.OnboardSuccess>
@@ -77,7 +77,7 @@ export const OnboardSuccessScreen: React.FC<OnboardSuccessScreenProps> = ({
         </View>
         <View
           style={{
-            marginBottom: 10,
+            marginBottom: Spacings.s10,
           }}
         >
           <Button.Primary label={ctaLabel} onPress={onPressCta} disabled={false} />
