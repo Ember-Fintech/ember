@@ -16,7 +16,7 @@ const Stack = createStackNavigator<ScanAndPayStackParams>()
 
 const ScanAndPayStack: React.FC = () => {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={AppRoutes.UpiScanner}>
+    <Stack.Navigator screenOptions={{ headerShown: false,  }} initialRouteName={AppRoutes.UpiScanner}>
       <Stack.Screen name={AppRoutes.UpiScanner} component={UpiScanner} />
       <Stack.Screen name={AppRoutes.PaymentConfig} component={PaymentConfig} />
       <Stack.Screen name={AppRoutes.UpiPinScreen} component={UpiPinScreen} />

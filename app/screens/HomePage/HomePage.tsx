@@ -1,12 +1,21 @@
-import React from "react"
+import React, { useState } from "react"
 import { Screen } from "app/components"
 import Text from "app/components/typography/Text"
-import { ImageBackground, ImageURISource, Pressable, View } from "react-native"
+import { Image, ImageBackground, ImageURISource, Pressable, View } from "react-native"
 import { Avatar, Spacings } from "react-native-ui-lib"
 import { useNavigation } from "@react-navigation/native"
 import { AppRoutes } from "app/navigators/constants/appRoutes"
 import background from "assets/background/complete-kyc.png"
 import Button from "app/components/Button"
+import company from "assets/home/company.png"
+import notification from "assets/home/NotificationBell.png"
+import { usePage } from "app/hooks/usePageVerification"
+import FlippableCard from "app/components/Cards/FlipableCard"
+import backgroundF from "assets/background/card-background.png"
+import brand from "assets/cards/brand.png"
+import rupay from "assets/cards/rupay.png"
+import { Ionicons as Icons } from "@expo/vector-icons"
+import { ProgressBar } from "react-native-ui-lib"
 
 const AVATAR_SIZE = 60
 const QuickActionItem = (props: { label: string; img: ImageURISource; onPress: () => void }) => {
@@ -69,12 +78,366 @@ const frontCardContent = (navigation: any) => {
   )
 }
 
+const frontCardContentFlippable = () => {
+  return (
+    <ImageBackground
+      resizeMode="stretch"
+      source={backgroundF}
+      style={{
+        flex: 1,
+        zIndex: 1,
+        paddingHorizontal: 12,
+        paddingVertical: 20,
+        flexDirection: "column",
+        justifyContent: "space-between",
+      }}
+    >
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            columnGap: 10,
+          }}
+        >
+          <Image
+            source={brand}
+            style={{
+              height: 34,
+              width: 34,
+            }}
+          />
+          <Text.Body
+            size="lg"
+            weight="bold"
+            style={{
+              lineHeight: 20,
+              color: '#FFF',
+            }}
+          >
+            xx2224
+          </Text.Body>
+          <Icons name="eye-off-outline" color={'#FFF'} size={20} style={{ opacity: 0 }} />
+        </View>
+        <View>
+          <Image
+            source={rupay}
+            resizeMode="contain"
+            style={{
+              height: 20,
+            }}
+          />
+        </View>
+      </View>
+      <View>
+        <Text.Body
+          size="lg"
+          weight="bold"
+          style={{
+            lineHeight: 18,
+            color: '#FFF',
+          }}
+        >
+          ₹ 37,500
+          <Text.Caption
+            style={{
+              fontFamily: "Sans-Medium",
+              color: '#FFF',
+            }}
+          >
+            {"  "}of{"  "}
+          </Text.Caption>
+          <Text.Body
+            size="lg"
+            weight="bold"
+            style={{
+              color: '#FFF',
+            }}
+          >
+            ₹ 50,000{"  "}
+          </Text.Body>
+          <Text.Caption
+            style={{
+              fontFamily: "Sans-Medium",
+              color: '#FFF',
+            }}
+          >
+            available
+          </Text.Caption>
+        </Text.Body>
+        <ProgressBar
+          progress={80}
+          progressColor={'rgba(83, 62, 146, 1)'}
+          style={{
+            backgroundColor: '#FFF',
+          }}
+        />
+      </View>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <View>
+          <Text.Caption
+            style={{
+              color: '#FFF',
+            }}
+          >
+            Card Details
+          </Text.Caption>
+          <Text.Body
+            size="sm"
+            weight="semi-bold"
+            style={{
+              textDecorationLine: "underline",
+              color: '#FFF',
+            }}
+          >
+            Click Here
+          </Text.Body>
+        </View>
+        <View>
+          <Text.Caption
+            style={{
+              color: '#FFF',
+            }}
+          >
+            Next Salary On
+          </Text.Caption>
+          <Text.Body
+            size="sm"
+            weight="semi-bold"
+            style={{
+              color: '#FFF',
+            }}
+          >
+            9th April’24
+          </Text.Body>
+        </View>
+      </View>
+    </ImageBackground>
+  )
+}
+
+const backCardContent = (cvvHidden, setCvvHidden) => {
+  return (
+    <ImageBackground
+      resizeMode="stretch"
+      source={backgroundF}
+      style={{
+        flex: 1,
+        paddingHorizontal: 12,
+        paddingVertical: 20,
+        flexDirection: "column",
+        justifyContent: "space-between",
+      }}
+    >
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            columnGap: 10,
+          }}
+        >
+          <Image
+            source={brand}
+            style={{
+              height: 34,
+              width: 34,
+            }}
+          />
+          <View
+            style={{
+              flexDirection: "row",
+              columnGap: 10,
+              opacity: 0,
+            }}
+          >
+            <Text.Body
+              size="lg"
+              weight="bold"
+              style={{
+                lineHeight: 20,
+              }}
+            >
+              2224...
+            </Text.Body>
+            <Icons name="eye-off-outline" color={'#FFF'} size={20} />
+          </View>
+        </View>
+        <View>
+          <Image
+            source={rupay}
+            resizeMode="contain"
+            style={{
+              height: 20,
+            }}
+          />
+        </View>
+      </View>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <View>
+          <Text.Caption
+            style={{
+              fontFamily: "Sans-Medium",
+              color: '#FFF',
+            }}
+          >
+            Credit card number
+          </Text.Caption>
+          <Text.Body
+            size="sm"
+            weight="semi-bold"
+            style={{
+              color: '#FFF',
+            }}
+          >
+            {cvvHidden ? "1233 1233 1233 2858" : "•••• •••• •••• 2858"}
+          </Text.Body>
+        </View>
+        <View>
+          <Text.Caption
+            style={{
+              color: '#FFF',
+            }}
+          >
+            CVV
+          </Text.Caption>
+          <Text.Body
+            size="sm"
+            weight="semi-bold"
+            style={{
+              color: '#FFF',
+            }}
+          >
+            {cvvHidden ? "•••" : "534"}
+          </Text.Body>
+        </View>
+      </View>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <Text.Body
+          size="sm"
+          weight="semi-bold"
+          style={{
+            textDecorationLine: "underline",
+            color: '#FFF',
+          }}
+        >
+          Click to Flip
+        </Text.Body>
+        <View
+          style={{
+            flexDirection: "row",
+            columnGap: 5,
+            alignItems: "center",
+          }}
+        >
+          <Icons
+            name={cvvHidden ? "eye-outline" : "eye-off-outline"}
+            color={'#FFF'}
+            size={14}
+          />
+          <Text.Body
+            size="sm"
+            weight="semi-bold"
+            onPress={() => {
+              setCvvHidden((prev) => !prev)
+            }}
+            style={{
+              textDecorationLine: "underline",
+              color: '#FFF',
+            }}
+          >
+            {cvvHidden ? "View CVV" : "Hide CVV"}
+          </Text.Body>
+        </View>
+      </View>
+    </ImageBackground>
+  )
+}
+
+
 export const HomePage = (): React.FC => {
   const navigation = useNavigation()
+  const {stepsDone} = usePage();
+  const [cvvHidden, setCvvHidden] = useState<boolean>(false);
   return (
     <Screen bgSource={require("../../../assets/background/ripple-center.png")}>
       <View style={{ height: "100%" }}>
-        <View style={{ flex: 0.25 }}></View>
+        <View style={{ flex: 0.3, marginHorizontal: 24, paddingTop: 14 }}>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                columnGap: 12,
+              }}
+            >
+              <Image
+                source={company}
+                resizeMode="contain"
+                style={{
+                  height: 46,
+                  width: 46,
+                }}
+              />
+              <View>
+                <Text.Body size="sm" style={{
+                  color: '#FFF'
+                }}>Welcome 👋</Text.Body>
+                <Text.Heading size="xs" weight="semi-bold" style={{
+                  color: '#FFF'
+                }}>
+                  Ashita Taneja
+                </Text.Heading>
+              </View>
+            </View>
+            <View>
+              <Image
+                source={notification}
+                resizeMode="contain"
+                style={{
+                  height: 46,
+                  width: 46,
+                }}
+              />
+            </View>
+          </View>
+        </View>
         <View
           style={{
             flex: 0.75,
@@ -83,7 +446,20 @@ export const HomePage = (): React.FC => {
             borderTopLeftRadius: Spacings.s10,
           }}
         >
-          <View
+          {stepsDone.length >= 3 ? <View style={{
+            position: "absolute",
+            top: "-25%",
+            width: '100%',
+            backfaceVisibility: "hidden",
+          }}>
+            <FlippableCard
+          frontContent={frontCardContentFlippable()}
+          backContent={backCardContent(cvvHidden, setCvvHidden)}
+          frontStyle={undefined}
+          backStyle={undefined}
+          isFlippable
+        />
+          </View> : <View
             style={{
               position: "absolute",
               top: "-25%",
@@ -97,7 +473,7 @@ export const HomePage = (): React.FC => {
             }}
           >
             {frontCardContent(navigation)}
-          </View>
+          </View>}
 
           <View
             style={{

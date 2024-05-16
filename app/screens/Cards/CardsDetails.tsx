@@ -174,9 +174,9 @@ const CardsDetails = ({ navigation }) => {
                 color: colors.white,
               }}
             >
-              2224...
+              xx2224
             </Text.Body>
-            <Icons name="eye-off-outline" color={colors.white} size={20} />
+            <Icons name="eye-off-outline" color={colors.white} size={20} style={{ opacity: 0 }} />
           </View>
           <View>
             <Image
@@ -392,28 +392,46 @@ const CardsDetails = ({ navigation }) => {
         <View
           style={{
             flexDirection: "row",
-            columnGap: 5,
+            justifyContent: "space-between",
             alignItems: "center",
           }}
         >
-          <Icons
-            name={cvvHidden ? "eye-outline" : "eye-off-outline"}
-            color={colors.white}
-            size={14}
-          />
           <Text.Body
             size="sm"
             weight="semi-bold"
-            onPress={() => {
-              setCvvHidden((prev) => !prev)
-            }}
             style={{
               textDecorationLine: "underline",
               color: colors.white,
             }}
           >
-            {cvvHidden ? "View CVV" : "Hide CVV"}
+            Click to Flip
           </Text.Body>
+          <View
+            style={{
+              flexDirection: "row",
+              columnGap: 5,
+              alignItems: "center",
+            }}
+          >
+            <Icons
+              name={cvvHidden ? "eye-outline" : "eye-off-outline"}
+              color={colors.white}
+              size={14}
+            />
+            <Text.Body
+              size="sm"
+              weight="semi-bold"
+              onPress={() => {
+                setCvvHidden((prev) => !prev)
+              }}
+              style={{
+                textDecorationLine: "underline",
+                color: colors.white,
+              }}
+            >
+              {cvvHidden ? "View CVV" : "Hide CVV"}
+            </Text.Body>
+          </View>
         </View>
       </ImageBackground>
     )
