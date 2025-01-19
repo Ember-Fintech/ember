@@ -77,48 +77,48 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ navigation }) => {
     navigation.navigate(AppRoutes.PhoneInput)
   }
 
-    return (
-      <View
-        style={{
-          paddingTop: 60,
-          flex: 1,
-          backgroundColor: colors.primaryColor,
-        }}
-      >
-        <Carousel
-          layout={"default"}
-          data={carouselData}
-          sliderWidth={width}
-          itemWidth={width}
-          renderItem={renderItem}
-          onSnapToItem={(index: number) => setActiveIndex(index)}
-          scrollEnabled={false}
-        />
-        <PaginationDots />
-        <View style={{
-          marginHorizontal: 10
-        }}>
-          <Text style={{
-            fontFamily: 'Sans-SemiBold',
-            fontSize: 24,
-            textAlign: "center",
-            color: colors.white,
-          }}
-        >
-          {carouselData[activeIndex]?.heading}
-        </Text>
-        <Text
-          style={{
-            fontFamily: "Inter-Regular",
-            fontSize: 14,
-            textAlign: "center",
-            color: colors.white,
-            marginTop: 12,
-          }}
-        >
-          {carouselData[activeIndex]?.subHeading}
-        </Text>
-      </View>
+  return (
+    <View
+      style={{
+        paddingTop: 60,
+        flex: 1,
+        backgroundColor: colors.primaryColor,
+      }}
+    >
+      {/*   <Carousel */}
+      {/*     layout={"default"} */}
+      {/*     data={carouselData} */}
+      {/*     sliderWidth={width} */}
+      {/*     itemWidth={width} */}
+      {/*     renderItem={renderItem} */}
+      {/*     onSnapToItem={(index: number) => setActiveIndex(index)} */}
+      {/*     scrollEnabled={false} */}
+      {/*   /> */}
+      {/*   <PaginationDots /> */}
+      {/*   <View style={{ */}
+      {/*     marginHorizontal: 10 */}
+      {/*   }}> */}
+      {/*     <Text style={{ */}
+      {/*       fontFamily: 'Sans-SemiBold', */}
+      {/*       fontSize: 24, */}
+      {/*       textAlign: "center", */}
+      {/*       color: colors.white, */}
+      {/*     }} */}
+      {/*   > */}
+      {/*     {carouselData[activeIndex]?.heading} */}
+      {/*   </Text> */}
+      {/*   <Text */}
+      {/*     style={{ */}
+      {/*       fontFamily: "Inter-Regular", */}
+      {/*       fontSize: 14, */}
+      {/*       textAlign: "center", */}
+      {/*       color: colors.white, */}
+      {/*       marginTop: 12, */}
+      {/*     }} */}
+      {/*   > */}
+      {/*     {carouselData[activeIndex]?.subHeading} */}
+      {/*   </Text> */}
+      {/* </View> */}
       <View
         style={{
           margin: Spacings.s5,

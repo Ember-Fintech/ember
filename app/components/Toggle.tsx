@@ -187,7 +187,7 @@ export function Toggle(props: ToggleProps) {
   const { switchAccessibilityMode } = props as SwitchToggleProps
   const { checkboxIcon } = props as CheckboxToggleProps
 
-  const disabled = editable === false || status === "disabled" || props.disabled
+  const disabled = editable === false || status === "disabled" || props?.disabled
 
   const Wrapper = useMemo(
     () => (disabled ? View : TouchableOpacity) as ComponentType<TouchableOpacityProps | ViewProps>,
@@ -228,9 +228,9 @@ export function Toggle(props: ToggleProps) {
           on={!!value}
           disabled={!!disabled}
           status={status}
-          outerStyle={props.inputOuterStyle ?? {}}
-          innerStyle={props.inputInnerStyle ?? {}}
-          detailStyle={props.inputDetailStyle ?? {}}
+          outerStyle={props?.inputOuterStyle ?? {}}
+          innerStyle={props?.inputInnerStyle ?? {}}
+          detailStyle={props?.inputDetailStyle ?? {}}
           switchAccessibilityMode={switchAccessibilityMode}
           checkboxIcon={checkboxIcon}
         />

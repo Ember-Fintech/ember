@@ -59,7 +59,7 @@ interface CardProps extends TouchableOpacityProps {
   HeadingTextProps?: TextProps
   /**
    * Custom heading component.
-   * Overrides all other `heading*` props.
+   * Overrides all other `heading*` props?.
    */
   HeadingComponent?: ReactElement
   /**
@@ -85,7 +85,7 @@ interface CardProps extends TouchableOpacityProps {
   ContentTextProps?: TextProps
   /**
    * Custom content component.
-   * Overrides all other `content*` props.
+   * Overrides all other `content*` props?.
    */
   ContentComponent?: ReactElement
   /**
@@ -111,7 +111,7 @@ interface CardProps extends TouchableOpacityProps {
   FooterTextProps?: TextProps
   /**
    * Custom footer component.
-   * Overrides all other `footer*` props.
+   * Overrides all other `footer*` props?.
    */
   FooterComponent?: ReactElement
 }
@@ -150,8 +150,8 @@ export function Card(props: CardProps) {
     ...WrapperProps
   } = props
 
-  const preset: Presets = props.preset ?? "default"
-  const isPressable = !!WrapperProps.onPress
+  const preset: Presets = props?.preset ?? "default"
+  const isPressable = !!Wrapperprops?.onPress
   const isHeadingPresent = !!(HeadingComponent || heading || headingTx)
   const isContentPresent = !!(ContentComponent || content || contentTx)
   const isFooterPresent = !!(FooterComponent || footer || footerTx)

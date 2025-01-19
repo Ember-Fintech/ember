@@ -255,7 +255,7 @@ export function Screen(props: ScreenProps) {
         {...KeyboardAvoidingViewProps}
         style={[$keyboardAvoidingViewStyle, KeyboardAvoidingViewProps?.style]}
       >
-        {isNonScrolling(props.preset) ? (
+        {isNonScrolling(props?.preset) ? (
           <ScreenWithoutScrolling style={$containerInsets} {...props} />
         ) : (
           <ScreenWithScrolling style={$containerInsets} {...props} />

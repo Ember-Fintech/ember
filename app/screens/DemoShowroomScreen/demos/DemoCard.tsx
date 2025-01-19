@@ -90,21 +90,21 @@ export const DemoCard: Demo = {
           <Button
             preset="reversed"
             text="HeadingComponent"
-            LeftAccessory={(props) => <Icon style={props.style} icon="ladybug" />}
+            LeftAccessory={(props) => <Icon style={props?.style} icon="ladybug" />}
           />
         }
         ContentComponent={
           <Button
             style={{ marginVertical: spacing.sm }}
             text="ContentComponent"
-            LeftAccessory={(props) => <Icon style={props.style} icon="ladybug" />}
+            LeftAccessory={(props) => <Icon style={props?.style} icon="ladybug" />}
           />
         }
         FooterComponent={
           <Button
             preset="reversed"
             text="FooterComponent"
-            LeftAccessory={(props) => <Icon style={props.style} icon="ladybug" />}
+            LeftAccessory={(props) => <Icon style={props?.style} icon="ladybug" />}
           />
         }
       />

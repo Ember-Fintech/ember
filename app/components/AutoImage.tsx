@@ -60,7 +60,7 @@ export function useAutoImage(
  */
 export function AutoImage(props: AutoImageProps) {
   const { maxWidth, maxHeight, ...ImageProps } = props
-  const source = props.source as ImageURISource
+  const source = props?.source as ImageURISource
 
   const [width, height] = useAutoImage(
     Platform.select({
@@ -70,5 +70,5 @@ export function AutoImage(props: AutoImageProps) {
     [maxWidth, maxHeight],
   )
 
-  return <Image {...ImageProps} style={[{ width, height }, props.style]} />
+  return <Image {...ImageProps} style={[{ width, height }, props?.style]} />
 }

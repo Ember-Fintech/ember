@@ -85,13 +85,13 @@ export interface TextFieldProps extends Omit<TextInputProps, "ref"> {
   inputWrapperStyle?: StyleProp<ViewStyle>
   /**
    * An optional component to render on the right side of the input.
-   * Example: `RightAccessory={(props) => <Icon icon="ladybug" containerStyle={props.style} color={props.editable ? colors.textDim : colors.text} />}`
+   * Example: `RightAccessory={(props) => <Icon icon="ladybug" containerStyle={props?.style} color={props?.editable ? colors.textDim : colors.text} />}`
    * Note: It is a good idea to memoize this.
    */
   RightAccessory?: ComponentType<TextFieldAccessoryProps>
   /**
    * An optional component to render on the left side of the input.
-   * Example: `LeftAccessory={(props) => <Icon icon="ladybug" containerStyle={props.style} color={props.editable ? colors.textDim : colors.text} />}`
+   * Example: `LeftAccessory={(props) => <Icon icon="ladybug" containerStyle={props?.style} color={props?.editable ? colors.textDim : colors.text} />}`
    * Note: It is a good idea to memoize this.
    */
   LeftAccessory?: ComponentType<TextFieldAccessoryProps>
@@ -126,7 +126,7 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
   } = props
   const input = useRef<TextInput>(null)
 
-  const disabled = TextInputProps.editable === false || status === "disabled"
+  const disabled = TextInputprops?.editable === false || status === "disabled"
 
   const placeholderContent = placeholderTx
     ? translate(placeholderTx, placeholderTxOptions)
@@ -139,7 +139,7 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
   const $inputWrapperStyles = [
     $inputWrapperStyle,
     status === "error" && { borderColor: colors.error },
-    TextInputProps.multiline && { minHeight: 112 },
+    TextInputprops?.multiline && { minHeight: 112 },
     LeftAccessory && { paddingStart: 0 },
     RightAccessory && { paddingEnd: 0 },
     $inputWrapperStyleOverride,
@@ -149,7 +149,7 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
     $inputStyle,
     disabled && { color: colors.textDim },
     isRTL && { textAlign: "right" as TextStyle["textAlign"] },
-    TextInputProps.multiline && { height: "auto" },
+    TextInputprops?.multiline && { height: "auto" },
     $inputStyleOverride,
   ]
 
@@ -194,7 +194,7 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
             style={$leftAccessoryStyle}
             status={status}
             editable={!disabled}
-            multiline={TextInputProps.multiline ?? false}
+            multiline={TextInputprops?.multiline ?? false}
           />
         )}
 
@@ -214,7 +214,7 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
             style={$rightAccessoryStyle}
             status={status}
             editable={!disabled}
-            multiline={TextInputProps.multiline ?? false}
+            multiline={TextInputprops?.multiline ?? false}
           />
         )}
       </View>

@@ -104,7 +104,7 @@ export const DemoTextField: Demo = {
         label="RightAccessory"
         helper="This prop takes a function that returns a React element."
         value="Reprehenderit Lorem magna non consequat ullamco cupidatat."
-        RightAccessory={(props) => <Icon icon="ladybug" containerStyle={props.style} size={21} />}
+        RightAccessory={(props) => <Icon icon="ladybug" containerStyle={props?.style} size={21} />}
       />
 
       <DemoDivider size={24} />
@@ -113,7 +113,7 @@ export const DemoTextField: Demo = {
         label="LeftAccessory"
         helper="This prop takes a function that returns a React element."
         value="Eiusmod exercitation mollit elit magna occaecat eiusmod Lorem minim veniam."
-        LeftAccessory={(props) => <Icon icon="ladybug" containerStyle={props.style} size={21} />}
+        LeftAccessory={(props) => <Icon icon="ladybug" containerStyle={props?.style} size={21} />}
       />
 
       <DemoDivider size={24} />
@@ -123,7 +123,7 @@ export const DemoTextField: Demo = {
         helper="Enables a taller input for multiline text."
         value="Eiusmod exercitation mollit elit magna occaecat eiusmod Lorem minim veniam. Laborum Lorem velit velit minim irure ad in ut adipisicing consectetur."
         multiline
-        RightAccessory={(props) => <Icon icon="ladybug" containerStyle={props.style} size={21} />}
+        RightAccessory={(props) => <Icon icon="ladybug" containerStyle={props?.style} size={21} />}
       />
     </DemoUseCase>,
 

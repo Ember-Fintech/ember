@@ -21,17 +21,17 @@ const AVATAR_SIZE = 60
 const QuickActionItem = (props: { label: string; img: ImageURISource; onPress: () => void }) => {
   return (
     <Pressable
-      onPress={props.onPress}
+      onPress={props?.onPress}
       style={{ paddingHorizontal: Spacings.s2, flex: 1, alignItems: "center" }}
     >
       <Avatar
         size={AVATAR_SIZE}
         backgroundColor={"#D1C9E9"}
-        source={props.img}
+        source={props?.img}
         imageStyle={{ resizeMode: "contain", height: 30, top: 15 }}
       />
       <Text.Caption style={{ textAlign: "center", marginTop: Spacings.s1 }}>
-        {props.label}
+        {props?.label}
       </Text.Caption>
     </Pressable>
   )
@@ -118,12 +118,12 @@ const frontCardContentFlippable = () => {
             weight="bold"
             style={{
               lineHeight: 20,
-              color: '#FFF',
+              color: "#FFF",
             }}
           >
             xx2224
           </Text.Body>
-          <Icons name="eye-off-outline" color={'#FFF'} size={20} style={{ opacity: 0 }} />
+          <Icons name="eye-off-outline" color={"#FFF"} size={20} style={{ opacity: 0 }} />
         </View>
         <View>
           <Image
@@ -141,14 +141,14 @@ const frontCardContentFlippable = () => {
           weight="bold"
           style={{
             lineHeight: 18,
-            color: '#FFF',
+            color: "#FFF",
           }}
         >
           ₹ 37,500
           <Text.Caption
             style={{
               fontFamily: "Sans-Medium",
-              color: '#FFF',
+              color: "#FFF",
             }}
           >
             {"  "}of{"  "}
@@ -157,7 +157,7 @@ const frontCardContentFlippable = () => {
             size="lg"
             weight="bold"
             style={{
-              color: '#FFF',
+              color: "#FFF",
             }}
           >
             ₹ 50,000{"  "}
@@ -165,7 +165,7 @@ const frontCardContentFlippable = () => {
           <Text.Caption
             style={{
               fontFamily: "Sans-Medium",
-              color: '#FFF',
+              color: "#FFF",
             }}
           >
             available
@@ -173,9 +173,9 @@ const frontCardContentFlippable = () => {
         </Text.Body>
         <ProgressBar
           progress={80}
-          progressColor={'rgba(83, 62, 146, 1)'}
+          progressColor={"rgba(83, 62, 146, 1)"}
           style={{
-            backgroundColor: '#FFF',
+            backgroundColor: "#FFF",
           }}
         />
       </View>
@@ -189,7 +189,7 @@ const frontCardContentFlippable = () => {
         <View>
           <Text.Caption
             style={{
-              color: '#FFF',
+              color: "#FFF",
             }}
           >
             Card Details
@@ -199,7 +199,7 @@ const frontCardContentFlippable = () => {
             weight="semi-bold"
             style={{
               textDecorationLine: "underline",
-              color: '#FFF',
+              color: "#FFF",
             }}
           >
             Click Here
@@ -208,7 +208,7 @@ const frontCardContentFlippable = () => {
         <View>
           <Text.Caption
             style={{
-              color: '#FFF',
+              color: "#FFF",
             }}
           >
             Next Salary On
@@ -217,7 +217,7 @@ const frontCardContentFlippable = () => {
             size="sm"
             weight="semi-bold"
             style={{
-              color: '#FFF',
+              color: "#FFF",
             }}
           >
             9th April’24
@@ -278,7 +278,7 @@ const backCardContent = (cvvHidden, setCvvHidden) => {
             >
               2224...
             </Text.Body>
-            <Icons name="eye-off-outline" color={'#FFF'} size={20} />
+            <Icons name="eye-off-outline" color={"#FFF"} size={20} />
           </View>
         </View>
         <View>
@@ -302,7 +302,7 @@ const backCardContent = (cvvHidden, setCvvHidden) => {
           <Text.Caption
             style={{
               fontFamily: "Sans-Medium",
-              color: '#FFF',
+              color: "#FFF",
             }}
           >
             Credit card number
@@ -311,7 +311,7 @@ const backCardContent = (cvvHidden, setCvvHidden) => {
             size="sm"
             weight="semi-bold"
             style={{
-              color: '#FFF',
+              color: "#FFF",
             }}
           >
             {cvvHidden ? "1233 1233 1233 2858" : "•••• •••• •••• 2858"}
@@ -320,7 +320,7 @@ const backCardContent = (cvvHidden, setCvvHidden) => {
         <View>
           <Text.Caption
             style={{
-              color: '#FFF',
+              color: "#FFF",
             }}
           >
             CVV
@@ -329,7 +329,7 @@ const backCardContent = (cvvHidden, setCvvHidden) => {
             size="sm"
             weight="semi-bold"
             style={{
-              color: '#FFF',
+              color: "#FFF",
             }}
           >
             {cvvHidden ? "•••" : "534"}
@@ -348,7 +348,7 @@ const backCardContent = (cvvHidden, setCvvHidden) => {
           weight="semi-bold"
           style={{
             textDecorationLine: "underline",
-            color: '#FFF',
+            color: "#FFF",
           }}
         >
           Click to Flip
@@ -360,11 +360,7 @@ const backCardContent = (cvvHidden, setCvvHidden) => {
             alignItems: "center",
           }}
         >
-          <Icons
-            name={cvvHidden ? "eye-outline" : "eye-off-outline"}
-            color={'#FFF'}
-            size={14}
-          />
+          <Icons name={cvvHidden ? "eye-outline" : "eye-off-outline"} color={"#FFF"} size={14} />
           <Text.Body
             size="sm"
             weight="semi-bold"
@@ -373,7 +369,7 @@ const backCardContent = (cvvHidden, setCvvHidden) => {
             }}
             style={{
               textDecorationLine: "underline",
-              color: '#FFF',
+              color: "#FFF",
             }}
           >
             {cvvHidden ? "View CVV" : "Hide CVV"}
@@ -384,11 +380,10 @@ const backCardContent = (cvvHidden, setCvvHidden) => {
   )
 }
 
-
 export const HomePage = (): React.FC => {
   const navigation = useNavigation()
-  const {stepsDone} = usePage();
-  const [cvvHidden, setCvvHidden] = useState<boolean>(false);
+  const { stepsDone } = usePage()
+  const [cvvHidden, setCvvHidden] = useState<boolean>(false)
   return (
     <Screen bgSource={require("../../../assets/background/ripple-center.png")}>
       <View style={{ height: "100%" }}>
@@ -416,12 +411,21 @@ export const HomePage = (): React.FC => {
                 }}
               />
               <View>
-                <Text.Body size="sm" style={{
-                  color: '#FFF'
-                }}>Welcome 👋</Text.Body>
-                <Text.Heading size="xs" weight="semi-bold" style={{
-                  color: '#FFF'
-                }}>
+                <Text.Body
+                  size="sm"
+                  style={{
+                    color: "#FFF",
+                  }}
+                >
+                  Welcome 👋
+                </Text.Body>
+                <Text.Heading
+                  size="xs"
+                  weight="semi-bold"
+                  style={{
+                    color: "#FFF",
+                  }}
+                >
                   Ashita Taneja
                 </Text.Heading>
               </View>
@@ -446,34 +450,40 @@ export const HomePage = (): React.FC => {
             borderTopLeftRadius: Spacings.s10,
           }}
         >
-          {stepsDone.length >= 3 ? <View style={{
-            position: "absolute",
-            top: "-25%",
-            width: '100%',
-            backfaceVisibility: "hidden",
-          }}>
-            <FlippableCard
-          frontContent={frontCardContentFlippable()}
-          backContent={backCardContent(cvvHidden, setCvvHidden)}
-          frontStyle={undefined}
-          backStyle={undefined}
-          isFlippable
-        />
-          </View> : <View
-            style={{
-              position: "absolute",
-              top: "-25%",
-              width: "90%",
-              height: 200,
-              backgroundColor: "#fff",
-              backfaceVisibility: "hidden",
-              borderRadius: 15,
-              marginHorizontal: "5%",
-              marginTop: 12,
-            }}
-          >
-            {frontCardContent(navigation)}
-          </View>}
+          {stepsDone.length >= 3 ? (
+            <View
+              style={{
+                position: "absolute",
+                top: "-25%",
+                width: "100%",
+                backfaceVisibility: "hidden",
+              }}
+            >
+              <FlippableCard
+                frontContent={frontCardContentFlippable()}
+                backContent={backCardContent(cvvHidden, setCvvHidden)}
+                frontStyle={undefined}
+                backStyle={undefined}
+                isFlippable
+              />
+            </View>
+          ) : (
+            <View
+              style={{
+                position: "absolute",
+                top: "-25%",
+                width: "90%",
+                height: 200,
+                backgroundColor: "#fff",
+                backfaceVisibility: "hidden",
+                borderRadius: 15,
+                marginHorizontal: "5%",
+                marginTop: 12,
+              }}
+            >
+              {frontCardContent(navigation)}
+            </View>
+          )}
 
           <View
             style={{

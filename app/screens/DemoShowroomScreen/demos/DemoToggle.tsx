@@ -8,7 +8,7 @@ import { DemoDivider } from "../DemoDivider"
 import { DemoUseCase } from "../DemoUseCase"
 
 function ControlledToggle(props: ToggleProps) {
-  const [value, setValue] = React.useState(props.value || false)
+  const [value, setValue] = React.useState(props?.value || false)
   return <Toggle {...props} value={value} onPress={() => setValue(!value)} />
 }
 

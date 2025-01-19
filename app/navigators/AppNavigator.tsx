@@ -57,11 +57,11 @@ const AppStack = () => {
       screenOptions={{ headerShown: false, navigationBarColor: colors.background }}
       initialRouteName={!isLoggedIn ? AppRoutes.MainAppStack : AppRoutes.OnboardingStack}
     >
-      {!isLoggedIn ? (
-        <Stack.Screen name={AppRoutes.OnboardingStack} component={OnboardingStack} />
-      ) : (
-        <Stack.Screen name={AppRoutes.MainAppStack} component={TabBar} />
-      )}
+      {/* {!isLoggedIn ? ( */}
+      <Stack.Screen name={AppRoutes.OnboardingStack} component={OnboardingStack} />
+      {/* ) : ( */}
+      {/*   <Stack.Screen names={AppRoutes.MainAppStack} component={TabBar} /> */}
+      {/* )} */}
     </Stack.Navigator>
   )
 }

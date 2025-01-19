@@ -123,7 +123,7 @@ const EmptyStatePresets = {
  * @returns {JSX.Element} The rendered `EmptyState` component.
  */
 export function EmptyState(props: EmptyStateProps) {
-  const preset = EmptyStatePresets[props.preset ?? "generic"]
+  const preset = EmptyStatePresets[props?.preset ?? "generic"]
 
   const {
     button = preset.button,

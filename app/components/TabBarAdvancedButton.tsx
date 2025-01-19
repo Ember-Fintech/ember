@@ -10,7 +10,7 @@ type Props = BottomTabBarButtonProps & {
 export const TabBarAdvancedButton: React.FC<Props> = ({ bgColor, ...props }) => (
   <View style={styles.container} pointerEvents="box-none">
     <View style={styles.background} />
-    <Pressable style={styles.button} onPress={props.onPress}>
+    <Pressable style={styles.button} onPress={props?.onPress}>
       <Image
         source={scan}
         style={{

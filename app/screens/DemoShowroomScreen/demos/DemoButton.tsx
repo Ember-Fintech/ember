@@ -64,7 +64,7 @@ export const DemoButton: Demo = {
       <Button
         preset="filled"
         RightAccessory={(props) => (
-          <Icon containerStyle={props.style} style={$iconStyle} icon="ladybug" />
+          <Icon containerStyle={props?.style} style={$iconStyle} icon="ladybug" />
         )}
       >
         RightAccessory - Duis Quis
@@ -74,7 +74,7 @@ export const DemoButton: Demo = {
       <Button
         preset="filled"
         LeftAccessory={(props) => (
-          <Icon containerStyle={props.style} style={$iconStyle} icon="ladybug" />
+          <Icon containerStyle={props?.style} style={$iconStyle} icon="ladybug" />
         )}
       >
         LeftAccessory - Duis Proident
@@ -97,10 +97,10 @@ export const DemoButton: Demo = {
       <Button
         preset="reversed"
         RightAccessory={(props) => (
-          <Icon containerStyle={props.style} style={$iconStyle} icon="ladybug" />
+          <Icon containerStyle={props?.style} style={$iconStyle} icon="ladybug" />
         )}
         LeftAccessory={(props) => (
-          <Icon containerStyle={props.style} style={$iconStyle} icon="ladybug" />
+          <Icon containerStyle={props?.style} style={$iconStyle} icon="ladybug" />
         )}
       >
         Multiline - consequat veniam veniam reprehenderit. Fugiat id nisi quis duis sunt proident
@@ -130,10 +130,10 @@ export const DemoButton: Demo = {
         pressedTextStyle={$customButtonPressedTextStyle}
         RightAccessory={(props) => (
           <Icon
-            containerStyle={props.style}
+            containerStyle={props?.style}
             style={[
               $iconStyle,
-              props.pressableState.pressed && $customButtonPressedRightAccessoryStyle,
+              props?.pressableState.pressed && $customButtonPressedRightAccessoryStyle,
             ]}
             icon="ladybug"
           />
@@ -186,7 +186,7 @@ export const DemoButton: Demo = {
         RightAccessory={(props) => (
           <View
             style={
-              props.disabled
+              props?.disabled
                 ? [$customButtonRightAccessoryStyle, $disabledOpacity]
                 : $customButtonPressedRightAccessoryStyle
             }
