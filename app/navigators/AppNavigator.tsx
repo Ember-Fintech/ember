@@ -11,10 +11,10 @@ import Config from "../config"
 import { DemoTabParamList } from "./DemoNavigator"
 import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
 import { colors } from "app/theme"
-import OnboardingStack, { OnboardingStackParams } from "app/navigators/OnboardingStack"
-import { TabBar } from "app/navigators/TabNavigation"
+import { OnboardingStackParams } from "app/navigators/OnboardingStack"
 import { AppRoutes } from "app/navigators/constants/appRoutes"
 import { useLoggedIn } from "app/hooks/useLoggedIn"
+import Loan, { LoanStackParams } from "./Loan"
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -33,6 +33,7 @@ export type AppStackParamList = {
   Welcome: undefined
   Login: undefined
   Demo: NavigatorScreenParams<DemoTabParamList>
+  Loan: NavigatorScreenParams<LoanStackParams>
   // 🔥 Your screens go here
   // IGNITE_GENERATOR_ANCHOR_APP_STACK_PARAM_LIST
 }
@@ -54,11 +55,11 @@ const AppStack = () => {
 
   return (
     <Stack.Navigator
-      screenOptions={{ headerShown: false, navigationBarColor: colors.background }}
-      initialRouteName={!isLoggedIn ? AppRoutes.MainAppStack : AppRoutes.OnboardingStack}
+      screenOptions={{ headerShown: false}}
+      initialRouteName={"Loan"}
     >
       {/* {!isLoggedIn ? ( */}
-      <Stack.Screen name={AppRoutes.OnboardingStack} component={OnboardingStack} />
+      <Stack.Screen name={"Loan"} component={Loan} />
       {/* ) : ( */}
       {/*   <Stack.Screen names={AppRoutes.MainAppStack} component={TabBar} /> */}
       {/* )} */}

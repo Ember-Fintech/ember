@@ -22,4 +22,10 @@ export enum AppRoutes {
   PaymentConfig = "PaymentConfig",
   UpiPinScreen = "UpiPinScreen",
   TransactionSuccess = "TransactionSuccess",
+  // ----------Loan
+  Landing = "Landing",
+  // UpiScanner = "UpiScanner",
+  // PaymentConfig = "PaymentConfig",
+  // UpiPinScreen = "UpiPinScreen",
+  // TransactionSuccess = "TransactionSuccess",
 }
