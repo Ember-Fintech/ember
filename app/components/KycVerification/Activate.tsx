@@ -17,67 +17,68 @@ const Step = ({
   verified?: boolean
 }) => {
   return (
-    <ListItem
+    <View
       style={{
         paddingHorizontal: Spacings.s3,
         backgroundColor: "white",
         borderRadius: Spacings.s4,
-        height: 100,
+        height: 104,
+        flexDirection: "row",
+        justifyContent: "flex-start",
+        alignItems: "center",
+        columnGap: 16,
       }}
-      disabled={true}
     >
-      <ListItem.Part left>
+      <View>
         <Avatar
-          size={50}
+          size={56}
           backgroundColor={"#D1C9E9"}
           source={img}
-          imageStyle={{ resizeMode: "contain", height: 30, top: 10 }}
+          imageStyle={{ resizeMode: "contain", height: 40, top: 10 }}
         />
-      </ListItem.Part>
-      <ListItem.Part middle containerStyle={{ marginLeft: Spacings.s4 }}>
-        <View>
-          <Text.Body size={"md"} color={"#101828"}>
-            {title}
-            {"  "}
-            <Octicons
-              style={{ marginLeft: Spacings.s2 }}
-              name={"check-circle-fill"}
-              size={18}
-              color={verified ? "#17B26A" : "#98A2B3"}
-            />
-          </Text.Body>
-          <Text.Body size={"sm"} color={"#475467"}>
-            {subtitle}
-          </Text.Body>
-        </View>
-      </ListItem.Part>
-    </ListItem>
+      </View>
+      <View>
+        <Text.Body size={"md"} weight="medium" color={"#101828"}>
+          {title}
+          {"  "}
+          <Octicons
+            style={{ marginLeft: Spacings.s2 }}
+            name={"check-circle-fill"}
+            size={18}
+            color={verified ? "#17B26A" : "#98A2B3"}
+          />
+        </Text.Body>
+        <Text.Body size={"sm"} color={"#475467"}>
+          {subtitle}
+        </Text.Body>
+      </View>
+    </View>
   )
 }
 export const Activate = ({ stepsDone }: { stepsDone: Array<string> }) => {
   return (
     <>
       <Step
-        title={"Take a Selfie"}
-        subtitle={"Selfie"}
+        title={"Provide basic details"}
+        subtitle={"Enter your name, phone no, etc"}
         img={require("../../../assets/icons/selfie.png")}
         verified={stepsDone.includes(ESteps.SELFIE)}
       />
       <Step
-        title={"Verify PAN Details"}
-        subtitle={"Name, DoB, PAN"}
+        title={"Complete your KYC"}
+        subtitle={"Use PAN and Aadhaar"}
         img={require("../../../assets/icons/selfie.png")}
         verified={stepsDone.includes(ESteps.PAN)}
       />
       <Step
-        title={"Address Proof"}
-        subtitle={"Aadhaar Authentication"}
+        title={"Select plan"}
+        subtitle={"Select plan"}
         img={require("../../../assets/icons/id-card.png")}
         verified={stepsDone.includes(ESteps.AADHAR)}
       />
       <Step
-        title={"Bank V-KYC"}
-        subtitle={"Video KYC"}
+        title={"Provide bank details"}
+        subtitle={"Get funds within 24 hours"}
         img={require("../../../assets/icons/id-card.png")}
         verified={stepsDone.includes("BANK_KYC")}
       />

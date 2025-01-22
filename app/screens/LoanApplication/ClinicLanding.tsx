@@ -16,6 +16,10 @@ type ClinicLandingProps = {
 }
 
 export const ClinicLanding: React.FC<ClinicLandingProps> = ({ navigation }) => {
+  const handleNavigation = () => {
+    navigation.navigate(AppRoutes.Summary)
+  }
+
   return (
     <Screen
       bgSource={require("../../../assets/background/ripple-top-bottom.png")}
@@ -25,60 +29,61 @@ export const ClinicLanding: React.FC<ClinicLandingProps> = ({ navigation }) => {
         alignItems: "center",
         justifyContent: "center",
       }}
-    >     
-        <View 
-          style={{ 
-            minHeight: 400,
-            maxWidth: 320,
-            marginHorizontal: Spacings.s4,
-            backgroundColor: "white",
-            borderRadius: 12,
-            padding: Spacings.s4,
-            justifyContent: "space-between"
-          }}
-        >
-          <View style={{alignItems: "flex-start"}}>
+    >
+      <View
+        style={{
+          minHeight: 400,
+          maxWidth: 320,
+          marginHorizontal: Spacings.s4,
+          backgroundColor: "white",
+          borderRadius: 12,
+          padding: Spacings.s4,
+          justifyContent: "space-between",
+        }}
+      >
+        <View style={{ alignItems: "flex-start" }}>
           <Image
             source={require("../../../assets/background/ripple-top-right.png")}
             style={{
               width: "100%",
               height: 140,
               marginBottom: Spacings.s4,
-              borderRadius: 12
+              borderRadius: 12,
             }}
             resizeMode="cover"
           />
-          <View style={{paddingHorizontal: Spacings.s2}}>
-          <Text.Heading
-          size="sm"
-            weight="medium"
-            style={{
-              marginBottom: 0
-            }}
-          >
-          Mayo Clinic
-          </Text.Heading>
-          <Text.Body
-            size="sm"
-            style={{
-              marginBottom: 32,
-            }}
-            color={Colors.textQuarterary}
-          >
-            Bangalore
-          </Text.Body>
+          <View style={{ paddingHorizontal: Spacings.s2 }}>
+            <Text.Heading
+              size="sm"
+              weight="medium"
+              style={{
+                marginBottom: 0,
+              }}
+            >
+              Mayo Clinic
+            </Text.Heading>
+            <Text.Body
+              size="sm"
+              style={{
+                marginBottom: 32,
+              }}
+              color={Colors.textQuarterary}
+            >
+              Bangalore
+            </Text.Body>
           </View>
           {/* {todo: add the features} */}
-          </View>
-          <View>
-            <Text.Caption color={Colors.textQuarterary} style={{textAlign: "center", marginBottom: Spacings.s2}}>(Partnered with Ember for seamless payments)</Text.Caption>
-          <Button
-            label="Proceed to Apply"
-            style={{width: "100%"}}
-          />
-          </View>
-
         </View>
+        <View>
+          <Text.Caption
+            color={Colors.textQuarterary}
+            style={{ textAlign: "center", marginBottom: Spacings.s2 }}
+          >
+            (Partnered with Ember for seamless payments)
+          </Text.Caption>
+          <Button label="Proceed to Apply" style={{ width: "100%" }} onPress={handleNavigation} />
+        </View>
+      </View>
     </Screen>
   )
 }

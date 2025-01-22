@@ -54,10 +54,7 @@ const AppStack = () => {
   const { isLoggedIn } = useLoggedIn()
 
   return (
-    <Stack.Navigator
-      screenOptions={{ headerShown: false}}
-      initialRouteName={"Loan"}
-    >
+    <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={"Loan"}>
       {/* {!isLoggedIn ? ( */}
       <Stack.Screen name={"Loan"} component={Loan} />
       {/* ) : ( */}

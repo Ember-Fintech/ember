@@ -1,5 +1,5 @@
-import React from "react"
-import { View, StyleSheet } from "react-native"
+import React, { useRef } from "react"
+import { View, StyleSheet, TextInput } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { OnboardingStackParams } from "app/navigators/OnboardingStack"
 import { AppRoutes } from "app/navigators/constants/appRoutes"
@@ -45,6 +45,7 @@ const phoneSchema = Yup.object().shape({
 const AVATAR_SIZE = 80
 
 export const PhoneInputScreen: React.FC<PhoneInputScreenProps> = ({ navigation }) => {
+  const ref = useRef<TextInput>(null)
   return (
     <Screen bgSource={require("../../../assets/background/ripple-center.png")}>
       <View style={styles.container}>
@@ -86,6 +87,9 @@ export const PhoneInputScreen: React.FC<PhoneInputScreenProps> = ({ navigation }
           >
             Lets sign you up for big things
           </Text.Body>
+
+          <Input label={"test"} ref={ref} options={[{ title: "Male" }, { title: "Female" }]} />
+
           <Formik
             initialValues={{ phoneNumber: "" }}
             validationSchema={phoneSchema}
