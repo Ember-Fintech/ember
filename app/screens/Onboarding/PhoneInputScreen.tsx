@@ -39,7 +39,7 @@ const EmptyView = () => <View style={{ flex: 0.2 }} />
 const phoneSchema = Yup.object().shape({
   phoneNumber: Yup.string()
     .matches(/^[0-9]{10}$/, "Phone number must be exactly 10 digits")
-    .required("Phone number is required"),
+    .optional(),
 })
 
 const AVATAR_SIZE = 80

@@ -11,8 +11,6 @@
  * if you're interested in adding screens and navigators.
  */
 require("react-native-ui-lib/config").setConfig({ appScheme: "default" })
-import { GluestackUIProvider } from "@gluestack-ui/themed"
-
 if (__DEV__) {
   // Load Reactotron configuration in development. We don't want to
   // include this in our production bundle, so we are using `if (__DEV__)`
@@ -22,17 +20,15 @@ if (__DEV__) {
 import "./i18n"
 import "./utils/ignoreWarnings"
 import { useFonts } from "expo-font"
-import React, { useEffect, useMemo } from "react"
+import React, { useMemo } from "react"
 import { initialWindowMetrics, SafeAreaProvider } from "react-native-safe-area-context"
 import * as Linking from "expo-linking"
 import { AppNavigator, useNavigationPersistence } from "./navigators"
 import { ErrorBoundary } from "app/screens"
 import * as storage from "./utils/storage"
 import Config from "./config"
-import { uiConfig } from "app/theme/config"
 import { GestureHandlerRootView } from "react-native-gesture-handler"
-import { ViewStyle, useColorScheme } from "react-native"
-import { Colors } from "react-native-ui-lib"
+import { ViewStyle } from "react-native"
 
 export const NAVIGATION_PERSISTENCE_KEY = "NAVIGATION_STATE"
 
@@ -114,13 +110,11 @@ function App(props: AppProps) {
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
       <ErrorBoundary catchErrors={Config.catchErrors}>
         <GestureHandlerRootView style={$container}>
-          <GluestackUIProvider config={uiConfig}>
             <AppNavigator
               linking={linking}
               initialState={initialNavigationState}
               onStateChange={onNavigationStateChange}
             />
-          </GluestackUIProvider>
         </GestureHandlerRootView>
       </ErrorBoundary>
     </SafeAreaProvider>

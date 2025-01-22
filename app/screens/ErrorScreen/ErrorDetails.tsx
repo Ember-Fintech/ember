@@ -1,7 +1,8 @@
 import React, { ErrorInfo } from "react"
 import { ScrollView, TextStyle, View, ViewStyle } from "react-native"
-import { Button, Icon, Screen, Text } from "../../components"
+import { Icon, Screen, Text } from "../../components"
 import { colors, spacing } from "../../theme"
+import Button from "app/components/Button"
 
 export interface ErrorDetailsProps {
   error: Error
@@ -14,7 +15,7 @@ export interface ErrorDetailsProps {
  * @param {ErrorDetailsProps} props - The props for the `ErrorDetails` component.
  * @returns {JSX.Element} The rendered `ErrorDetails` component.
  */
-export function ErrorDetails(props: ErrorDetailsProps) {
+export const ErrorDetails = (props: ErrorDetailsProps) => {
   return (
     <Screen
       preset="fixed"
@@ -36,11 +37,9 @@ export function ErrorDetails(props: ErrorDetailsProps) {
         />
       </ScrollView>
 
-      <Button
-        preset="reversed"
+      <Button.Primary
         style={$resetButton}
         onPress={props.onReset}
-        tx="errorScreen.reset"
       />
     </Screen>
   )

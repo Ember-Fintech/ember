@@ -9,7 +9,6 @@ import { useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
 import { Text } from "react-native-ui-lib"
 import { useTheme } from "app/hooks/useTheme"
 import Input from "app/components/Input"
-import { Icon } from "@gluestack-ui/themed"
 
 const welcomeLogo = require("../../assets/images/logo.png")
 
