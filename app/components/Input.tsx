@@ -29,6 +29,7 @@ interface Props extends TextInputProps {
   infoMessage?: string
   options?: Array<{}>
   selectedItem?: any
+  isRequired?: boolean
 }
 
 // eslint-disable-next-line react/display-name
@@ -44,6 +45,7 @@ const Input = forwardRef<TextInput, Props>((props, ref: ForwardedRef<TextInput |
     infoMessage,
     options,
     selectedItem,
+    isRequired,
     ...restProps
   } = props
   const internalInputRef = useRef<TextInput>()
@@ -90,7 +92,16 @@ const Input = forwardRef<TextInput, Props>((props, ref: ForwardedRef<TextInput |
   return (
     <View style={{ position: "relative", zIndex: 1, elevation: 1 }}>
       <View>
-        {label && <Text style={styles.label}>{label}</Text>}
+        {label && (
+          <View
+            style={{
+              flexDirection: "row",
+            }}
+          >
+            <Text style={styles.label}>{label}</Text>
+            {isRequired && <Text style={{ color: "#D92D20" }}> *</Text>}
+          </View>
+        )}
         <View
           style={{
             padding: 2,
@@ -109,7 +120,7 @@ const Input = forwardRef<TextInput, Props>((props, ref: ForwardedRef<TextInput |
               backgroundColor: isDisabled ? "#F2F4F7" : "transparent",
               borderWidth: 1.5,
               borderRadius: 10,
-              height: 46,
+              height: 52,
               borderColor: borderColor,
               paddingHorizontal: 5,
               alignItems: "center",
@@ -133,6 +144,8 @@ const Input = forwardRef<TextInput, Props>((props, ref: ForwardedRef<TextInput |
                 height: "100%",
                 fontSize: 16,
                 outline: "none",
+                zIndex: 1,
+                elevation: 1,
               }}
               {...restProps}
             />
@@ -173,9 +186,10 @@ const Input = forwardRef<TextInput, Props>((props, ref: ForwardedRef<TextInput |
             left: position.y,
             width: position.width + 35,
             backgroundColor: "white",
-            zIndex: 9999,
-            elevation: 9999,
+            zIndex: 10,
+            elevation: 10,
             opacity: opacity,
+            backfaceVisibility: "hidden",
           }}
         >
           {options?.map((singleOption) => {

@@ -24,7 +24,9 @@ export enum AppRoutes {
   TransactionSuccess = "TransactionSuccess",
   // ----------Loan
   Landing = "Landing",
-  Summary = "Summary"
+  Summary = "Summary",
+  PatientDetailsPage1 = "PatientDetailsPage1",
+  PatientDetailsPage2 = "PatientDetailsPage2",
   // UpiScanner = "UpiScanner",
   // PaymentConfig = "PaymentConfig",
   // UpiPinScreen = "UpiPinScreen",

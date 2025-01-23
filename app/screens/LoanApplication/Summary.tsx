@@ -10,8 +10,9 @@ import { PanDetails } from "app/components/KycVerification/PanDetails"
 import { AadharDetails } from "app/components/KycVerification/AadharDetails"
 import { Activate } from "app/components/KycVerification/Activate"
 import { usePage } from "app/hooks/usePageVerification"
+import { AppRoutes } from "app/navigators/constants/appRoutes"
 
-const Summary = () => {
+const Summary = ({ navigation }) => {
   const { page, setPage, setSetpsDone, stepsDone } = usePage()
 
   const RenderContent = useCallback(() => {
@@ -71,7 +72,7 @@ const Summary = () => {
           </View>
           <Button.Primary
             onPress={() => {
-              console.log("move to the form")
+              navigation.navigate(AppRoutes.PatientDetailsPage1)
             }}
             label={"Proceed to Apply"}
             style={{
