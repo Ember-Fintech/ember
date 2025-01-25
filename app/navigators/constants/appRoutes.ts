@@ -27,6 +27,7 @@ export enum AppRoutes {
   Summary = "Summary",
   PatientDetailsPage1 = "PatientDetailsPage1",
   PatientDetailsPage2 = "PatientDetailsPage2",
+  StatusPage = "ApplicationStatus"
   // UpiScanner = "UpiScanner",
   // PaymentConfig = "PaymentConfig",
   // UpiPinScreen = "UpiPinScreen",
