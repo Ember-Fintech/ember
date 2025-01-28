@@ -10,6 +10,18 @@ export const TextConstants = {
     activeLoanError: "Active loan application found",
     activeLoanErrorDescription: "You've already applied for a loan at another clinic. To proceed here, please clear your existing application first.",
     backBtnText: "Go Back",
-    tryAgainBtnText: "Try Again"
+    tryAgainBtnText: "Try Again",
+    
+    // Cards
+    ineligibleTitle: "We're sorry, but you're not eligible for a loan right now.",
+    ineligibleDescription: "It seems you don't meet the criteria set by our partner banks. You can try again in a few months.",
+    inProgressTitle: "Your loan application is in progress!",
+    inProgressDescription: "We're reviewing your details, and the loan disbursement will be processed soon.",
+    nextStep: "What's next?",
+    nextStep1: "Our team will contact you if additional information is needed.",
+    nextStep2: "Once approved, you'll receive a notification with the next steps.",
+
+    // Buttons
+    okay: "Okay"
 
 }
