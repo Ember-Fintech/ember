@@ -41,7 +41,7 @@ const PatientsDetailsPage2 = ({ navigation }) => {
         </View>
         <Button.Primary
           onPress={() => {
-            navigation.navigate(AppRoutes.PatientDetailsPage1)
+            navigation.navigate(AppRoutes.PatientDetailsPage3)
           }}
           label={"Next"}
           style={{

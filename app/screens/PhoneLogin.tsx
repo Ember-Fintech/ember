@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { Button, TextInput, View } from 'react-native';
-import auth from '@react-native-firebase/auth';
+import React, { useState, useEffect } from "react"
+import { Button, TextInput, View } from "react-native"
+import auth from "@react-native-firebase/auth"
 
 const PhoneSignIn = () => {
   // If null, no SMS has been sent
-  const [confirm, setConfirm] = useState(null);
+  const [confirm, setConfirm] = useState(null)
 
   // verification code (OTP - One-Time-Passcode)
-  const [code, setCode] = useState('');
+  const [code, setCode] = useState("")
 
   // Handle login
   function onAuthStateChanged(user) {
@@ -20,51 +20,54 @@ const PhoneSignIn = () => {
   }
 
   useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber; // unsubscribe on unmount
-  }, []);
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged)
+    return subscriber // unsubscribe on unmount
+  }, [])
 
   // Handle the button press
   async function signInWithPhoneNumber(phoneNumber) {
-    console.log('signInWithPhoneNumber', phoneNumber);
-    const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
-    setConfirm(confirmation);
+    console.log("signInWithPhoneNumber", phoneNumber)
+    const confirmation = await auth().signInWithPhoneNumber(phoneNumber)
+    setConfirm(confirmation)
   }
 
   async function confirmCode() {
     try {
-      await confirm.confirm(code);
-      console.log('confirmCode', code);
+      await confirm.confirm(code)
+      console.log("confirmCode", code)
     } catch (error) {
-      console.log('Invalid code.');
+      console.log("Invalid code.")
     }
   }
 
   if (!confirm) {
     return (
-        <View  style={{
-            backgroundColor: '#fff',
-            marginTop: 60
-        }}>
-            <Button
-                title="Phone Number Sign In"
-                onPress={() => signInWithPhoneNumber('+919354515146')}
-            />
-        </View>
-      
-    );
+      <View
+        style={{
+          backgroundColor: "#fff",
+          marginTop: 60,
+        }}
+      >
+        <Button
+          title="Phone Number Sign In"
+          onPress={() => signInWithPhoneNumber("+919354515146")}
+        />
+      </View>
+    )
   }
 
   return (
-    <View  style={{
-        backgroundColor: '#fff',
+    <View
+      style={{
+        backgroundColor: "#fff",
         flex: 1,
-        marginTop: 60
-    }}>
-      <TextInput value={code} onChangeText={text => setCode(text)} />
+        marginTop: 60,
+      }}
+    >
+      <TextInput value={code} onChangeText={(text) => setCode(text)} />
       <Button title="Confirm Code" onPress={() => confirmCode()} />
     </View>
-  );
+  )
 }
 
-export default PhoneSignIn;
+export default PhoneSignIn

@@ -189,7 +189,6 @@ const Input = forwardRef<TextInput, Props>((props, ref: ForwardedRef<TextInput |
             zIndex: 10,
             elevation: 10,
             opacity: opacity,
-            backfaceVisibility: "hidden",
           }}
         >
           {options?.map((singleOption) => {

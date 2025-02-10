@@ -5,12 +5,18 @@ import { ClinicLanding } from "app/screens/LoanApplication/ClinicLanding"
 import Summary from "app/screens/LoanApplication/Summary"
 import PatientsDetailsPage1 from "app/screens/LoanApplication/PatientDetails/PatientDeatilsPage1"
 import PatientsDetailsPage2 from "app/screens/LoanApplication/PatientDetails/PatientDetailsPage2"
+import PatientsDetailsPage3 from "app/screens/LoanApplication/PatientDetails/PatientDetailsPage3"
+import RedirectingScreen from "app/screens/LoanApplication/RedirectingScreen"
+import LoanStatusScreen from "app/screens/LoanApplication/LoanStatusScreen"
 
 export type LoanStackParams = {
   [AppRoutes.Landing]: undefined
   [AppRoutes.Summary]: undefined
   [AppRoutes.PatientDetailsPage1]: undefined
   [AppRoutes.PatientDetailsPage2]: undefined
+  [AppRoutes.PatientDetailsPage3]: undefined
+  [AppRoutes.Redirect]: undefined
+  [AppRoutes.LoanStatus]: undefined
 }
 
 const Stack = createStackNavigator<LoanStackParams>()
@@ -22,6 +28,9 @@ const Loan: React.FC = () => {
       <Stack.Screen name={AppRoutes.Summary} component={Summary} />
       <Stack.Screen name={AppRoutes.PatientDetailsPage1} component={PatientsDetailsPage1} />
       <Stack.Screen name={AppRoutes.PatientDetailsPage2} component={PatientsDetailsPage2} />
+      <Stack.Screen name={AppRoutes.PatientDetailsPage3} component={PatientsDetailsPage3} />
+      <Stack.Screen name={AppRoutes.Redirect} component={RedirectingScreen} />
+      <Stack.Screen name={AppRoutes.LoanStatus} component={LoanStatusScreen} />
     </Stack.Navigator>
   )
 }
