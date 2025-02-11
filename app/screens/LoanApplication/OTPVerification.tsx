@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react"
-import { Platform, View } from "react-native"
+import { View } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
-import { OnboardingStackParams } from "app/navigators/OnboardingStack"
 import { AppRoutes } from "app/navigators/constants/appRoutes"
 import { Screen } from "app/components"
 import Text from "app/components/typography/Text"
@@ -9,9 +8,12 @@ import { Avatar, Colors, Spacings } from "react-native-ui-lib"
 import { OtpInput } from "react-native-otp-entry"
 import useCountdown from "app/hooks/useCountdown"
 import Button from "app/components/Button"
+import { LoanStackParams } from "app/navigators/Loan"
+import { usePhoneAuth } from "app/hooks/usePhoneAuth"
+import { User } from "firebase/auth"
 
-type OtpInputScreenProps = {
-  navigation: StackScreenProps<OnboardingStackParams, AppRoutes.OtpInputScreen>
+type OTPVerificationScreenProps = {
+  navigation: StackScreenProps<LoanStackParams, AppRoutes.OTPVerification>
 }
 const millisecondsToMMSS = (milliseconds) => {
   const totalSeconds = Math.floor(milliseconds / 1000)
@@ -55,48 +57,45 @@ const getPinContainerStyle = (otpState: OtpState) => {
 
 const PIN_BOX_WIDTH = 45
 
-export const OtpInputScreen: React.FC<OtpInputScreenProps> = ({ navigation, route }) => {
-  const phoneNumber = route?.params?.phoneNumber
-  const [confirm, setConfirm] = useState(null)
-  const [otpState, setOtpState] = useState<OtpState>(OtpState.None)
+export const OTPVerificationScreen: React.FC<OTPVerificationScreenProps> = ({ navigation, route }) => {
+  const phoneNumber = route?.params?.phoneNumber ?? '+919212338924'
   const { countDown, restart } = useCountdown(12000)
-  const [otp, setOtp] = useState<string>("")
+  
+  const [otp, setOtp] = useState<string>('');
+  const [user, setUser] = useState<User | null>(null);
+  const [otpState, setOtpState] = useState<OtpState>(OtpState.None)
+  const { loading, error, sendOTP, verifyOTP, setupRecaptcha } = usePhoneAuth();
 
-  async function signInWithPhoneNumber(phoneNumber) {
-    const confirmation = await auth().signInWithPhoneNumber(phoneNumber)
-    setConfirm(confirmation)
-  }
-
-  // Handle login
-  function onAuthStateChanged(user) {
-    if (user) {
-      console.log("user >>> >", user)
-      // Some Android devices can automatically process the verification code (OTP) message, and the user would NOT need to enter the code.
-      // Actually, if he/she tries to enter it, he/she will get an error message because the code was already used in the background.
-      // In this function, make sure you hide the component(s) for entering the code and/or navigate away from this screen.
-      // It is also recommended to display a message to the user informing him/her that he/she has successfully logged in.
+  const handleSendOTP = useCallback(async () => {
+    setupRecaptcha('recaptcha-container');
+    
+    const success = await sendOTP(phoneNumber);
+    console.log("Otp sent successfully", success);
+    if (success) {
+      restart()
     }
-  }
-
-  async function confirmCode(code) {
-    try {
-      await confirm.confirm(code)
-    } catch (error) {
-      console.log("Invalid code.")
-    }
-  }
-
-  useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged)
-    return subscriber // unsubscribe on unmount
-  }, [])
-
-  useEffect(() => {
-    console.log("Going to send OTP")
-    if (!Platform.OS === "ios") {
-      signInWithPhoneNumber(phoneNumber)
-    }
+  }, [setupRecaptcha, sendOTP, phoneNumber, restart]);
+  
+  useEffect(()=>{
+    handleSendOTP();
   }, [phoneNumber])
+
+  const handleVerifyOTP = useCallback(async (fromInput?: string) => {
+    setOtpState(OtpState.Waiting)
+    try{
+        const result = await verifyOTP(fromInput ?? otp);
+        if (result.success && result.user) {
+          setOtpState(OtpState.Valid)
+          setUser(result.user);
+          //todo: navigate to desired Screen
+        //   navigation.navigation.navigate()
+        }else{
+          setOtpState(OtpState.Invalid);
+        }
+    }catch(e){
+        setOtpState(OtpState.Invalid);
+    }
+  }, [otp, verifyOTP]);
 
   const BottomText = useCallback(() => {
     if (otpState === OtpState.Invalid)
@@ -110,7 +109,7 @@ export const OtpInputScreen: React.FC<OtpInputScreenProps> = ({ navigation, rout
         return (
           <Text.Caption color={"#344054"}>
             Didn't get it?{" "}
-            <Text.Caption onPress={restart} color={Colors.primaryColor}>
+            <Text.Caption onPress={handleSendOTP} color={Colors.primaryColor}>
               Resend Code
             </Text.Caption>
           </Text.Caption>
@@ -127,14 +126,15 @@ export const OtpInputScreen: React.FC<OtpInputScreenProps> = ({ navigation, rout
   }, [otpState, countDown])
 
   return (
-    <Screen contentContainerStyle={{ flex: 1 }}>
-      <View
-        style={{
-          flex: 1,
-          justifyContent: "space-between",
-          marginHorizontal: Spacings.s6,
-        }}
-      >
+    <Screen
+    safeAreaEdges={["top"]}
+    style={{
+      minWidth: 375,
+      justifyContent: "space-between",
+      paddingHorizontal: Spacings.s4,
+      paddingTop: Spacings.s8
+    }}
+  >
         <View style={{ alignItems: "center" }}>
           <Avatar
             size={100}
@@ -165,7 +165,7 @@ export const OtpInputScreen: React.FC<OtpInputScreenProps> = ({ navigation, rout
             numberOfDigits={6}
             focusColor={Colors.primaryColor}
             focusStickBlinkingDuration={500}
-            onFilled={(text) => confirmCode(text)}
+            onFilled={(text) => handleVerifyOTP(text)}
             textInputProps={{
               accessibilityLabel: "One-Time Password",
             }}
@@ -175,6 +175,7 @@ export const OtpInputScreen: React.FC<OtpInputScreenProps> = ({ navigation, rout
             theme={{
               containerStyle: {
                 marginBottom: Spacings.s6,
+                width: 320
               },
               pinCodeContainerStyle: {
                 width: PIN_BOX_WIDTH,
@@ -195,23 +196,19 @@ export const OtpInputScreen: React.FC<OtpInputScreenProps> = ({ navigation, rout
             }}
           />
           <BottomText />
+          <Text>{error}</Text>
         </View>
         <Button.Primary
           onPress={() => {
             if (otp.length === 6) {
-              navigation.navigate(AppRoutes.OnboardSuccess, {
-                heading: "Hurray! You are Verified! ",
-                subHeading: "You are just a few steps away to begin your Emberful journey with us.",
-                ctaLabel: "Get Started",
-                navigateTo: AppRoutes.CompanyDetails,
-              })
+              handleVerifyOTP();
             }
           }}
+          loading={loading}
           label={"Verify"}
           disabled={otp.length < 6}
-          style={{ marginBottom: Spacings.s5 }}
+          style={{ marginVertical: Spacings.s6 }}
         />
-      </View>
     </Screen>
   )
 }

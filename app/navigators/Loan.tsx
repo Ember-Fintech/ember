@@ -9,6 +9,7 @@ import LoanApplicationStatus from "app/screens/LoanApplication/LoanApplicationSt
 import PatientsDetailsPage3 from "app/screens/LoanApplication/PatientDetails/PatientDetailsPage3"
 import RedirectingScreen from "app/screens/LoanApplication/RedirectingScreen"
 import LoanStatusScreen from "app/screens/LoanApplication/LoanStatusScreen"
+import { OTPVerificationScreen } from "app/screens/LoanApplication/OTPVerification"
 
 export type LoanStackParams = {
   [AppRoutes.Landing]: undefined
@@ -19,13 +20,14 @@ export type LoanStackParams = {
   [AppRoutes.Redirect]: undefined
   [AppRoutes.LoanStatus]: undefined
   [AppRoutes.StatusPage]: { response: any }
+  [AppRoutes.OTPVerification]: { phoneNumber: string }
 }
 
 const Stack = createStackNavigator<LoanStackParams>()
 
 const Loan: React.FC = () => {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={AppRoutes.Landing}>
+    <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={AppRoutes.OTPVerification}>
       <Stack.Screen name={AppRoutes.Landing} component={ClinicLanding} />
       <Stack.Screen name={AppRoutes.Summary} component={Summary} />
       <Stack.Screen name={AppRoutes.PatientDetailsPage1} component={PatientsDetailsPage1} />
@@ -34,6 +36,7 @@ const Loan: React.FC = () => {
       <Stack.Screen name={AppRoutes.PatientDetailsPage3} component={PatientsDetailsPage3} />
       <Stack.Screen name={AppRoutes.Redirect} component={RedirectingScreen} />
       <Stack.Screen name={AppRoutes.LoanStatus} component={LoanStatusScreen} />
+      <Stack.Screen name={AppRoutes.OTPVerification} component={OTPVerificationScreen} />
     </Stack.Navigator>
   )
 }
