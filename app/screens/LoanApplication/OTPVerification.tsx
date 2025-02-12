@@ -138,12 +138,12 @@ export const OTPVerificationScreen: React.FC<OTPVerificationScreenProps> = ({
     <Screen
       safeAreaEdges={["top"]}
       style={{
-        minWidth: 375,
-        justifyContent: "space-between",
+        alignItems:'center',
         paddingHorizontal: Spacings.s4,
         paddingTop: Spacings.s8,
       }}
     >
+      <View style={{maxWidth: 380}}>
       <View style={{ alignItems: "center" }}>
         <Avatar
           size={100}
@@ -218,6 +218,8 @@ export const OTPVerificationScreen: React.FC<OTPVerificationScreenProps> = ({
         disabled={otp.length < 6}
         style={{ marginVertical: Spacings.s6 }}
       />
+      </View>
+      
     </Screen>
   )
 }
