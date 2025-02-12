@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react"
+import React, { useCallback, useEffect, useRef, useState } from "react"
 import { View } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { AppRoutes } from "app/navigators/constants/appRoutes"
@@ -10,7 +10,8 @@ import useCountdown from "app/hooks/useCountdown"
 import Button from "app/components/Button"
 import { LoanStackParams } from "app/navigators/Loan"
 import { usePhoneAuth } from "app/hooks/usePhoneAuth"
-import { User } from "firebase/auth"
+import { RecaptchaVerifier, User } from "firebase/auth"
+import { auth } from "app/firebaseConfig"
 
 type OTPVerificationScreenProps = {
   navigation: StackScreenProps<LoanStackParams, AppRoutes.OTPVerification>
@@ -57,45 +58,53 @@ const getPinContainerStyle = (otpState: OtpState) => {
 
 const PIN_BOX_WIDTH = 45
 
-export const OTPVerificationScreen: React.FC<OTPVerificationScreenProps> = ({ navigation, route }) => {
-  const phoneNumber = route?.params?.phoneNumber ?? '+919212338924'
+export const OTPVerificationScreen: React.FC<OTPVerificationScreenProps> = ({
+  navigation,
+  route,
+}) => {
+  const phoneNumber = route?.params?.phoneNumber ?? "+919212338924"
   const { countDown, restart } = useCountdown(12000)
-  
-  const [otp, setOtp] = useState<string>('');
-  const [user, setUser] = useState<User | null>(null);
+
+  const [otp, setOtp] = useState<string>("")
+  const [user, setUser] = useState<User | null>(null)
   const [otpState, setOtpState] = useState<OtpState>(OtpState.None)
-  const { loading, error, sendOTP, verifyOTP, setupRecaptcha } = usePhoneAuth();
+  const { loading, error, sendOTP, verifyOTP } = usePhoneAuth()
+  const divRef = useRef()
 
   const handleSendOTP = useCallback(async () => {
-    setupRecaptcha('recaptcha-container');
-    
-    const success = await sendOTP(phoneNumber);
-    console.log("Otp sent successfully", success);
+    const recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+      'size': 'invisible',
+    });
+    const success = await sendOTP(phoneNumber, recaptchaVerifier)
+    console.log("Otp sent successfully", success)
     if (success) {
       restart()
     }
-  }, [setupRecaptcha, sendOTP, phoneNumber, restart]);
-  
-  useEffect(()=>{
-    handleSendOTP();
+  }, [sendOTP, phoneNumber, restart])
+
+  useEffect(() => {
+    handleSendOTP()
   }, [phoneNumber])
 
-  const handleVerifyOTP = useCallback(async (fromInput?: string) => {
-    setOtpState(OtpState.Waiting)
-    try{
-        const result = await verifyOTP(fromInput ?? otp);
+  const handleVerifyOTP = useCallback(
+    async (fromInput?: string) => {
+      setOtpState(OtpState.Waiting)
+      try {
+        const result = await verifyOTP(fromInput ?? otp)
         if (result.success && result.user) {
           setOtpState(OtpState.Valid)
-          setUser(result.user);
+          setUser(result.user)
           //todo: navigate to desired Screen
-        //   navigation.navigation.navigate()
-        }else{
-          setOtpState(OtpState.Invalid);
+          //   navigation.navigation.navigate()
+        } else {
+          setOtpState(OtpState.Invalid)
         }
-    }catch(e){
-        setOtpState(OtpState.Invalid);
-    }
-  }, [otp, verifyOTP]);
+      } catch (e) {
+        setOtpState(OtpState.Invalid)
+      }
+    },
+    [otp, verifyOTP],
+  )
 
   const BottomText = useCallback(() => {
     if (otpState === OtpState.Invalid)
@@ -127,88 +136,88 @@ export const OTPVerificationScreen: React.FC<OTPVerificationScreenProps> = ({ na
 
   return (
     <Screen
-    safeAreaEdges={["top"]}
-    style={{
-      minWidth: 375,
-      justifyContent: "space-between",
-      paddingHorizontal: Spacings.s4,
-      paddingTop: Spacings.s8
-    }}
-  >
-        <View style={{ alignItems: "center" }}>
-          <Avatar
-            size={100}
-            backgroundColor={"#D1C9E9"}
-            source={require("../../../assets/icons/otp.png")}
-            imageStyle={{ resizeMode: "contain", height: 50, top: 25, left: 8 }}
-          />
-          <Text.Heading
-            style={{ marginTop: Spacings.s6, marginBottom: Spacings.s3 }}
-            weight={"semi-bold"}
-            size={"sm"}
-          >
-            Enter OTP
-          </Text.Heading>
-          <Text.Body
-            weight={"regular"}
-            size={"sm"}
-            color={Colors.textQuarterary}
-            style={{ marginBottom: Spacings.s8 }}
-          >
-            OTP sent to{" "}
-            <Text.Body weight={"semi-bold"} size={"sm"} color={Colors.textQuarterary}>
-              {phoneNumber}
-            </Text.Body>
-          </Text.Body>
-          <OtpInput
-            outerBorderFocusColor={"#A393D3"}
-            numberOfDigits={6}
-            focusColor={Colors.primaryColor}
-            focusStickBlinkingDuration={500}
-            onFilled={(text) => handleVerifyOTP(text)}
-            textInputProps={{
-              accessibilityLabel: "One-Time Password",
-            }}
-            onTextChange={(text) => {
-              setOtp(text)
-            }}
-            theme={{
-              containerStyle: {
-                marginBottom: Spacings.s6,
-                width: 320
-              },
-              pinCodeContainerStyle: {
-                width: PIN_BOX_WIDTH,
-                backgroundColor: "#F9FAFB",
-                borderColor: "#D0D5DD",
-                borderWidth: 1.2,
-              },
-              pinCodeTextStyle: {
-                fontSize: 20,
-              },
-              filledPinCodeContainerStyle: getPinContainerStyle(otpState),
-              focusedPinCodeContainerStyle: {
-                width: PIN_BOX_WIDTH,
-                backgroundColor: "transparent",
-                borderColor: Colors.primaryColor,
-                borderWidth: 1.51,
-              },
-            }}
-          />
-          <BottomText />
-          <Text>{error}</Text>
-        </View>
-        <Button.Primary
-          onPress={() => {
-            if (otp.length === 6) {
-              handleVerifyOTP();
-            }
-          }}
-          loading={loading}
-          label={"Verify"}
-          disabled={otp.length < 6}
-          style={{ marginVertical: Spacings.s6 }}
+      safeAreaEdges={["top"]}
+      style={{
+        minWidth: 375,
+        justifyContent: "space-between",
+        paddingHorizontal: Spacings.s4,
+        paddingTop: Spacings.s8,
+      }}
+    >
+      <View style={{ alignItems: "center" }}>
+        <Avatar
+          size={100}
+          backgroundColor={"#D1C9E9"}
+          source={require("../../../assets/icons/otp.png")}
+          imageStyle={{ resizeMode: "contain", height: 50, top: 25, left: 8 }}
         />
+        <Text.Heading
+          style={{ marginTop: Spacings.s6, marginBottom: Spacings.s3 }}
+          weight={"semi-bold"}
+          size={"sm"}
+        >
+          Enter OTP
+        </Text.Heading>
+        <Text.Body
+          weight={"regular"}
+          size={"sm"}
+          color={Colors.textQuarterary}
+          style={{ marginBottom: Spacings.s8 }}
+        >
+          OTP sent to{" "}
+          <Text.Body weight={"semi-bold"} size={"sm"} color={Colors.textQuarterary}>
+            {phoneNumber}
+          </Text.Body>
+        </Text.Body>
+        <OtpInput
+          outerBorderFocusColor={"#A393D3"}
+          numberOfDigits={6}
+          focusColor={Colors.primaryColor}
+          focusStickBlinkingDuration={500}
+          onFilled={(text) => handleVerifyOTP(text)}
+          textInputProps={{
+            accessibilityLabel: "One-Time Password",
+          }}
+          onTextChange={(text) => {
+            setOtp(text)
+          }}
+          theme={{
+            containerStyle: {
+              marginBottom: Spacings.s6,
+              width: 320,
+            },
+            pinCodeContainerStyle: {
+              width: PIN_BOX_WIDTH,
+              backgroundColor: "#F9FAFB",
+              borderColor: "#D0D5DD",
+              borderWidth: 1.2,
+            },
+            pinCodeTextStyle: {
+              fontSize: 20,
+            },
+            filledPinCodeContainerStyle: getPinContainerStyle(otpState),
+            focusedPinCodeContainerStyle: {
+              width: PIN_BOX_WIDTH,
+              backgroundColor: "transparent",
+              borderColor: Colors.primaryColor,
+              borderWidth: 1.51,
+            },
+          }}
+        />
+        <BottomText />
+        <Text>{error}</Text>
+      </View>
+      <Button.Primary
+        onPress={() => {
+          if (otp.length === 6) {
+            handleVerifyOTP()
+          }
+        }}
+        loading={loading}
+        label={"Verify"}
+        disabled={otp.length < 6}
+        style={{ marginVertical: Spacings.s6 }}
+      />
     </Screen>
   )
 }

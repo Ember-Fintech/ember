@@ -1,97 +1,72 @@
-import { useState } from 'react';
-import { 
-  RecaptchaVerifier, 
-  signInWithPhoneNumber, 
-  ConfirmationResult,
-  UserCredential
-} from 'firebase/auth';
+import { useState } from "react"
+import { signInWithPhoneNumber, ConfirmationResult, UserCredential } from "firebase/auth"
+
+import { auth } from "../firebaseConfig"
+import firebase from "firebase/compat"
+import ApplicationVerifier = firebase.auth.ApplicationVerifier
 
 interface PhoneAuthResponse {
-  success: boolean;
-  user?: UserCredential['user'];
-  error?: string;
+  success: boolean
+  user?: UserCredential["user"]
+  error?: string
 }
 
-import {auth} from "../firebaseConfig"
-
 export const usePhoneAuth = () => {
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
-  const [verificationId, setVerificationId] = useState<ConfirmationResult | null>(null);
-  
-  // Setup invisible reCAPTCHA
-  const setupRecaptcha = (elementId: string): void => {
-    try {
-      window.window.recaptchaVerifier = new RecaptchaVerifier(auth, elementId, {
-        size: 'invisible',
-        callback: () => {
-          // reCAPTCHA solved
-        },
-      });
-      console.log(window.window)
-    } catch (err) {
-      console.error(err);
-      setError(err instanceof Error ? err.message : 'An error occurred');
-    }
-  };
+  const [loading, setLoading] = useState<boolean>(false)
+  const [error, setError] = useState<string | null>(null)
+  const [verificationId, setVerificationId] = useState<ConfirmationResult | null>(null)
 
   // Send OTP to phone number
-  const sendOTP = async (phoneNumber: string): Promise<boolean> => {
+  const sendOTP = async (
+    phoneNumber: string,
+    recapthaVerifier?: ApplicationVerifier,
+  ): Promise<boolean> => {
     try {
-      setLoading(true);
-      setError(null);
-      
-      const appVerifier = window.recaptchaVerifier;
-      const confirmationResult = await signInWithPhoneNumber(auth, phoneNumber, appVerifier);
-      setVerificationId(confirmationResult);
-      setLoading(false);
-      return true;
+      setLoading(true)
+      setError(null)
+      const confirmationResult = await signInWithPhoneNumber(auth, phoneNumber, recapthaVerifier)
+      console.log("after confirmationnn")
+      setVerificationId(confirmationResult)
+      setLoading(false)
+      return true
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
-      setLoading(false);
-      return false;
+      setError(err instanceof Error ? err.message : "An error occurred")
+      setLoading(false)
+      return false
     }
-  };
+  }
 
   // Verify OTP
   const verifyOTP = async (otp: string): Promise<PhoneAuthResponse> => {
     try {
-      setLoading(true);
-      setError(null);
+      setLoading(true)
+      setError(null)
 
       if (!verificationId) {
-        throw new Error('Verification ID not found');
+        throw new Error("Verification ID not found")
       }
 
-      const result = await verificationId.confirm(otp);
-      setLoading(false);
+      const result = await verificationId.confirm(otp)
+      setLoading(false)
       return {
         success: true,
-        user: result.user
-      };
+        user: result.user,
+      }
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'An error occurred';
-      setError(errorMessage);
-      setLoading(false);
+      const errorMessage = err instanceof Error ? err.message : "An error occurred"
+      setError(errorMessage)
+      setLoading(false)
       return {
         success: false,
-        error: errorMessage
-      };
+        error: errorMessage,
+      }
     }
-  };
+  }
 
   return {
     loading,
     error,
     sendOTP,
     verifyOTP,
-    setupRecaptcha
-  };
-};
-
-// Add RecaptchaVerifier to the window object type
-declare global {
-  interface Window {
-    recaptchaVerifier: RecaptchaVerifier;
   }
 }
