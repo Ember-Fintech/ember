@@ -30,7 +30,8 @@ export enum AppRoutes {
   PatientDetailsPage3 = "PatientDetailsPage3",
   Redirect = "Redirect",
   LoanStatus = "LoanStatus",
-  StatusPage = "ApplicationStatus"
+  StatusPage = "ApplicationStatus",
+  OTPVerification = "OTPVerification"
   // UpiScanner = "UpiScanner",
   // PaymentConfig = "PaymentConfig",
   // UpiPinScreen = "UpiPinScreen",
