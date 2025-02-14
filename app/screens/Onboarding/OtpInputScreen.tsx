@@ -9,7 +9,6 @@ import { Avatar, Colors, Spacings } from "react-native-ui-lib"
 import { OtpInput } from "react-native-otp-entry"
 import useCountdown from "app/hooks/useCountdown"
 import Button from "app/components/Button"
-import auth from "@react-native-firebase/auth"
 
 type OtpInputScreenProps = {
   navigation: StackScreenProps<OnboardingStackParams, AppRoutes.OtpInputScreen>
