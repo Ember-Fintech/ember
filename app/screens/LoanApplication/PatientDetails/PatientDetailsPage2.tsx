@@ -4,6 +4,17 @@ import React from "react"
 import { ImageBackground, StyleSheet, View } from "react-native"
 import Button from "app/components/Button"
 import { AppRoutes } from "app/navigators/constants/appRoutes"
+import * as Yup from "yup"
+import { Formik } from "formik"
+
+const SchemaForVerification = Yup.object().shape({
+  panNumber: Yup.string()
+    .matches(/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/, "Invalid PAN format")
+    .required("PAN number is required"),
+  dateOfBirth: Yup.string()
+    .matches(/^\d{4}\/\d{2}\/\d{2}$/, "Date of Birth must be in YYYY/MM/DD format")
+    .required("Date of Birth is required"),
+})
 
 const PatientsDetailsPage2 = ({ navigation }) => {
   return (
@@ -23,31 +34,59 @@ const PatientsDetailsPage2 = ({ navigation }) => {
           <Text.Heading size="sm" weight="semi-bold">
             Identification details
           </Text.Heading>
-          <Text.Body size="sm">Enter your PAN details and select treatment type</Text.Body>
+          <Text.Body size="sm">Enter your PAN details</Text.Body>
         </View>
-        <View style={styles.formContainer}>
-          <Input
-            label="PAN number"
-            placeholder="Enter PAN (e.g., ABCDE1234F)"
-            placeholderTextColor={"#98A2B3"}
-            isRequired={true}
-          />
-          <Input
-            label="Date of birth"
-            placeholder="YYYY/MM/DD"
-            placeholderTextColor={"#98A2B3"}
-            isRequired={true}
-          />
-        </View>
-        <Button.Primary
-          onPress={() => {
-            navigation.navigate(AppRoutes.PatientDetailsPage3)
+        <Formik
+          initialValues={{
+            panNumber: "",
+            dateOfBirth: "",
           }}
-          label={"Next"}
-          style={{
-            bottom: "7.5%",
+          validationSchema={SchemaForVerification}
+          validateOnChange={false}
+          validateOnBlur={true}
+          onSubmit={(values, { setSubmitting }) => {
+            setSubmitting(false)
+            // navigation.navigate(AppRoutes.PatientDetailsPage3)
           }}
-        />
+        >
+          {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
+            <View style={styles.formContainer}>
+              <View
+                style={{
+                  flex: 1,
+                }}
+              >
+                <Input
+                  label="PAN number"
+                  placeholder="Enter PAN (e.g., ABCDE1234F)"
+                  placeholderTextColor={"#98A2B3"}
+                  isRequired={true}
+                  value={values.panNumber}
+                  onChangeText={handleChange("panNumber")}
+                  onBlur={handleBlur("panNumber")}
+                  errorMessage={touched.panNumber && errors.panNumber ? errors.panNumber : ""}
+                />
+                <Input
+                  label="Date of birth"
+                  placeholder="YYYY/MM/DD"
+                  placeholderTextColor={"#98A2B3"}
+                  isRequired={true}
+                  value={values.dateOfBirth}
+                  onChangeText={handleChange("dateOfBirth")}
+                  onBlur={handleBlur("dateOfBirth")}
+                  errorMessage={touched.dateOfBirth && errors.dateOfBirth ? errors.dateOfBirth : ""}
+                />
+              </View>
+              <Button.Primary
+                onPress={handleSubmit}
+                label={"Next"}
+                style={{
+                  bottom: "7.5%",
+                }}
+              />
+            </View>
+          )}
+        </Formik>
       </View>
     </ImageBackground>
   )

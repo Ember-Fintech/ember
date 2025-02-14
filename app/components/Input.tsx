@@ -30,6 +30,7 @@ interface Props extends TextInputProps {
   options?: Array<{}>
   selectedItem?: any
   isRequired?: boolean
+  onOptionSelect?: (e: any) => void
 }
 
 // eslint-disable-next-line react/display-name
@@ -46,6 +47,7 @@ const Input = forwardRef<TextInput, Props>((props, ref: ForwardedRef<TextInput |
     options,
     selectedItem,
     isRequired,
+    onOptionSelect,
     ...restProps
   } = props
   const internalInputRef = useRef<TextInput>()
@@ -69,8 +71,6 @@ const Input = forwardRef<TextInput, Props>((props, ref: ForwardedRef<TextInput |
 
   const handleBlur = () => {
     setIsFocused(false)
-    setShowOptions(false)
-    opacity.value = withTiming(0, { duration: 200 })
   }
 
   const getBorderColor = () => {
@@ -181,9 +181,9 @@ const Input = forwardRef<TextInput, Props>((props, ref: ForwardedRef<TextInput |
             borderRadius: 10,
             borderWidth: 1,
             borderColor: "#EAECF0",
-            position: "absolute",
-            top: position.x + position.height + 20,
-            left: position.y,
+            // position: "absolute",
+            // top: position.x + position.height + 20,
+            // left: position.y,
             width: position.width + 35,
             backgroundColor: "white",
             zIndex: 10,
@@ -192,15 +192,18 @@ const Input = forwardRef<TextInput, Props>((props, ref: ForwardedRef<TextInput |
           }}
         >
           {options?.map((singleOption) => {
-            const isSelected = singleOption?.title === selectedItem?.title
+            const isSelected = singleOption?.title === selectedItem
             return (
               <View style={styles.optionContainer(isSelected)}>
                 <View style={styles.titleContainer}>
                   <Checkbox
-                    value={true}
+                    value={isSelected}
                     onValueChange={() => {
-                      console.log("selected")
-                      setShowOptions(false)
+                      onOptionSelect?.(singleOption?.title)
+                      opacity.value = withTiming(0, { duration: 200 })
+                      setTimeout(() => {
+                        setShowOptions(false)
+                      }, 200)
                     }}
                     color="#533D95"
                     iconColor="#fff"
