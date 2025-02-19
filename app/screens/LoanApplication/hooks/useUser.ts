@@ -1,7 +1,7 @@
 import { useState } from "react"
 
 export const useUser = () => {
-  const [user, setUser] = useState()
+  const [user, setUser] = useState<Object>({});
   const [redrictionObject, setRedirectionObject] = useState({})
   const BASE_URL = "http://13.126.195.188:11001"
 
@@ -30,21 +30,15 @@ export const useUser = () => {
     }
   }
 
-  const fetchUser = async (payload) => {
-    try {
-      const result = await fetch(`${BASE_URL}/ember-app/api/user-service/user-management/fetch`, {
+  const fetchUser = (payload) => {
+      fetch(`${BASE_URL}/ember-app/api/user-service/user-management/fetch`, {
         method: "POST",
         mode: 'cors',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
-      })
-
-      if (result) {
-        setUser(result)
-      }
-    } catch (err) {
-      console.error(err)
-    }
+      }).then(response => response.json()).then((res) => {
+         return setUser(res);
+      }).catch((err) => console.error(err))
   }
 
   return {

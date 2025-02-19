@@ -1,11 +1,51 @@
+import React, { useEffect, useState } from "react"
+import { ImageBackground, StyleSheet, View } from "react-native"
+import { Formik } from "formik"
+import * as Yup from "yup"
 import Text from "app/components/typography/Text"
 import Input from "app/components/Input"
-import React from "react"
-import { ImageBackground, StyleSheet, View } from "react-native"
 import Button from "app/components/Button"
 import { AppRoutes } from "app/navigators/constants/appRoutes"
+import { useUser } from "../hooks/useUser"
 
-const PatientsDetailsPage3 = ({ navigation }) => {
+const validationSchema = Yup.object().shape({
+  email: Yup.string().email("Invalid email").required("Required"),
+  currentAddress: Yup.string().required("Required"),
+  currentCity: Yup.string().required("Required"),
+  currentState: Yup.string().required("Required"),
+  currentPincode: Yup.string()
+    .matches(/^[0-9]{6}$/, "Pincode must be exactly 6 digits")
+    .required("Pincode is required"),
+  highestQualification: Yup.string().required("Required"),
+  occupation: Yup.string(),
+  typeOfBusiness: Yup.string().when("occupation", {
+    is: "Self Employed",
+    then: () => Yup.string().required("Required"),
+  }),
+  monthlyIncome: Yup.string().when("occupation", {
+    is: "Self Employed",
+    then: () => Yup.string().required("Required"),
+  }),
+  employerName: Yup.string().when("occupation", {
+    is: (occupation) => occupation && occupation !== "Self Employed",
+    then: () => Yup.string().required("Required"),
+  }),
+  annualIncome: Yup.string().when("occupation", {
+    is: (occupation) => occupation && occupation !== "Self Employed",
+    then: () => Yup.string().required("Required"),
+  }),
+})
+
+const PatientsDetailsPage3 = ({ navigation, route }) => {
+  const phoneNumber = route?.params?.phoneNumber ?? "+919212338924"
+  const { createUser, fetchUser, user } = useUser()
+
+  useEffect(() => {
+    if (phoneNumber) {
+      fetchUser({ mobileNumber: phoneNumber?.slice(3) })
+    }
+  }, [])
+
   return (
     <ImageBackground
       style={{ height: "100%", width: "100%", position: "relative", zIndex: 1, elevation: 1 }}
@@ -27,75 +67,177 @@ const PatientsDetailsPage3 = ({ navigation }) => {
             Share a few details to confirm your eligibility and finalize your application.
           </Text.Body>
         </View>
-        <View style={styles.formContainer}>
-          <Input
-            label="Email Id"
-            placeholder="exapmler@gmail.com"
-            placeholderTextColor={"#98A2B3"}
-            isRequired={true}
-          />
-          <Input
-            label="Address"
-            placeholder="Enter your current residential address"
-            placeholderTextColor={"#98A2B3"}
-            isRequired={true}
-          />
-          <Input
-            label="Highest qualification"
-            placeholder="Select your highest qualification"
-            placeholderTextColor={"#98A2B3"}
-            isRequired={true}
-            options={[
-              { title: "No formal Education" },
-              { title: "High school graduate" },
-              { title: "Bachelor's degree graduate" },
-            ]}
-          />
-          <Input
-            label="Occupation"
-            placeholder="Enter your current residential address"
-            placeholderTextColor={"#98A2B3"}
-            isRequired={true}
-            options={[
-              { title: "Self Employed" },
-              { title: "Salaried professional" },
-              { title: "Retired Indiviual" },
-            ]}
-          />
-          <Input
-            label="Type of business"
-            placeholder="Enter business type (e.g. Retail)"
-            placeholderTextColor={"#98A2B3"}
-            isRequired={true}
-          />
-          <Input
-            label="Monthly income(before taxes)"
-            placeholder="Enter monthly income"
-            placeholderTextColor={"#98A2B3"}
-            isRequired={true}
-          />
-          <Input
-            label="Employer name"
-            placeholder="Enter employer name (e.g. AB Corp)"
-            placeholderTextColor={"#98A2B3"}
-            isRequired={true}
-          />
-          <Input
-            label="Annual income(before taxes)"
-            placeholder="12 LPA"
-            placeholderTextColor={"#98A2B3"}
-            isRequired={true}
-          />
-        </View>
-        <Button.Primary
-          onPress={() => {
+        <Formik
+          initialValues={{
+            email: "",
+            currentAddress: "",
+            currentCity: "",
+            currentState: "",
+            currentPincode: "",
+            highestQualification: "",
+            occupation: "",
+            typeOfBusiness: "",
+            monthlyIncome: "",
+            employerName: "",
+            annualIncome: "",
+          }}
+          validationSchema={validationSchema}
+          onSubmit={async (values, { setSubmitting }) => {
+            console.log({ ...values })
+            setSubmitting(false)
+            await createUser(
+              { ...user, ...values, userCreationStatus: "UserCreationCompleted" },
+              user?.mobile,
+            )
             navigation.navigate(AppRoutes.Redirect)
           }}
-          label={"Next"}
-          style={{
-            marginVertical: 16,
-          }}
-        />
+        >
+          {({ handleChange, handleBlur, handleSubmit, setFieldValue, values, errors, touched }) => (
+            <View style={styles.formContainer}>
+              <Input
+                label="Email Id"
+                placeholder="example@gmail.com"
+                isRequired
+                value={values.email}
+                onChangeText={handleChange("email")}
+                onBlur={handleBlur("email")}
+                errorMessage={touched.email && errors.email}
+                placeholderTextColor={"#98A2B3"}
+              />
+              <View>
+                <Input
+                  label="Address"
+                  placeholder="Enter your current residential address"
+                  isRequired
+                  value={values.currentAddress}
+                  onChangeText={handleChange("currentAddress")}
+                  onBlur={handleBlur("currentAddress")}
+                  errorMessage={touched.currentAddress && errors.currentAddress}
+                  placeholderTextColor={"#98A2B3"}
+                />
+                <Input
+                  label=""
+                  placeholder="City"
+                  isRequired
+                  value={values.currentCity}
+                  onChangeText={handleChange("currentCity")}
+                  onBlur={handleBlur("currentCity")}
+                  errorMessage={touched.currentCity && errors.currentCity}
+                  placeholderTextColor={"#98A2B3"}
+                />
+                <Input
+                  label=""
+                  placeholder="State"
+                  isRequired
+                  value={values.currentState}
+                  onChangeText={handleChange("currentState")}
+                  onBlur={handleBlur("currentState")}
+                  errorMessage={touched.currentState && errors.currentState}
+                  placeholderTextColor={"#98A2B3"}
+                />
+                <Input
+                  label=""
+                  placeholder="Pincode"
+                  isRequired
+                  value={values.currentPincode}
+                  onChangeText={handleChange("currentPincode")}
+                  onBlur={handleBlur("currentPincode")}
+                  errorMessage={touched.currentPincode && errors.currentPincode}
+                  placeholderTextColor={"#98A2B3"}
+                />
+              </View>
+
+              <Input
+                label="Highest Qualification"
+                placeholder="Select your highest Qualification"
+                isRequired
+                options={[
+                  { title: "No formal Education" },
+                  { title: "High school graduate" },
+                  { title: "Bachelor's degree graduate" },
+                ]}
+                value={values.highestQualification}
+                onChangeText={handleChange("highestQualification")}
+                onBlur={handleBlur("highestQualification")}
+                errorMessage={touched.highestQualification && errors.highestQualification}
+                placeholderTextColor={"#98A2B3"}
+                onOptionSelect={(value) => {
+                  setFieldValue("highestQualification", value)
+                }}
+                selectedItem={values.highestQualification}
+              />
+              <Input
+                label="Occupation"
+                placeholder="Select your occupation"
+                isRequired
+                options={[
+                  { title: "Self Employed" },
+                  { title: "Salaried professional" },
+                  { title: "Retired Individual" },
+                ]}
+                value={values.occupation}
+                onChangeText={handleChange("occupation")}
+                onBlur={handleBlur("occupation")}
+                errorMessage={touched.occupation && errors.occupation}
+                placeholderTextColor={"#98A2B3"}
+                onOptionSelect={(value) => {
+                  console.log("Occupation", value)
+                  setFieldValue("occupation", value)
+                }}
+                selectedItem={values.occupation}
+              />
+              {values.occupation === "Self Employed" && (
+                <>
+                  <Input
+                    label="Type of business"
+                    placeholder="Enter business type (e.g. Retail)"
+                    isRequired
+                    value={values.typeOfBusiness}
+                    onChangeText={handleChange("typeOfBusiness")}
+                    onBlur={handleBlur("typeOfBusiness")}
+                    errorMessage={touched.typeOfBusiness && errors.typeOfBusiness}
+                    placeholderTextColor={"#98A2B3"}
+                  />
+                  <Input
+                    label="Monthly income(before taxes)"
+                    placeholder="Enter monthly income"
+                    isRequired
+                    value={values.monthlyIncome}
+                    onChangeText={handleChange("monthlyIncome")}
+                    onBlur={handleBlur("monthlyIncome")}
+                    errorMessage={touched.monthlyIncome && errors.monthlyIncome}
+                    placeholderTextColor={"#98A2B3"}
+                  />
+                </>
+              )}
+              {values.occupation && values.occupation !== "Self Employed" && (
+                <>
+                  <Input
+                    label="Employer name"
+                    placeholder="Enter employer name (e.g. AB Corp)"
+                    isRequired
+                    value={values.employerName}
+                    onChangeText={handleChange("employerName")}
+                    onBlur={handleBlur("employerName")}
+                    errorMessage={touched.employerName && errors.employerName}
+                    placeholderTextColor={"#98A2B3"}
+                  />
+                  <Input
+                    label="Annual income(before taxes)"
+                    placeholder="12 LPA"
+                    isRequired
+                    value={values.annualIncome}
+                    onChangeText={handleChange("annualIncome")}
+                    onBlur={handleBlur("annualIncome")}
+                    errorMessage={touched.annualIncome && errors.annualIncome}
+                    placeholderTextColor={"#98A2B3"}
+                  />
+                </>
+              )}
+              <Button.Primary onPress={handleSubmit} label="Next" style={{ marginVertical: 16 }} />
+            </View>
+          )}
+        </Formik>
       </View>
     </ImageBackground>
   )
@@ -112,9 +254,6 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 12,
     paddingHorizontal: 16,
     paddingTop: 40,
-    position: "relative",
-    zIndex: 1,
-    elevation: 1,
   },
   flexRow: {
     flexDirection: "row",
@@ -128,15 +267,5 @@ const styles = StyleSheet.create({
     marginTop: 40,
     rowGap: 24,
     flex: 1,
-    position: "relative",
-    zIndex: 1,
-    elevation: 1,
-  },
-  label: {
-    fontSize: 13,
-    fontWeight: "500",
-    lineHeight: 20,
-    marginBottom: 5,
-    color: "black",
   },
 })

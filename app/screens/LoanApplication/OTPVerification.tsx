@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react"
-import { View } from "react-native"
+import { Platform, View } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { AppRoutes } from "app/navigators/constants/appRoutes"
 import { Screen } from "app/components"
@@ -72,9 +72,9 @@ export const OTPVerificationScreen: React.FC<OTPVerificationScreenProps> = ({
   const divRef = useRef()
 
   const handleSendOTP = useCallback(async () => {
-    const recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
-      'size': 'invisible',
-    });
+    const recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha-container", {
+      size: "invisible",
+    })
     const success = await sendOTP(phoneNumber, recaptchaVerifier)
     console.log("Otp sent successfully", success)
     if (success) {
@@ -88,6 +88,7 @@ export const OTPVerificationScreen: React.FC<OTPVerificationScreenProps> = ({
 
   const handleVerifyOTP = useCallback(
     async (fromInput?: string) => {
+      navigation.navigate(AppRoutes.PatientDetailsPage2, { phoneNumber: phoneNumber })
       setOtpState(OtpState.Waiting)
       try {
         const result = await verifyOTP(fromInput ?? otp)
@@ -138,88 +139,88 @@ export const OTPVerificationScreen: React.FC<OTPVerificationScreenProps> = ({
     <Screen
       safeAreaEdges={["top"]}
       style={{
-        alignItems:'center',
+        alignItems: "center",
         paddingHorizontal: Spacings.s4,
         paddingTop: Spacings.s8,
       }}
     >
-      <View style={{maxWidth: 380}}>
-      <View style={{ alignItems: "center" }}>
-        <Avatar
-          size={100}
-          backgroundColor={"#D1C9E9"}
-          source={require("../../../assets/icons/otp.png")}
-          imageStyle={{ resizeMode: "contain", height: 50, top: 25, left: 8 }}
-        />
-        <Text.Heading
-          style={{ marginTop: Spacings.s6, marginBottom: Spacings.s3 }}
-          weight={"semi-bold"}
-          size={"sm"}
-        >
-          Enter OTP
-        </Text.Heading>
-        <Text.Body
-          weight={"regular"}
-          size={"sm"}
-          color={Colors.textQuarterary}
-          style={{ marginBottom: Spacings.s8 }}
-        >
-          OTP sent to{" "}
-          <Text.Body weight={"semi-bold"} size={"sm"} color={Colors.textQuarterary}>
-            {phoneNumber}
+      {Platform.OS === "web" ? <div id="recaptcha-container" /> : null}
+      <View style={{ maxWidth: 380 }}>
+        <View style={{ alignItems: "center" }}>
+          <Avatar
+            size={100}
+            backgroundColor={"#D1C9E9"}
+            source={require("../../../assets/icons/otp.png")}
+            imageStyle={{ resizeMode: "contain", height: 50, top: 25, left: 8 }}
+          />
+          <Text.Heading
+            style={{ marginTop: Spacings.s6, marginBottom: Spacings.s3 }}
+            weight={"semi-bold"}
+            size={"sm"}
+          >
+            Enter OTP
+          </Text.Heading>
+          <Text.Body
+            weight={"regular"}
+            size={"sm"}
+            color={Colors.textQuarterary}
+            style={{ marginBottom: Spacings.s8 }}
+          >
+            OTP sent to{" "}
+            <Text.Body weight={"semi-bold"} size={"sm"} color={Colors.textQuarterary}>
+              {phoneNumber}
+            </Text.Body>
           </Text.Body>
-        </Text.Body>
-        <OtpInput
-          outerBorderFocusColor={"#A393D3"}
-          numberOfDigits={6}
-          focusColor={Colors.primaryColor}
-          focusStickBlinkingDuration={500}
-          onFilled={(text) => handleVerifyOTP(text)}
-          textInputProps={{
-            accessibilityLabel: "One-Time Password",
+          <OtpInput
+            outerBorderFocusColor={"#A393D3"}
+            numberOfDigits={6}
+            focusColor={Colors.primaryColor}
+            focusStickBlinkingDuration={500}
+            onFilled={(text) => handleVerifyOTP(text)}
+            textInputProps={{
+              accessibilityLabel: "One-Time Password",
+            }}
+            onTextChange={(text) => {
+              setOtp(text)
+            }}
+            theme={{
+              containerStyle: {
+                marginBottom: Spacings.s6,
+                width: 320,
+              },
+              pinCodeContainerStyle: {
+                width: PIN_BOX_WIDTH,
+                backgroundColor: "#F9FAFB",
+                borderColor: "#D0D5DD",
+                borderWidth: 1.2,
+              },
+              pinCodeTextStyle: {
+                fontSize: 20,
+              },
+              filledPinCodeContainerStyle: getPinContainerStyle(otpState),
+              focusedPinCodeContainerStyle: {
+                width: PIN_BOX_WIDTH,
+                backgroundColor: "transparent",
+                borderColor: Colors.primaryColor,
+                borderWidth: 1.51,
+              },
+            }}
+          />
+          <BottomText />
+          <Text>{error}</Text>
+        </View>
+        <Button.Primary
+          onPress={() => {
+            if (otp.length === 6) {
+              handleVerifyOTP()
+            }
           }}
-          onTextChange={(text) => {
-            setOtp(text)
-          }}
-          theme={{
-            containerStyle: {
-              marginBottom: Spacings.s6,
-              width: 320,
-            },
-            pinCodeContainerStyle: {
-              width: PIN_BOX_WIDTH,
-              backgroundColor: "#F9FAFB",
-              borderColor: "#D0D5DD",
-              borderWidth: 1.2,
-            },
-            pinCodeTextStyle: {
-              fontSize: 20,
-            },
-            filledPinCodeContainerStyle: getPinContainerStyle(otpState),
-            focusedPinCodeContainerStyle: {
-              width: PIN_BOX_WIDTH,
-              backgroundColor: "transparent",
-              borderColor: Colors.primaryColor,
-              borderWidth: 1.51,
-            },
-          }}
+          loading={loading}
+          label={"Verify"}
+          disabled={otp.length < 6}
+          style={{ marginVertical: Spacings.s6 }}
         />
-        <BottomText />
-        <Text>{error}</Text>
       </View>
-      <Button.Primary
-        onPress={() => {
-          if (otp.length === 6) {
-            handleVerifyOTP()
-          }
-        }}
-        loading={loading}
-        label={"Verify"}
-        disabled={otp.length < 6}
-        style={{ marginVertical: Spacings.s6 }}
-      />
-      </View>
-      
     </Screen>
   )
 }

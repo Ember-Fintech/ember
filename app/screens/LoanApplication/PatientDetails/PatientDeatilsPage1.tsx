@@ -25,8 +25,8 @@ const SchemaForVerification = Yup.object().shape({
     .typeError("Loan amount must be a number")
     .positive("Loan amount must be positive")
     .required("Loan amount is required"),
-  isPatient: Yup.boolean().required("Patient selection is required"),
-  patientName: Yup.string().when("isPatient", {
+  patient: Yup.boolean().required("Patient selection is required"),
+  patientName: Yup.string().when("patient", {
     is: false,
     then: (schema) => schema.required("Patient Name is required if you are not the patient"),
   }),
@@ -64,22 +64,22 @@ const PatientsDetailsPage1 = ({ navigation }) => {
             gender: "",
             treatmentType: "",
             loanAmount: "",
-            isPatient: true,
+            patient: true,
             patientName: "",
           }}
           validationSchema={SchemaForVerification}
           validateOnChange={false}
-          onSubmit={(values, { setSubmitting }) => {
+          onSubmit={async (values, { setSubmitting }) => {
             setSubmitting(false)
-            createUser(
+            await createUser(
               {
                 ...values,
-                // userCreationStatus: "CreateUserInitiation",
+                userCreationStatus: "CreateUserInitiation",
                 merchantId: "0414f440-87a4-4311-8995-81697929713a",
               },
               values.mobile,
             )
-            // navigation.navigate(AppRoutes.PatientDetailsPage2)
+            navigation.navigate(AppRoutes.OTPVerification, { phoneNumber: `+91${values.mobile}` })
           }}
         >
           {({ handleChange, handleBlur, handleSubmit, values, errors, touched, setFieldValue }) => (
@@ -151,15 +151,15 @@ const PatientsDetailsPage1 = ({ navigation }) => {
                   <Text style={{ color: "#D92D20" }}> *</Text>
                 </View>
                 <RadioGroup
-                  onValueChange={(value) => setFieldValue("isPatient", value === "Yes")}
-                  initialValue={values.isPatient ? "Yes" : "No"}
+                  onValueChange={(value) => setFieldValue("patient", value === "Yes")}
+                  initialValue={values.patient ? "Yes" : "No"}
                   style={styles.flexRow}
                 >
                   <RadioButton label="Yes" value="Yes" color="#65558F" />
                   <RadioButton label="No" value="No" />
                 </RadioGroup>
               </View>
-              {!values.isPatient && (
+              {!values.patient && (
                 <Input
                   label="Patient Name"
                   placeholder="Enter Patient's Name"
@@ -172,6 +172,9 @@ const PatientsDetailsPage1 = ({ navigation }) => {
               )}
               <Button.Primary
                 onPress={handleSubmit}
+                // onPress={() => {
+                //   fetchUser({ mobileNumber: "1123213111" })
+                // }}
                 label={"Next"}
                 style={{ marginBottom: 16, marginTop: 24 }}
               />

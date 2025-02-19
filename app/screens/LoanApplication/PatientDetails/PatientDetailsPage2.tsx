@@ -1,22 +1,32 @@
 import Text from "app/components/typography/Text"
 import Input from "app/components/Input"
-import React from "react"
+import React, { useEffect } from "react"
 import { ImageBackground, StyleSheet, View } from "react-native"
 import Button from "app/components/Button"
 import { AppRoutes } from "app/navigators/constants/appRoutes"
 import * as Yup from "yup"
 import { Formik } from "formik"
+import { useUser } from "../hooks/useUser"
 
 const SchemaForVerification = Yup.object().shape({
-  panNumber: Yup.string()
+  panId: Yup.string()
     .matches(/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/, "Invalid PAN format")
     .required("PAN number is required"),
-  dateOfBirth: Yup.string()
-    .matches(/^\d{4}\/\d{2}\/\d{2}$/, "Date of Birth must be in YYYY/MM/DD format")
+  dob: Yup.string()
+    .matches(/^\d{4}\-\d{2}\-\d{2}$/, "Date of Birth must be in YYYY-MM-DD format")
     .required("Date of Birth is required"),
 })
 
-const PatientsDetailsPage2 = ({ navigation }) => {
+const PAN_DONE = "PAN_DONE"
+
+const PatientsDetailsPage2 = ({ navigation, route }) => {
+  const phoneNumber = route?.params?.phoneNumber ?? "+919212338924"
+  const { createUser, user, fetchUser } = useUser()
+
+  useEffect(() => {
+    fetchUser({ mobileNumber: phoneNumber?.slice(3) })
+  }, [])
+
   return (
     <ImageBackground
       style={{ height: "100%", width: "100%", position: "relative", zIndex: 1, elevation: 1 }}
@@ -38,15 +48,16 @@ const PatientsDetailsPage2 = ({ navigation }) => {
         </View>
         <Formik
           initialValues={{
-            panNumber: "",
-            dateOfBirth: "",
+            panId: "",
+            dob: "",
           }}
           validationSchema={SchemaForVerification}
           validateOnChange={false}
           validateOnBlur={true}
-          onSubmit={(values, { setSubmitting }) => {
+          onSubmit={async (values, { setSubmitting }) => {
             setSubmitting(false)
-            // navigation.navigate(AppRoutes.PatientDetailsPage3)
+            await createUser({ ...user, ...values, userCreationStatus: PAN_DONE }, user?.mobile)
+            navigation.navigate(AppRoutes.PatientDetailsPage3, { phoneNumber: phoneNumber })
           }}
         >
           {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
@@ -61,20 +72,20 @@ const PatientsDetailsPage2 = ({ navigation }) => {
                   placeholder="Enter PAN (e.g., ABCDE1234F)"
                   placeholderTextColor={"#98A2B3"}
                   isRequired={true}
-                  value={values.panNumber}
-                  onChangeText={handleChange("panNumber")}
-                  onBlur={handleBlur("panNumber")}
-                  errorMessage={touched.panNumber && errors.panNumber ? errors.panNumber : ""}
+                  value={values.panId}
+                  onChangeText={handleChange("panId")}
+                  onBlur={handleBlur("panId")}
+                  errorMessage={touched.panId && errors.panId ? errors.panId : ""}
                 />
                 <Input
                   label="Date of birth"
-                  placeholder="YYYY/MM/DD"
+                  placeholder="YYYY-MM-DD"
                   placeholderTextColor={"#98A2B3"}
                   isRequired={true}
-                  value={values.dateOfBirth}
-                  onChangeText={handleChange("dateOfBirth")}
-                  onBlur={handleBlur("dateOfBirth")}
-                  errorMessage={touched.dateOfBirth && errors.dateOfBirth ? errors.dateOfBirth : ""}
+                  value={values.dob}
+                  onChangeText={handleChange("dob")}
+                  onBlur={handleBlur("dob")}
+                  errorMessage={touched.dob && errors.dob ? errors.dob : ""}
                 />
               </View>
               <Button.Primary

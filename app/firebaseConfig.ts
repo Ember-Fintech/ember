@@ -8,13 +8,13 @@ import { getAuth } from "firebase/auth";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 export const firebaseConfig = {
-  apiKey: "AIzaSyA7rdorFxfxedRs_sYgMcxjKJrZ8XMvCn4",
-  authDomain: "ember-app-f8166.firebaseapp.com",
-  projectId: "ember-app-f8166",
-  storageBucket: "ember-app-f8166.firebasestorage.app",
-  messagingSenderId: "162308676217",
-  appId: "1:162308676217:web:9ebf7a63508ebf9d1e52a8",
-  measurementId: "G-0SSF6HCYTB"
+  apiKey: "AIzaSyCKPsGYq8jboaVCK21jjNL0vZRagoNND9g",
+  authDomain: "ember-go.firebaseapp.com",
+  projectId: "ember-go",
+  storageBucket: "ember-go.firebasestorage.app",
+  messagingSenderId: "1043917871455",
+  appId: "1:1043917871455:web:7460e7f908eb7d16627eea",
+  measurementId: "G-KSHLK9L9YG"
 };
 
 // Initialize Firebase

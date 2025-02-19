@@ -27,7 +27,10 @@ const Stack = createStackNavigator<LoanStackParams>()
 
 const Loan: React.FC = () => {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={AppRoutes.OTPVerification}>
+    <Stack.Navigator
+      screenOptions={{ headerShown: false }}
+      // initialRouteName={AppRoutes.PatientDetailsPage3}
+    >
       <Stack.Screen name={AppRoutes.Landing} component={ClinicLanding} />
       <Stack.Screen name={AppRoutes.Summary} component={Summary} />
       <Stack.Screen name={AppRoutes.PatientDetailsPage1} component={PatientsDetailsPage1} />
