@@ -6,7 +6,6 @@ export const useUser = () => {
   const BASE_URL = "http://13.126.195.188:11001"
 
   const createUser = async (payload, mobileNumber) => {
-    console.log(payload)
     try {
       const result = await fetch(`${BASE_URL}/ember-app/api/user-service/user-management/user`, {
         method: "POST",
@@ -15,7 +14,7 @@ export const useUser = () => {
         headers: { "Content-Type": "application/json" },
       })
 
-      const { redirectionUrl, base64 } = result || {}
+      const { redirectionUrl, base64 } = result?.data || {}
 
       if (redirectionUrl && base64) {
         setRedirectionObject({
@@ -37,7 +36,13 @@ export const useUser = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       }).then(response => response.json()).then((res) => {
-         return setUser(res);
+        if(res?.data?.redirectionUrl && res?.data?.base64) {
+          setRedirectionObject({
+            redirectionUrl: res?.data?.redirectionUrl,
+            base64: res?.data?.base64,
+          })
+        }
+         return setUser(res?.data);
       }).catch((err) => console.error(err))
   }
 

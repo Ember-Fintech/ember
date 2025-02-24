@@ -78,18 +78,22 @@ const PatientsDetailsPage3 = ({ navigation, route }) => {
             occupation: "",
             typeOfBusiness: "",
             monthlyIncome: "",
-            employerName: "",
+            employerName: "Apollo",
             annualIncome: "",
           }}
           validationSchema={validationSchema}
           onSubmit={async (values, { setSubmitting }) => {
-            console.log({ ...values })
             setSubmitting(false)
             await createUser(
-              { ...user, ...values, userCreationStatus: "UserCreationCompleted" },
+              {
+                ...user,
+                ...values,
+                userCreationStatus: "UserCreationCompleted",
+                employmentType: "Private",
+              },
               user?.mobile,
             )
-            navigation.navigate(AppRoutes.Redirect)
+            navigation.navigate(AppRoutes.Redirect, { phoneNumber: phoneNumber })
           }}
         >
           {({ handleChange, handleBlur, handleSubmit, setFieldValue, values, errors, touched }) => (
