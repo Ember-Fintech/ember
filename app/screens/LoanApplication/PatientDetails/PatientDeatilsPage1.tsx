@@ -109,6 +109,7 @@ const PatientsDetailsPage1 = ({ navigation }) => {
                 placeholder="Enter a 10-digit mobile number."
                 placeholderTextColor="#98A2B3"
                 isRequired
+                keyboardType="phone-pad"
                 onChangeText={handleChange("mobile")}
                 onBlur={handleBlur("phoneNumber")}
                 value={values.mobile}
@@ -141,6 +142,7 @@ const PatientsDetailsPage1 = ({ navigation }) => {
                 placeholder="Enter required loan amount"
                 placeholderTextColor="#98A2B3"
                 isRequired
+                keyboardType="number-pad"
                 onChangeText={handleChange("loanAmount")}
                 value={values.loanAmount}
                 errorMessage={touched.loanAmount && errors.loanAmount}
@@ -155,8 +157,8 @@ const PatientsDetailsPage1 = ({ navigation }) => {
                   initialValue={values.patient ? "Yes" : "No"}
                   style={styles.flexRow}
                 >
-                  <RadioButton label="Yes" value="Yes" color="#65558F" />
-                  <RadioButton label="No" value="No" />
+                  <RadioButton label="Yes" labelStyle={{ color: "black" }} value="Yes" color="#65558F" />
+                  <RadioButton label="No" labelStyle={{ color: "black" }} value="No" color="#65558F" />
                 </RadioGroup>
               </View>
               {!values.patient && (

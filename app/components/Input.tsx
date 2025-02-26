@@ -9,7 +9,7 @@ import React, {
   useRef,
   useState,
 } from "react"
-import { StyleSheet, TextInput, TextInputProps, View } from "react-native"
+import { Pressable, StyleSheet, TextInput, TextInputProps, View } from "react-native"
 import VBorder from "app/components/VBorder"
 import { Checkbox, Text } from "react-native-ui-lib"
 import { TouchableWithoutFeedback } from "react-native-gesture-handler"
@@ -194,7 +194,16 @@ const Input = forwardRef<TextInput, Props>((props, ref: ForwardedRef<TextInput |
           {options?.map((singleOption) => {
             const isSelected = singleOption?.title === selectedItem
             return (
-              <View style={styles.optionContainer(isSelected)}>
+              <Pressable
+                style={styles.optionContainer(isSelected)}
+                onPress={() => {
+                  onOptionSelect?.(singleOption?.title)
+                  opacity.value = withTiming(0, { duration: 200 })
+                  setTimeout(() => {
+                    setShowOptions(false)
+                  }, 200)
+                }}
+              >
                 <View style={styles.titleContainer}>
                   <Checkbox
                     value={isSelected}
@@ -210,9 +219,7 @@ const Input = forwardRef<TextInput, Props>((props, ref: ForwardedRef<TextInput |
                   />
                   <Text style={styles.title}>{singleOption?.title}</Text>
                 </View>
-
-                {isSelected && <FontAwesome6 name="check" color={"#533D95"} size={12} />}
-              </View>
+              </Pressable>
             )
           })}
         </Animated.View>

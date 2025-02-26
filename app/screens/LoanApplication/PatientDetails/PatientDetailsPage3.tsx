@@ -102,6 +102,7 @@ const PatientsDetailsPage3 = ({ navigation, route }) => {
                 label="Email Id"
                 placeholder="example@gmail.com"
                 isRequired
+                keyboardType="email-address"
                 value={values.email}
                 onChangeText={handleChange("email")}
                 onBlur={handleBlur("email")}

@@ -73,7 +73,7 @@ const PatientsDetailsPage2 = ({ navigation, route }) => {
                   placeholderTextColor={"#98A2B3"}
                   isRequired={true}
                   value={values.panId}
-                  onChangeText={handleChange("panId")}
+                  onChangeText={(text) => handleChange("panId")(text.toUpperCase())}
                   onBlur={handleBlur("panId")}
                   errorMessage={touched.panId && errors.panId ? errors.panId : ""}
                 />
@@ -82,6 +82,7 @@ const PatientsDetailsPage2 = ({ navigation, route }) => {
                   placeholder="YYYY-MM-DD"
                   placeholderTextColor={"#98A2B3"}
                   isRequired={true}
+                  keyboardType="number-pad"
                   value={values.dob}
                   onChangeText={handleChange("dob")}
                   onBlur={handleBlur("dob")}
